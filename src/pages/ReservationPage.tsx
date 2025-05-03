@@ -27,8 +27,8 @@ const ReservationPage = () => {
   const startDateParam = searchParams.get('startDate');
   const endDateParam = searchParams.get('endDate');
   
-  const startDate = startDateParam ? new Date(startDateParam) : new Date();
-  const endDate = endDateParam ? new Date(endDateParam) : new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3 days from now
+  let startDate = startDateParam ? new Date(startDateParam) : new Date();
+  let endDate = endDateParam ? new Date(endDateParam) : new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3 days from now
 
   const handleSubmitReservation = async (formData: ReservationFormData) => {
     console.log("Submitting reservation:", formData);

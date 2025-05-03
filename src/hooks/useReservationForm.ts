@@ -24,10 +24,17 @@ export const useReservationForm = ({
   const { t, language } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  const [startDate, setStartDate] = useState<Date>(initialStartDate);
-  const [endDate, setEndDate] = useState<Date>(initialEndDate);
-  const [startTime, setStartTime] = useState(format(initialStartDate, "HH:mm"));
-  const [endTime, setEndTime] = useState(format(initialEndDate, "HH:mm"));
+  // Définir les heures à 12:00 par défaut
+  const defaultStartDate = new Date(initialStartDate);
+  defaultStartDate.setHours(12, 0, 0, 0);
+  
+  const defaultEndDate = new Date(initialEndDate);
+  defaultEndDate.setHours(12, 0, 0, 0);
+  
+  const [startDate, setStartDate] = useState<Date>(defaultStartDate);
+  const [endDate, setEndDate] = useState<Date>(defaultEndDate);
+  const [startTime, setStartTime] = useState("12:00");
+  const [endTime, setEndTime] = useState("12:00");
   
   const [formData, setFormData] = useState<CustomerFormData>({
     firstName: "",
