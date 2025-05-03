@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,7 +9,7 @@ import ReservationPage from "./pages/ReservationPage";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import AdminLogin from "./pages/AdminLogin";
-import Dashboard from "./pages/admin/Dashboard";
+import Dashboard from "./pages/admin/Dashboard/index";
 import ManageCars from "./pages/admin/Cars/ManageCars";
 import AddCar from "./pages/admin/Cars/AddCar";
 import ManageReservations from "./pages/admin/Reservations/ManageReservations";
