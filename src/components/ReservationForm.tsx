@@ -59,10 +59,11 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
       <div className="mb-6 p-4 bg-gray-50 rounded-md">
         <h3 className="font-medium mb-4 text-primary">{t('reservation.rentalPeriod')}</h3>
         
-        {/* Compact Date/Time selectors on one line */}
-        <div className="mb-4">
+        {/* Date/Time selectors */}
+        <div className="mb-4 space-y-4">
           <p className="text-sm text-gray-500 mb-2">{t('reservation.selectDates')}</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Start date and time */}
             <DateTimeSelector
               label={t('search.startDate')}
               date={startDate}
@@ -73,6 +74,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
               compact={true}
             />
             
+            {/* End date and time */}
             <DateTimeSelector
               label={t('search.endDate')}
               date={endDate}
