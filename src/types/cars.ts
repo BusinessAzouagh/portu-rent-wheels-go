@@ -8,6 +8,7 @@ export interface Car {
   pricePerDay: number;
   available: boolean;
   transmission?: string;
+  currencySymbol?: string; // Added currencySymbol as an optional property
 }
 
 // Mock car data for development

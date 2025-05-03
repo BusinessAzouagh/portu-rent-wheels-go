@@ -12,6 +12,7 @@ export interface Car {
   pricePerDay: number;
   available: boolean;
   transmission?: "Manuelle" | "Automatique";
+  currencySymbol?: string; // Added currencySymbol as an optional property
 }
 
 interface CarCardProps {
@@ -58,7 +59,7 @@ const CarCard = ({ car, startDate, endDate, startTime, endTime }: CarCardProps) 
         </div>
         <div className="mt-4 flex justify-between items-center">
           <div className="font-bold text-primary text-xl">
-            {car.pricePerDay}€
+            {car.pricePerDay}{car.currencySymbol || '€'}
             <span className="text-xs text-gray-500 ml-1">{t('vehicles.perDay')}</span>
           </div>
           <div>
@@ -79,4 +80,3 @@ const CarCard = ({ car, startDate, endDate, startTime, endTime }: CarCardProps) 
 };
 
 export default CarCard;
-
