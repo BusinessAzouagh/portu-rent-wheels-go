@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -19,27 +18,24 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { Eye, Search } from "lucide-react";
+import { Eye, Search, Download } from "lucide-react";
 import AdminLayout from "../AdminLayout";
+import ReservationDetailsDialog from "./components/ReservationDetailsDialog";
+import { generateInvoice } from "@/services/invoiceService";
+import { Reservation } from "@/types/reservation";
 
-// Interface for reservation data
-interface Reservation {
-  id: string;
-  customerName: string;
-  customerPhone: string;
-  carModel: string;
-  startDate: string;
-  endDate: string;
-  status: "PENDING" | "CONFIRMED" | "CANCELLED";
-}
-
-// Mock reservation data
+// Mock reservation data with additional fields
 const MOCK_RESERVATIONS: Reservation[] = [
   {
     id: "R001",
     customerName: "Jean Dupont",
+    firstName: "Jean",
+    lastName: "Dupont",
     customerPhone: "+33 6 12 34 56 78",
-    carModel: "Renault Clio",
+    email: "jean.dupont@example.com",
+    carModel: "Clio",
+    carBrand: "Renault",
+    pricePerDay: 250,
     startDate: "2025-05-10",
     endDate: "2025-05-15",
     status: "PENDING",
@@ -47,8 +43,13 @@ const MOCK_RESERVATIONS: Reservation[] = [
   {
     id: "R002",
     customerName: "Marie Leclerc",
+    firstName: "Marie",
+    lastName: "Leclerc",
     customerPhone: "+33 6 23 45 67 89",
-    carModel: "Peugeot 208",
+    email: "marie.leclerc@example.com",
+    carModel: "208",
+    carBrand: "Peugeot",
+    pricePerDay: 280,
     startDate: "2025-05-12",
     endDate: "2025-05-14",
     status: "CONFIRMED",
@@ -56,8 +57,13 @@ const MOCK_RESERVATIONS: Reservation[] = [
   {
     id: "R003",
     customerName: "Thomas Martin",
+    firstName: "Thomas",
+    lastName: "Martin",
     customerPhone: "+33 6 34 56 78 90",
-    carModel: "Fiat 500",
+    email: "thomas.martin@example.com",
+    carModel: "500",
+    carBrand: "Fiat",
+    pricePerDay: 220,
     startDate: "2025-05-15",
     endDate: "2025-05-20",
     status: "CONFIRMED",
@@ -65,8 +71,13 @@ const MOCK_RESERVATIONS: Reservation[] = [
   {
     id: "R004",
     customerName: "Sophie Bernard",
+    firstName: "Sophie",
+    lastName: "Bernard",
     customerPhone: "+33 6 45 67 89 01",
-    carModel: "Toyota Yaris",
+    email: "sophie.bernard@example.com",
+    carModel: "Yaris",
+    carBrand: "Toyota",
+    pricePerDay: 260,
     startDate: "2025-05-20",
     endDate: "2025-05-25",
     status: "CANCELLED",
@@ -74,8 +85,13 @@ const MOCK_RESERVATIONS: Reservation[] = [
   {
     id: "R005",
     customerName: "Lucas Petit",
+    firstName: "Lucas",
+    lastName: "Petit",
     customerPhone: "+33 6 56 78 90 12",
-    carModel: "Volkswagen Golf",
+    email: "lucas.petit@example.com",
+    carModel: "Golf",
+    carBrand: "Volkswagen",
+    pricePerDay: 320,
     startDate: "2025-06-01",
     endDate: "2025-06-07",
     status: "PENDING",
@@ -88,6 +104,10 @@ const ManageReservations = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("ALL");
+  
+  // Dialog states
+  const [selectedReservation, setSelectedReservation] = useState<Reservation | null>(null);
+  const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false);
 
   useEffect(() => {
     // Simulate API call
@@ -129,6 +149,23 @@ const ManageReservations = () => {
     );
 
     toast(`Statut mis à jour: ${newStatus === "CONFIRMED" ? "Confirmé" : newStatus === "CANCELLED" ? "Annulé" : "En attente"}`);
+  };
+
+  // Open details dialog
+  const openDetailsDialog = (reservation: Reservation) => {
+    setSelectedReservation(reservation);
+    setIsDetailsDialogOpen(true);
+  };
+
+  // Handle invoice download
+  const handleDownloadInvoice = (reservation: Reservation) => {
+    try {
+      generateInvoice(reservation);
+      toast.success("Facture générée avec succès");
+    } catch (error) {
+      console.error("Erreur lors de la génération de la facture:", error);
+      toast.error("Erreur lors de la génération de la facture");
+    }
   };
 
   // Status badge component
@@ -222,7 +259,7 @@ const ManageReservations = () => {
                       <TableCell className="font-medium">{reservation.id}</TableCell>
                       <TableCell>{reservation.customerName}</TableCell>
                       <TableCell>{reservation.customerPhone}</TableCell>
-                      <TableCell>{reservation.carModel}</TableCell>
+                      <TableCell>{`${reservation.carBrand} ${reservation.carModel}`}</TableCell>
                       <TableCell>{new Date(reservation.startDate).toLocaleDateString()}</TableCell>
                       <TableCell>{new Date(reservation.endDate).toLocaleDateString()}</TableCell>
                       <TableCell>
@@ -230,11 +267,28 @@ const ManageReservations = () => {
                       </TableCell>
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
-                          <Link to={`/admin/reservations/${reservation.id}`}>
-                            <Button size="sm" variant="outline">
-                              <Eye className="h-4 w-4" />
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => openDetailsDialog(reservation)}
+                            title="Voir les détails"
+                          >
+                            <Eye className="h-4 w-4" />
+                          </Button>
+
+                          {/* Download Invoice Button - Only enabled for CONFIRMED status */}
+                          {reservation.status === "CONFIRMED" && (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-blue-600 hover:bg-blue-50"
+                              onClick={() => handleDownloadInvoice(reservation)}
+                              title="Télécharger la facture"
+                            >
+                              <Download className="h-4 w-4" />
                             </Button>
-                          </Link>
+                          )}
+                          
                           {reservation.status === "PENDING" && (
                             <Button
                               size="sm"
@@ -273,6 +327,13 @@ const ManageReservations = () => {
           )}
         </div>
       )}
+      
+      {/* Reservation Details Dialog */}
+      <ReservationDetailsDialog 
+        reservation={selectedReservation}
+        isOpen={isDetailsDialogOpen}
+        onOpenChange={setIsDetailsDialogOpen}
+      />
     </AdminLayout>
   );
 };

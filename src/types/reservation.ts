@@ -20,3 +20,18 @@ export interface CustomerFormData {
   nationalId: string;
   email: string;
 }
+
+export interface Reservation {
+  id: string;
+  customerName: string;
+  customerPhone: string;
+  carModel: string;
+  carBrand: string;
+  pricePerDay: number;
+  startDate: string;
+  endDate: string;
+  status: "PENDING" | "CONFIRMED" | "CANCELLED";
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+}
