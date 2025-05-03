@@ -271,7 +271,7 @@ const VehiclesPage = () => {
                         <SelectValue placeholder="Tous types" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">Tous types</SelectItem>
+                        <SelectItem value="all">Tous types</SelectItem>
                         <SelectItem value="Manuelle">Manuelle</SelectItem>
                         <SelectItem value="Automatique">Automatique</SelectItem>
                       </SelectContent>
@@ -289,7 +289,7 @@ const VehiclesPage = () => {
                         <SelectValue placeholder="Tous types" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">Tous types</SelectItem>
+                        <SelectItem value="all">Tous types</SelectItem>
                         <SelectItem value="Essence">Essence</SelectItem>
                         <SelectItem value="Diesel">Diesel</SelectItem>
                       </SelectContent>
