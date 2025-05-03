@@ -111,7 +111,7 @@ const DateTimeSelector = ({
         <div className="md:col-span-4 grid grid-cols-2 gap-2">
           <div>
             <Select value={currentHour} onValueChange={handleHourChange}>
-              <SelectTrigger className="w-full bg-white border-gray-300">
+              <SelectTrigger className="w-full bg-white border-gray-300 text-black">
                 <div className="flex items-center">
                   <Clock className="h-4 w-4 mr-2 text-gray-500" />
                   <SelectValue className="text-black" placeholder={t('common.hour')} />
@@ -126,7 +126,7 @@ const DateTimeSelector = ({
           </div>
           <div>
             <Select value={currentMinute} onValueChange={handleMinuteChange}>
-              <SelectTrigger className="w-full bg-white border-gray-300">
+              <SelectTrigger className="w-full bg-white border-gray-300 text-black">
                 <SelectValue className="text-black" placeholder={t('common.minute')} />
               </SelectTrigger>
               <SelectContent className="bg-white shadow-md">
