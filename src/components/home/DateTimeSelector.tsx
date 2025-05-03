@@ -27,6 +27,7 @@ interface DateTimeSelectorProps {
   onDateChange: (date?: Date) => void;
   onTimeChange: (time: string) => void;
   minDate?: Date;
+  maxDate?: Date; // Add maxDate prop to fix the TypeScript error
   locale?: Locale;
   dateError?: string;
   timeError?: boolean;
@@ -39,6 +40,7 @@ const DateTimeSelector = ({
   onDateChange,
   onTimeChange,
   minDate,
+  maxDate, // Add maxDate to component props destructuring
   locale,
   dateError,
   timeError,
@@ -102,9 +104,39 @@ const DateTimeSelector = ({
                   setIsCalendarOpen(false);
                 }}
                 initialFocus
-                disabled={(currentDate) => 
-                  minDate ? currentDate < minDate : currentDate < new Date()
-                }
+                disabled={(currentDate) => {
+                  // Initialize as not disabled
+                  let isDisabled = false;
+                  
+                  // For start date picker: disable dates after maxDate (end date)
+                  if (maxDate) {
+                    const maxDateWithoutTime = new Date(maxDate);
+                    maxDateWithoutTime.setHours(23, 59, 59, 999);
+                    if (currentDate > maxDateWithoutTime) {
+                      isDisabled = true;
+                    }
+                  }
+                  
+                  // For end date picker: disable dates before minDate (start date)
+                  if (minDate) {
+                    const minDateWithoutTime = new Date(minDate);
+                    minDateWithoutTime.setHours(0, 0, 0, 0);
+                    if (currentDate < minDateWithoutTime) {
+                      isDisabled = true;
+                    }
+                  }
+                  
+                  // If neither of the above conditions matched, check if date is before today
+                  if (!isDisabled && !minDate) {
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    if (currentDate < today) {
+                      isDisabled = true;
+                    }
+                  }
+                  
+                  return isDisabled;
+                }}
                 className="p-3 pointer-events-auto"
                 locale={locale}
               />
