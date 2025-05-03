@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Clock } from "lucide-react";
 
 interface DateTimeSelectorProps {
   label: string;
@@ -64,24 +64,30 @@ const DateTimeSelector = ({
   // Format the date for display
   const formattedDate = format(date, compact ? "dd/MM/yy" : "dd MMM yyyy", { locale });
   
+  // Combined time for display
+  const formattedTime = `${currentHour}:${currentMinute}`;
+  
   return (
     <div className="space-y-2">
       {!compact && <label className="block text-sm font-medium">{label}</label>}
-      <div className="flex flex-wrap gap-2 items-center">
-        {/* Date Picker */}
-        <div className="flex-grow min-w-[140px]">
+      
+      <div className="flex flex-col space-y-2">
+        {/* Date Picker - Improved UI */}
+        <div className="w-full">
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal",
-                  compact ? "text-sm px-3 py-1 h-auto" : "",
+                  "w-full justify-between text-left font-normal",
                   !date && "text-muted-foreground"
                 )}
               >
-                <CalendarIcon className={cn("mr-2", compact ? "h-3 w-3" : "h-4 w-4")} />
-                {formattedDate}
+                <div className="flex items-center">
+                  <CalendarIcon className="mr-2 h-4 w-4" />
+                  <span>{formattedDate}</span>
+                </div>
+                <span className="sr-only">{t('search.selectDate')}</span>
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
@@ -93,43 +99,71 @@ const DateTimeSelector = ({
                 disabled={(currentDate) => 
                   minDate ? currentDate < minDate : currentDate < new Date()
                 }
-                className="p-3 pointer-events-auto"
+                className="p-3 pointer-events-auto rounded-md border shadow-md"
                 locale={locale}
               />
             </PopoverContent>
           </Popover>
         </div>
         
-        {/* Hour Selector */}
-        <div className="w-[80px]">
-          <Select value={currentHour} onValueChange={handleHourChange}>
-            <SelectTrigger className={compact ? "h-8 text-sm" : ""}>
-              <SelectValue placeholder={t('reservation.hour')} />
-            </SelectTrigger>
-            <SelectContent className="max-h-[200px]">
-              {hours.map(hour => (
-                <SelectItem key={`hour-${hour}`} value={hour}>
-                  {hour}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-        
-        {/* Minute Selector */}
-        <div className="w-[80px]">
-          <Select value={currentMinute} onValueChange={handleMinuteChange}>
-            <SelectTrigger className={compact ? "h-8 text-sm" : ""}>
-              <SelectValue placeholder={t('reservation.minute')} />
-            </SelectTrigger>
-            <SelectContent>
-              {minutes.map(minute => (
-                <SelectItem key={`minute-${minute}`} value={minute}>
-                  {minute}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        {/* Time Selector - Improved UI */}
+        <div className="w-full">
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-full justify-between text-left font-normal",
+                  !time && "text-muted-foreground"
+                )}
+              >
+                <div className="flex items-center">
+                  <Clock className="mr-2 h-4 w-4" />
+                  <span>{formattedTime}</span>
+                </div>
+                <span className="sr-only">{t('search.selectTime')}</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-3 rounded-md border shadow-md" align="start">
+              <div className="grid gap-4">
+                <div className="space-y-2">
+                  <h4 className="font-medium">{t('reservation.selectTime')}</h4>
+                  <div className="flex gap-2">
+                    <div className="flex-1">
+                      <Select value={currentHour} onValueChange={handleHourChange}>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('reservation.hour')} />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-[200px]">
+                          {hours.map(hour => (
+                            <SelectItem key={`hour-${hour}`} value={hour}>
+                              {hour}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <p className="text-xs text-muted-foreground mt-1">{t('reservation.hour')}</p>
+                    </div>
+                    <div className="flex-1">
+                      <Select value={currentMinute} onValueChange={handleMinuteChange}>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('reservation.minute')} />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {minutes.map(minute => (
+                            <SelectItem key={`minute-${minute}`} value={minute}>
+                              {minute}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <p className="text-xs text-muted-foreground mt-1">{t('reservation.minute')}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
       </div>
     </div>

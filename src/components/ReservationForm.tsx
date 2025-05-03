@@ -60,10 +60,12 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
         <h3 className="font-medium mb-4 text-primary">{t('reservation.rentalPeriod')}</h3>
         
         {/* Date/Time selectors */}
-        <div className="mb-4 space-y-4">
-          <p className="text-sm text-gray-500 mb-2">{t('reservation.selectDates')}</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Start date and time */}
+        <div className="mb-4 space-y-6">
+          <p className="text-sm text-gray-500">{t('reservation.selectDates')}</p>
+          
+          {/* Start date and time */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-medium text-gray-700">{t('search.startDate')}</h4>
             <DateTimeSelector
               label={t('search.startDate')}
               date={startDate}
@@ -71,10 +73,13 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
               onDateChange={updateStartDateTime}
               onTimeChange={handleStartTimeChange}
               locale={getLocale()}
-              compact={true}
+              compact={false}
             />
-            
-            {/* End date and time */}
+          </div>
+          
+          {/* End date and time */}
+          <div className="space-y-4">
+            <h4 className="text-sm font-medium text-gray-700">{t('search.endDate')}</h4>
             <DateTimeSelector
               label={t('search.endDate')}
               date={endDate}
@@ -83,7 +88,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
               onTimeChange={handleEndTimeChange}
               minDate={startDate}
               locale={getLocale()}
-              compact={true}
+              compact={false}
             />
           </div>
         </div>
