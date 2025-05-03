@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CalendarIcon, Clock } from "lucide-react";
+import { useState } from "react";
 
 interface DateTimeSelectorProps {
   label: string;
@@ -41,6 +42,7 @@ const DateTimeSelector = ({
   compact = false
 }: DateTimeSelectorProps) => {
   const { t } = useLanguage();
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   
   // Generate hours options (0-23)
   const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
@@ -74,7 +76,7 @@ const DateTimeSelector = ({
       <div className="flex flex-col space-y-2">
         {/* Date Picker - Improved UI */}
         <div className="w-full">
-          <Popover>
+          <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
@@ -97,8 +99,8 @@ const DateTimeSelector = ({
                 onSelect={(selectedDate) => {
                   if (selectedDate) {
                     onDateChange(selectedDate);
-                    // Close the popover after selection - automatically
-                    document.body.click();
+                    // Close the calendar immediately after selection
+                    setIsCalendarOpen(false);
                   }
                 }}
                 initialFocus
