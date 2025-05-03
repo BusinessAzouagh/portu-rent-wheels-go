@@ -35,7 +35,9 @@ const ReservationDetailsDialog = ({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-xl">Détails de la réservation #{reservation.id}</DialogTitle>
+          <DialogTitle className="text-xl">
+            Détails de la réservation #{reservation.licensePlate}
+          </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4 py-4">
@@ -61,12 +63,14 @@ const ReservationDetailsDialog = ({
 
           <div className="bg-gray-50 p-4 rounded-md">
             <h3 className="font-medium mb-2">Détails de la voiture</h3>
-            <p>
-              {reservation.carBrand} {reservation.carModel}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              {reservation.pricePerDay} DH / jour
-            </p>
+            <div className="flex justify-between items-center">
+              <p>
+                {reservation.carBrand} {reservation.carModel}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {reservation.pricePerDay} DH / jour
+              </p>
+            </div>
           </div>
 
           <div className="bg-gray-50 p-4 rounded-md">
@@ -74,9 +78,9 @@ const ReservationDetailsDialog = ({
             <div className="grid gap-2">
               <div className="flex items-center gap-2">
                 <CalendarDays className="h-4 w-4 text-muted-foreground" />
-                <div>
-                  <div>Du {format(startDate, "dd MMMM yyyy", { locale: fr })}</div>
-                  <div>Au {format(endDate, "dd MMMM yyyy", { locale: fr })}</div>
+                <div className="flex justify-between w-full">
+                  <div>Du {format(startDate, "dd MMM yyyy", { locale: fr })}</div>
+                  <div>Au {format(endDate, "dd MMM yyyy", { locale: fr })}</div>
                 </div>
               </div>
               <div className="mt-2">
