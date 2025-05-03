@@ -27,6 +27,7 @@ export interface Reservation {
   customerPhone: string;
   carModel: string;
   carBrand: string;
+  licensePlate?: string;
   pricePerDay: number;
   startDate: string;
   endDate: string;

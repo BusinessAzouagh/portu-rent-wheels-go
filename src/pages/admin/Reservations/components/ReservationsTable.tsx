@@ -102,10 +102,10 @@ const ReservationsTable = ({
         (i === currentPage - 2 && currentPage > 3) || 
         (i === currentPage + 2 && currentPage < totalPages - 2)
       ) {
-        // Add ellipsis
+        // Add ellipsis - Fixed: Removed the 'disabled' prop and used aria-disabled instead
         items.push(
           <PaginationItem key={`ellipsis-${i}`}>
-            <PaginationLink disabled>...</PaginationLink>
+            <PaginationLink aria-disabled="true">...</PaginationLink>
           </PaginationItem>
         );
       }
@@ -155,11 +155,12 @@ const ReservationsTable = ({
                   <TableHead>Client</TableHead>
                   <TableHead>Téléphone</TableHead>
                   <TableHead>Véhicule</TableHead>
+                  <TableHead>Plaque</TableHead>
                   <TableHead>Date début</TableHead>
                   <TableHead>Date fin</TableHead>
                   <TableHead>Jours</TableHead>
                   <TableHead>Prix/jour</TableHead>
-                  <TableHead>Prix total (DH)</TableHead>
+                  <TableHead className="min-w-[120px]">Prix total</TableHead>
                   <TableHead>Statut</TableHead>
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
@@ -175,11 +176,12 @@ const ReservationsTable = ({
                       <TableCell>{reservation.customerName}</TableCell>
                       <TableCell>{reservation.customerPhone}</TableCell>
                       <TableCell>{`${reservation.carBrand} ${reservation.carModel}`}</TableCell>
+                      <TableCell>{reservation.licensePlate || "N/A"}</TableCell>
                       <TableCell>{new Date(reservation.startDate).toLocaleDateString()}</TableCell>
                       <TableCell>{new Date(reservation.endDate).toLocaleDateString()}</TableCell>
                       <TableCell>{daysCount}</TableCell>
                       <TableCell>{reservation.pricePerDay} DH</TableCell>
-                      <TableCell>{totalPrice} DH</TableCell>
+                      <TableCell className="whitespace-nowrap">{totalPrice} DH</TableCell>
                       <TableCell>
                         <StatusBadge status={reservation.status} />
                       </TableCell>

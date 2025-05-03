@@ -14,6 +14,7 @@ const MOCK_RESERVATIONS: Reservation[] = [
     email: "jean.dupont@example.com",
     carModel: "Clio",
     carBrand: "Renault",
+    licensePlate: "AA-123-BB",
     pricePerDay: 250,
     startDate: "2025-05-10",
     endDate: "2025-05-15",
@@ -28,6 +29,7 @@ const MOCK_RESERVATIONS: Reservation[] = [
     email: "marie.leclerc@example.com",
     carModel: "208",
     carBrand: "Peugeot",
+    licensePlate: "CC-456-DD",
     pricePerDay: 280,
     startDate: "2025-05-12",
     endDate: "2025-05-14",
@@ -42,6 +44,7 @@ const MOCK_RESERVATIONS: Reservation[] = [
     email: "thomas.martin@example.com",
     carModel: "500",
     carBrand: "Fiat",
+    licensePlate: "EE-789-FF",
     pricePerDay: 220,
     startDate: "2025-05-15",
     endDate: "2025-05-20",
@@ -56,6 +59,7 @@ const MOCK_RESERVATIONS: Reservation[] = [
     email: "sophie.bernard@example.com",
     carModel: "Yaris",
     carBrand: "Toyota",
+    licensePlate: "GG-012-HH",
     pricePerDay: 260,
     startDate: "2025-05-20",
     endDate: "2025-05-25",
@@ -70,6 +74,7 @@ const MOCK_RESERVATIONS: Reservation[] = [
     email: "lucas.petit@example.com",
     carModel: "Golf",
     carBrand: "Volkswagen",
+    licensePlate: "II-345-JJ",
     pricePerDay: 320,
     startDate: "2025-06-01",
     endDate: "2025-06-07",
@@ -108,12 +113,22 @@ export const useReservations = () => {
         (res) =>
           res.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
           res.carModel.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          res.id.toLowerCase().includes(searchTerm.toLowerCase())
+          res.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          (res.licensePlate && res.licensePlate.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          String(res.pricePerDay * calculateDays(res.startDate, res.endDate)).includes(searchTerm)
       );
     }
 
     setFilteredReservations(filtered);
   }, [searchTerm, statusFilter, reservations]);
+
+  // Helper function to calculate days between dates for search
+  const calculateDays = (startDate: string, endDate: string): number => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const differenceInTime = end.getTime() - start.getTime();
+    return Math.ceil(differenceInTime / (1000 * 3600 * 24));
+  };
 
   // Handle status change
   const handleStatusChange = (reservationId: string, newStatus: "PENDING" | "CONFIRMED" | "CANCELLED") => {
