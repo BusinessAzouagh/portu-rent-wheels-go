@@ -36,7 +36,7 @@ const ReservationsTable = ({
   const handleDownloadInvoice = (reservation: Reservation) => {
     try {
       generateInvoice(reservation);
-      toast.success("Facture générée avec succès");
+      toast.success("Génération de la facture en cours");
     } catch (error) {
       console.error("Erreur lors de la génération de la facture:", error);
       toast.error("Erreur lors de la génération de la facture");
