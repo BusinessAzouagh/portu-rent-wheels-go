@@ -18,7 +18,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link to="/" className="text-gray-600 hover:text-primary font-medium">Accueil</Link>
-            <Link to="/cars" className="text-gray-600 hover:text-primary font-medium">Véhicules</Link>
+            <Link to="/vehicles" className="text-gray-600 hover:text-primary font-medium">Véhicules</Link>
             <Link to="/about" className="text-gray-600 hover:text-primary font-medium">À propos</Link>
             <Link to="/contact" className="text-gray-600 hover:text-primary font-medium">Contact</Link>
             <Link to="/admin">
@@ -53,7 +53,7 @@ const Navbar = () => {
                 Accueil
               </Link>
               <Link 
-                to="/cars" 
+                to="/vehicles" 
                 className="text-gray-600 hover:text-primary font-medium px-3 py-2 rounded-md hover:bg-gray-100"
                 onClick={() => setIsMenuOpen(false)}
               >
