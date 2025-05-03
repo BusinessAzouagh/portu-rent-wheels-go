@@ -11,6 +11,7 @@ export interface Car {
   image: string;
   pricePerDay: number;
   available: boolean;
+  transmission?: string; // Added transmission property
 }
 
 interface CarCardProps {
@@ -37,7 +38,7 @@ const CarCard = ({ car }: CarCardProps) => {
       <CardContent className="p-4">
         <h3 className="font-bold text-lg">{car.model}</h3>
         <div className="text-sm text-gray-500 mt-1">
-          {t('vehicles.licensePlate')}: {car.licensePlate}
+          {car.transmission ? `${t('vehicles.transmission')}: ${car.transmission}` : `${t('vehicles.licensePlate')}: ${car.licensePlate}`}
         </div>
         <div className="mt-2 font-semibold text-primary">
           {car.pricePerDay * 10} DH <span className="text-sm font-normal text-gray-500">{t('vehicles.pricePerDay')}</span>
