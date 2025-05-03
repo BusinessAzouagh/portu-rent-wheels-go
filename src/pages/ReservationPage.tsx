@@ -13,6 +13,7 @@ import LoadingState from "@/components/reservation/LoadingState";
 import CarNotFound from "@/components/reservation/CarNotFound";
 import { useCarData } from "@/components/reservation/ReservationPageData";
 import { ReservationFormData } from "@/types/reservation";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const ReservationPage = () => {
   const { carId } = useParams();
@@ -21,6 +22,7 @@ const ReservationPage = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const { t } = useLanguage();
   const { car, isLoading } = useCarData({ carId });
+  const isMobile = useIsMobile();
 
   // Get date params from URL or use defaults
   const searchParams = new URLSearchParams(location.search);
@@ -57,15 +59,18 @@ const ReservationPage = () => {
     }
 
     return (
-      <div className="container mx-auto px-4 py-8">
-        <Button 
-          variant="ghost" 
-          className="mb-6"
-          onClick={() => navigate(-1)}
-        >
-          <ChevronLeft className="mr-2" size={16} />
-          {t('common.back')}
-        </Button>
+      <div className="container mx-auto px-4">
+        {/* Show the back button only on mobile */}
+        {isMobile && (
+          <Button 
+            variant="ghost" 
+            className="mb-4"
+            onClick={() => navigate(-1)}
+          >
+            <ChevronLeft className="mr-2" size={16} />
+            {t('common.back')}
+          </Button>
+        )}
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
@@ -88,7 +93,7 @@ const ReservationPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-grow container mx-auto px-4 py-8">
+      <main className="flex-grow container mx-auto px-4 py-2">
         {renderContent()}
       </main>
       <Footer />

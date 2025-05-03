@@ -37,7 +37,7 @@ const CarDetails = ({ car }: CarDetailsProps) => {
         <h1 className="text-2xl font-bold mb-2">
           {car.brand} {car.model}
         </h1>
-        <p className="text-gray-600 mb-4">{t('vehicles.licensePlate')}: {car.licensePlate}</p>
+        <p className="text-gray-600 mb-4">{t('vehicles.transmission')}: {car.transmission}</p>
         
         <div className="mb-4">
           <h3 className="font-semibold mb-2">{t('vehicles.vehicleInfo')}</h3>
