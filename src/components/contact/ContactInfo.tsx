@@ -18,10 +18,10 @@ const ContactInfo = () => {
             <div>
               <p className="font-medium">{t('contact.email')}</p>
               <a 
-                href="mailto:business.azouagh@gmail.com"
+                href="mailto:info@porturent.com"
                 className="text-primary hover:underline"
               >
-                business.azouagh@gmail.com
+                info@porturent.com
               </a>
             </div>
           </div>
@@ -31,10 +31,10 @@ const ContactInfo = () => {
             <div>
               <p className="font-medium">{t('contact.phone')}</p>
               <a 
-                href="tel:+32484223699" 
+                href="tel:+212684057738" 
                 className="text-primary hover:underline"
               >
-                +32 484 22 36 99
+                +212 684 05 77 38
               </a>
             </div>
           </div>

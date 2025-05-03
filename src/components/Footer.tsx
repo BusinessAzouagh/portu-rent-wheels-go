@@ -35,10 +35,9 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">{t('footer.contact')}</h3>
             <address className="text-gray-300 not-italic">
-              <p>Avenida da Liberdade, 245</p>
-              <p>1250-143 Lisboa, Portugal</p>
-              <p className="mt-2">Email: info@porturent.pt</p>
-              <p>Téléphone: +351 215 123 456</p>
+              <p>Rue charif mohamed, Bni Bouayach 32050, Maroc</p>
+              <p className="mt-2">Email: info@porturent.com</p>
+              <p>Téléphone: +212684057738</p>
             </address>
           </div>
         </div>
