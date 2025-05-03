@@ -55,6 +55,7 @@ const ReservationPage = () => {
     }
 
     if (isSuccess) {
+      // Return the success component which is now centered
       return <ReservationSuccess />;
     }
 
