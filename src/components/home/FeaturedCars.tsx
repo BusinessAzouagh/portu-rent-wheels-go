@@ -9,7 +9,10 @@ interface FeaturedCarsProps {
 }
 
 const FeaturedCars = ({ cars }: FeaturedCarsProps) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  
+  // Determine currency display based on language
+  const currencySymbol = language === "ar" ? "درهم" : "DH";
   
   return (
     <section className="py-12">
@@ -21,7 +24,10 @@ const FeaturedCars = ({ cars }: FeaturedCarsProps) => {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {cars.map(car => (
-            <CarCard key={car.id} car={car} />
+            <CarCard 
+              key={car.id} 
+              car={{...car, currencySymbol}} 
+            />
           ))}
         </div>
         

@@ -1,10 +1,13 @@
 
 import { Link } from "react-router-dom";
-import MapLocation from "./MapLocation";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const Footer = () => {
   const { t } = useLanguage();
+
+  const handleMapClick = () => {
+    window.open("https://www.google.be/maps/place/Portu+rent/@35.1017685,-3.8377494,21z/data=!4m15!1m8!3m7!1s0xd75d38565cab5f9:0x1f41c088c7150079!2sBni+Bouayach,+Maroc!3b1!8m2!3d35.1019375!4d-3.8426291!16s%2Fm%2F09k7c8x!3m5!1s0xd75d3a70460d695:0x961a9964cfa78ecc!8m2!3d35.1018574!4d-3.8376694!16s%2Fg%2F11lmhsp6cp?entry=ttu&g_ep=EgoyMDI1MDQzMC4xIKXMDSoASAFQAw%3D%3D", "_blank", "noopener,noreferrer");
+  };
 
   return (
     <footer className="bg-gray-900 text-white pt-12 pb-8">
@@ -13,10 +16,11 @@ const Footer = () => {
           <div className="md:col-span-1">
             <h3 className="text-xl font-bold mb-4">Portu Rent</h3>
             <div className="w-full">
-              <MapLocation 
-                latitude={35.10186642405702}
-                longitude={-3.837653524771826}
-                linkUrl="https://www.google.be/maps/place/Portu+rent/@35.1017685,-3.8377494,21z/data=!4m15!1m8!3m7!1s0xd75d38565cab5f9:0x1f41c088c7150079!2sBni+Bouayach,+Maroc!3b1!8m2!3d35.1019375!4d-3.8426291!16s%2Fm%2F09k7c8x!3m5!1s0xd75d3a70460d695:0x961a9964cfa78ecc!8m2!3d35.1018574!4d-3.8376694!16s%2Fg%2F11lmhsp6cp?entry=ttu&g_ep=EgoyMDI1MDQzMC4xIKXMDSoASAFQAw%3D%3D"
+              <img 
+                src="/lovable-uploads/c74a4187-508f-46b7-bd8c-f4ac7fc977ce.png" 
+                alt="Portu Rent Location"
+                className="w-full h-auto rounded-lg shadow-lg cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={handleMapClick}
               />
             </div>
             <p className="text-gray-300 mt-3 text-sm">{t('common.clickMap')}</p>

@@ -195,5 +195,10 @@ export const es = {
   home: {
     rentIdealCar: "Alquile el coche ideal para su viaje",
     qualityVehicles: "Vehículos de calidad, precios competitivos y servicio al cliente excepcional."
+  },
+  validation: {
+    required: "Este campo es obligatorio",
+    email: "Por favor, introduce un correo electrónico válido",
+    phone: "Por favor, introduce un número de teléfono válido"
   }
 };

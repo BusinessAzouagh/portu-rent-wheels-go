@@ -15,7 +15,10 @@ interface SearchResultsProps {
 }
 
 const SearchResults = ({ results, hasSearched }: SearchResultsProps) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  
+  // Determine currency display based on language
+  const currencySymbol = language === "ar" ? "درهم" : "DH";
   
   if (!hasSearched) return null;
   
@@ -32,7 +35,7 @@ const SearchResults = ({ results, hasSearched }: SearchResultsProps) => {
           {results.map(car => (
             <CarCard 
               key={car.id} 
-              car={car} 
+              car={{...car, currencySymbol}} 
               startDate={car.startDate}
               endDate={car.endDate}
               startTime={car.startTime}

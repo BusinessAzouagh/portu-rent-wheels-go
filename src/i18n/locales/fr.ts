@@ -195,5 +195,10 @@ export const fr = {
   home: {
     rentIdealCar: "Louez la voiture idéale pour votre voyage",
     qualityVehicles: "Des véhicules de qualité, des prix compétitifs et un service client exceptionnel."
+  },
+  validation: {
+    required: "Ce champ est obligatoire",
+    email: "Veuillez entrer un email valide",
+    phone: "Veuillez entrer un numéro de téléphone valide"
   }
 };

@@ -7,20 +7,16 @@ import { useLanguage } from "@/i18n/LanguageContext";
 import DateTimeSelector from "./home/DateTimeSelector";
 
 interface SearchFormData {
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | undefined;
+  endDate: Date | undefined;
   startTime: string;
   endTime: string;
 }
 
 const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void }) => {
-  // Initialize with today's date and today + 3 days
-  const today = new Date();
-  const threeDaysLater = new Date();
-  threeDaysLater.setDate(today.getDate() + 3);
-
-  const [startDate, setStartDate] = useState<Date>(today);
-  const [endDate, setEndDate] = useState<Date>(threeDaysLater);
+  // Initialize with undefined dates instead of today's date
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [startTime, setStartTime] = useState("12:00");
   const [endTime, setEndTime] = useState("12:00");
   const [errors, setErrors] = useState({
@@ -42,31 +38,27 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void
 
   // Handle startDate change with bidirectional validation
   const handleStartDateChange = (date?: Date) => {
-    if (date) {
-      setStartDate(date);
+    setStartDate(date);
       
-      // If the new start date is after the current end date, adjust the end date
-      if (date > endDate) {
-        // Set end date to start date + 1 day
-        const newEndDate = new Date(date);
-        newEndDate.setDate(date.getDate() + 1);
-        setEndDate(newEndDate);
-      }
+    // If the new start date is after the current end date, adjust the end date
+    if (date && endDate && date > endDate) {
+      // Set end date to start date + 1 day
+      const newEndDate = new Date(date);
+      newEndDate.setDate(date.getDate() + 1);
+      setEndDate(newEndDate);
     }
   };
 
   // Handle endDate change with bidirectional validation
   const handleEndDateChange = (date?: Date) => {
-    if (date) {
-      setEndDate(date);
+    setEndDate(date);
       
-      // If the new end date is before the current start date, adjust the start date
-      if (date < startDate) {
-        // Set start date to end date - 1 day
-        const newStartDate = new Date(date);
-        newStartDate.setDate(date.getDate() - 1);
-        setStartDate(newStartDate);
-      }
+    // If the new end date is before the current start date, adjust the start date
+    if (date && startDate && date < startDate) {
+      // Set start date to end date - 1 day
+      const newStartDate = new Date(date);
+      newStartDate.setDate(date.getDate() - 1);
+      setStartDate(newStartDate);
     }
   };
 
@@ -118,7 +110,7 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void
             locale={getLocale()}
             dateError={errors.startDate}
             timeError={!!errors.startTime}
-            maxDate={endDate} // Add this to limit the start date to be before or equal to end date
+            maxDate={endDate} // Limit the start date to be before or equal to end date
           />
         </div>
         

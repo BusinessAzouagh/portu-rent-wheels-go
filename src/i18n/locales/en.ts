@@ -195,5 +195,10 @@ export const en = {
   home: {
     rentIdealCar: "Rent the ideal car for your journey",
     qualityVehicles: "Quality vehicles, competitive prices and exceptional customer service."
+  },
+  validation: {
+    required: "This field is required",
+    email: "Please enter a valid email",
+    phone: "Please enter a valid phone number"
   }
 };

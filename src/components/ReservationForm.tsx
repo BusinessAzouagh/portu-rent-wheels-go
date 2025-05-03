@@ -8,7 +8,8 @@ import CustomerForm from "./reservation/CustomerForm";
 import PriceSummary from "./reservation/PriceSummary";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { fr, es, ar, enUS } from "date-fns/locale";
-import { useIsMobile } from "@/hooks/use-mobile"; 
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useState } from "react";
 
 interface ReservationFormProps {
   car: Car;
@@ -29,6 +30,7 @@ const ReservationForm = ({
 }: ReservationFormProps) => {
   const { t, language } = useLanguage();
   const isMobile = useIsMobile();
+  const [formSubmitted, setFormSubmitted] = useState(false);
   
   // Function to get locale based on current language - now using directly imported locales
   const getLocale = () => {
@@ -39,6 +41,9 @@ const ReservationForm = ({
       default: return enUS; // Default to English
     }
   };
+  
+  // Determine currency display based on language
+  const currencySymbol = language === "ar" ? "درهم" : "DH";
   
   const {
     startDate,
@@ -65,6 +70,33 @@ const ReservationForm = ({
     onSubmit,
     getLocale
   });
+
+  // Field validation errors
+  const [fieldErrors, setFieldErrors] = useState({
+    firstName: "",
+    lastName: "",
+    phone: "",
+  });
+  
+  // Custom submit handler to validate fields before submission
+  const onFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormSubmitted(true);
+    
+    // Validate required fields
+    const newErrors = {
+      firstName: !formData.firstName ? t('validation.required') : "",
+      lastName: !formData.lastName ? t('validation.required') : "",
+      phone: !formData.phone ? t('validation.required') : "",
+    };
+    
+    setFieldErrors(newErrors);
+    
+    // Only proceed with submission if all required fields are filled
+    if (!newErrors.firstName && !newErrors.lastName && !newErrors.phone && !validationError) {
+      handleSubmit(e);
+    }
+  };
   
   return (
     <div className="w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
@@ -115,22 +147,24 @@ const ReservationForm = ({
         </div>
         
         <PriceSummary 
-          car={car}
+          car={{...car, currencySymbol}}
           days={days}
           totalPrice={totalPrice}
         />
       </div>
       
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={onFormSubmit} className="space-y-4">
         <CustomerForm 
           formData={formData}
           onChange={handleChange}
+          errors={fieldErrors}
+          submitted={formSubmitted}
         />
         
         <Button
           type="submit"
           className="w-full mt-6"
-          disabled={isSubmitting || !!validationError}
+          disabled={isSubmitting}
         >
           {isSubmitting ? t('reservation.processing') : t('reservation.confirmReservation')}
         </Button>
