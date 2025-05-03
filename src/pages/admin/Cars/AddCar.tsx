@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,7 +6,7 @@ import * as z from "zod";
 import { toast } from "sonner";
 import { 
   Car, 
-  LicensePlate, 
+  FileText, 
   Upload, 
   Fuel, 
   Coins, 
@@ -179,7 +178,7 @@ const AddCar = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="flex items-center">
-                        <LicensePlate className="mr-2 h-4 w-4" />
+                        <FileText className="mr-2 h-4 w-4" />
                         Plaque d'immatriculation
                       </FormLabel>
                       <FormControl>

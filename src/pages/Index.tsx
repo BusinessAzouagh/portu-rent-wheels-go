@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchForm from "@/components/SearchForm";
 import CarCard, { Car } from "@/components/CarCard";
-import ServiceCard from "@/components/ServiceCard";
+import { ServiceCard } from "@/components/ServiceCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Car as CarIcon, Shield, Clock, Map } from "lucide-react";
