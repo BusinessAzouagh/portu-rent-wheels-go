@@ -1,5 +1,6 @@
 
 import { format } from "date-fns";
+import { Locale } from "date-fns";
 import { CalendarClock } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -21,7 +22,7 @@ interface DateTimeSelectorProps {
   onDateChange: (date?: Date) => void;
   onTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   minDate?: Date;
-  locale?: any; // Using any for now, as date-fns doesn't export Locale type directly
+  locale?: Locale; // Now properly using the imported Locale type
 }
 
 const DateTimeSelector = ({
