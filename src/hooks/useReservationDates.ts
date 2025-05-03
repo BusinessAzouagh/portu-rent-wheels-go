@@ -27,8 +27,17 @@ export const useReservationDates = ({
   const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
 
   const validateDates = () => {
+    // Create full datetime objects with hours and minutes for precise comparison
+    const startDateTime = new Date(startDate);
+    const [startHours, startMinutes] = startTime.split(':').map(Number);
+    startDateTime.setHours(startHours, startMinutes, 0, 0);
+    
+    const endDateTime = new Date(endDate);
+    const [endHours, endMinutes] = endTime.split(':').map(Number);
+    endDateTime.setHours(endHours, endMinutes, 0, 0);
+    
     // Check if end date/time is after start date/time
-    if (endDate <= startDate) {
+    if (endDateTime <= startDateTime) {
       setValidationError('reservation.invalidEndDate');
       return false;
     }
@@ -44,10 +53,15 @@ export const useReservationDates = ({
       const newDate = new Date(date);
       newDate.setHours(hours, minutes, 0, 0);
       
-      // Ensure start date is not after end date
-      if (newDate < endDate) {
+      // Create a full end datetime for comparison
+      const endDateTime = new Date(endDate);
+      const [endHours, endMinutes] = endTime.split(':').map(Number);
+      endDateTime.setHours(endHours, endMinutes, 0, 0);
+      
+      // Only update if the new start date is before the end date
+      if (newDate < endDateTime) {
         setStartDate(newDate);
-        setValidationError(null); // Clear validation error since dates are valid
+        setValidationError(null);
       } else {
         toast({
           title: t('common.error'),
@@ -55,11 +69,9 @@ export const useReservationDates = ({
           variant: "destructive",
         });
         setValidationError('reservation.invalidEndDate');
-        // Don't update the date if it would create an invalid state
         return;
       }
       
-      // Validate dates after update
       validateDates();
     }
   };
@@ -70,10 +82,15 @@ export const useReservationDates = ({
       const newDate = new Date(date);
       newDate.setHours(hours, minutes, 0, 0);
       
-      // Ensure end date is not before start date
-      if (newDate > startDate) {
+      // Create a full start datetime for comparison
+      const startDateTime = new Date(startDate);
+      const [startHours, startMinutes] = startTime.split(':').map(Number);
+      startDateTime.setHours(startHours, startMinutes, 0, 0);
+      
+      // Only update if the new end date is after the start date
+      if (newDate > startDateTime) {
         setEndDate(newDate);
-        setValidationError(null); // Clear validation error since dates are valid
+        setValidationError(null);
       } else {
         toast({
           title: t('common.error'),
@@ -86,15 +103,21 @@ export const useReservationDates = ({
   };
 
   const handleStartTimeChange = (timeValue: string) => {
-    setStartTime(timeValue);
-    const [hours, minutes] = timeValue.split(':').map(Number);
-    const newStartDate = new Date(startDate);
-    newStartDate.setHours(hours, minutes, 0, 0);
+    // Prepare the new datetime with updated time
+    const [newHours, newMinutes] = timeValue.split(':').map(Number);
+    const newStartDateTime = new Date(startDate);
+    newStartDateTime.setHours(newHours, newMinutes, 0, 0);
     
-    // Check if new start time makes start date after end date
-    if (newStartDate < endDate) {
-      setStartDate(newStartDate);
-      setValidationError(null); // Clear validation error
+    // Create end datetime for comparison
+    const endDateTime = new Date(endDate);
+    const [endHours, endMinutes] = endTime.split(':').map(Number);
+    endDateTime.setHours(endHours, endMinutes, 0, 0);
+    
+    // Check if new start time makes start date still before end date
+    if (newStartDateTime < endDateTime) {
+      setStartTime(timeValue);
+      setStartDate(newStartDateTime);
+      setValidationError(null);
     } else {
       toast({
         title: t('common.error'),
@@ -102,24 +125,25 @@ export const useReservationDates = ({
         variant: "destructive",
       });
       setValidationError('reservation.invalidEndDate');
-      // Reset to a valid time
-      setStartTime(timeValue);
     }
-    
-    // Validate dates after time change
-    validateDates();
   };
 
   const handleEndTimeChange = (timeValue: string) => {
-    setEndTime(timeValue);
-    const [hours, minutes] = timeValue.split(':').map(Number);
-    const newEndDate = new Date(endDate);
-    newEndDate.setHours(hours, minutes, 0, 0);
+    // Prepare the new datetime with updated time
+    const [newHours, newMinutes] = timeValue.split(':').map(Number);
+    const newEndDateTime = new Date(endDate);
+    newEndDateTime.setHours(newHours, newMinutes, 0, 0);
+    
+    // Create start datetime for comparison
+    const startDateTime = new Date(startDate);
+    const [startHours, startMinutes] = startTime.split(':').map(Number);
+    startDateTime.setHours(startHours, startMinutes, 0, 0);
     
     // Ensure end date is not before start date
-    if (newEndDate > startDate) {
-      setEndDate(newEndDate);
-      setValidationError(null); // Clear validation error since dates are valid
+    if (newEndDateTime > startDateTime) {
+      setEndTime(timeValue);
+      setEndDate(newEndDateTime);
+      setValidationError(null);
     } else {
       toast({
         title: t('common.error'),
@@ -127,8 +151,6 @@ export const useReservationDates = ({
         variant: "destructive",
       });
       setValidationError('reservation.invalidEndDate');
-      // Reset to a valid time
-      setEndTime(startTime);
     }
   };
 

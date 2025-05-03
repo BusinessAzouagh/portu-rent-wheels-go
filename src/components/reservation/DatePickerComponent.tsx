@@ -66,22 +66,23 @@ const DatePickerComponent = ({
           }}
           initialFocus
           disabled={(currentDate) => {
+            // Initialize as not disabled
             let isDisabled = false;
             
-            // Disable dates before minDate (for endDate picker)
-            if (minDate) {
-              const minDateWithoutTime = new Date(minDate);
-              minDateWithoutTime.setHours(0, 0, 0, 0);
-              if (currentDate < minDateWithoutTime) {
+            // For start date picker: disable dates after maxDate (end date)
+            if (maxDate) {
+              const maxDateWithoutTime = new Date(maxDate);
+              maxDateWithoutTime.setHours(23, 59, 59, 999);
+              if (currentDate > maxDateWithoutTime) {
                 isDisabled = true;
               }
             }
             
-            // Disable dates after maxDate (for startDate picker)
-            if (maxDate && !isDisabled) {
-              const maxDateWithoutTime = new Date(maxDate);
-              maxDateWithoutTime.setHours(23, 59, 59, 999);
-              if (currentDate > maxDateWithoutTime) {
+            // For end date picker: disable dates before minDate (start date)
+            if (minDate) {
+              const minDateWithoutTime = new Date(minDate);
+              minDateWithoutTime.setHours(0, 0, 0, 0);
+              if (currentDate < minDateWithoutTime) {
                 isDisabled = true;
               }
             }
