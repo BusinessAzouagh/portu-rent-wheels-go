@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -70,11 +69,11 @@ const Home = () => {
             minHeight: "600px"
           }}
         >
-          {/* Background Image with Overlay */}
+          {/* Background Image with Overlay - Updated with luxury car image */}
           <div 
             className="absolute inset-0 z-0 bg-cover bg-center" 
             style={{
-              backgroundImage: "url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format')",
+              backgroundImage: "url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2000&auto=format')",
               backgroundPosition: "center",
               backgroundSize: "cover",
             }}

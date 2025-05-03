@@ -62,13 +62,15 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal bg-white border-gray-300",
+                  "w-full justify-start text-left font-normal bg-white border-gray-300 text-gray-800",
                   !startDate && "text-gray-500"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
                 {startDate ? (
-                  format(startDate, "dd MMMM yyyy", { locale: getLocale() })
+                  <span className="text-gray-800">
+                    {format(startDate, "dd MMMM yyyy", { locale: getLocale() })}
+                  </span>
                 ) : (
                   <span>{t('search.chooseDate')}</span>
                 )}
@@ -112,13 +114,15 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal bg-white border-gray-300",
+                  "w-full justify-start text-left font-normal bg-white border-gray-300 text-gray-800",
                   !endDate && "text-gray-500"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
                 {endDate ? (
-                  format(endDate, "dd MMMM yyyy", { locale: getLocale() })
+                  <span className="text-gray-800">
+                    {format(endDate, "dd MMMM yyyy", { locale: getLocale() })}
+                  </span>
                 ) : (
                   <span>{t('search.chooseDate')}</span>
                 )}
