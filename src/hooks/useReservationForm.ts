@@ -11,13 +11,15 @@ interface UseReservationFormProps {
   initialStartDate: Date;
   initialEndDate: Date;
   onSubmit: (formData: ReservationFormData) => Promise<void>;
+  getLocale: () => any; // Function to get the locale provided by parent component
 }
 
 export const useReservationForm = ({ 
   car, 
   initialStartDate, 
   initialEndDate, 
-  onSubmit 
+  onSubmit,
+  getLocale 
 }: UseReservationFormProps) => {
   const { toast } = useToast();
   const { t, language } = useLanguage();
@@ -39,15 +41,6 @@ export const useReservationForm = ({
   // Calculate number of days
   const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
   const totalPrice = days * car.pricePerDay * 10;
-
-  // Get locale based on current language
-  const getLocale = () => {
-    switch (language) {
-      case 'fr': return require("date-fns/locale").fr;
-      // Add other locale imports if needed
-      default: return undefined;
-    }
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

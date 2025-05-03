@@ -21,7 +21,7 @@ interface DateTimeSelectorProps {
   onDateChange: (date?: Date) => void;
   onTimeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   minDate?: Date;
-  locale?: Locale;
+  locale?: any; // Using any for now, as date-fns doesn't export Locale type directly
 }
 
 const DateTimeSelector = ({

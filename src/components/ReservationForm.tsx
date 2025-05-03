@@ -16,7 +16,18 @@ interface ReservationFormProps {
 }
 
 const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEndDate, onSubmit }: ReservationFormProps) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  
+  // Function to get locale based on current language
+  const getLocale = () => {
+    switch (language) {
+      case 'fr': return require("date-fns/locale").fr;
+      case 'es': return require("date-fns/locale").es;
+      case 'ar': return require("date-fns/locale").ar;
+      default: return require("date-fns/locale").enUS; // Default to English
+    }
+  };
+  
   const {
     startDate,
     endDate,
@@ -26,7 +37,6 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
     days,
     totalPrice,
     isSubmitting,
-    getLocale,
     handleChange,
     updateStartDateTime,
     updateEndDateTime,
@@ -37,7 +47,8 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
     car,
     initialStartDate,
     initialEndDate,
-    onSubmit
+    onSubmit,
+    getLocale
   });
   
   return (
