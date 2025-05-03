@@ -67,15 +67,15 @@ const DateTimeSelector = ({
         {label}
       </label>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-        {/* Date Picker - Width increased for better text visibility */}
-        <div className="md:col-span-1">
+      <div className="grid grid-cols-1 md:grid-cols-7 gap-2">
+        {/* Date Picker - Width adjusted for better text visibility */}
+        <div className="md:col-span-3">
           <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full min-w-[170px] justify-start text-left font-normal bg-white border-gray-300 text-gray-800",
+                  "w-full justify-start text-left font-normal bg-white border-gray-300 text-gray-800",
                   !date && "text-gray-500"
                 )}
               >
@@ -107,12 +107,12 @@ const DateTimeSelector = ({
           </Popover>
         </div>
 
-        {/* Time Selectors - Hour and Minute with black text */}
-        <div className="md:col-span-2 grid grid-cols-2 gap-2">
+        {/* Time Selectors - Hour and Minute with black text and adjusted width */}
+        <div className="md:col-span-4 grid grid-cols-2 gap-2">
           <div>
             <Select value={currentHour} onValueChange={handleHourChange}>
               <SelectTrigger className="w-full bg-white border-gray-300">
-                <div className="flex items-center text-black">
+                <div className="flex items-center">
                   <Clock className="h-4 w-4 mr-2 text-gray-500" />
                   <SelectValue className="text-black" placeholder={t('common.hour')} />
                 </div>
