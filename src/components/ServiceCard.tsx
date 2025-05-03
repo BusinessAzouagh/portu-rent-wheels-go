@@ -6,11 +6,22 @@ interface ServiceCardProps {
   title: string;
   description: string;
   icon: ReactNode;
+  selected?: boolean;
+  onClick?: () => void;
 }
 
-const ServiceCard = ({ title, description, icon }: ServiceCardProps) => {
+export const ServiceCard = ({ 
+  title, 
+  description, 
+  icon, 
+  selected = false,
+  onClick 
+}: ServiceCardProps) => {
   return (
-    <Card className="hover:shadow-lg transition-shadow">
+    <Card 
+      className={`hover:shadow-lg transition-shadow ${selected ? 'border-primary border-2' : ''}`}
+      onClick={onClick}
+    >
       <CardContent className="p-6">
         <div className="mb-4 text-primary flex justify-center">
           {icon}
@@ -21,5 +32,3 @@ const ServiceCard = ({ title, description, icon }: ServiceCardProps) => {
     </Card>
   );
 };
-
-export default ServiceCard;

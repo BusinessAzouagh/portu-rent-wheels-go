@@ -9,6 +9,7 @@ import ReservationPage from "./pages/ReservationPage";
 import AdminLogin from "./pages/AdminLogin";
 import Dashboard from "./pages/admin/Dashboard";
 import ManageCars from "./pages/admin/Cars/ManageCars";
+import AddCar from "./pages/admin/Cars/AddCar";
 import ManageReservations from "./pages/admin/Reservations/ManageReservations";
 import NotFound from "./pages/NotFound";
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
           <Route path="/admin/cars" element={<ManageCars />} />
+          <Route path="/admin/cars/new" element={<AddCar />} />
           <Route path="/admin/reservations" element={<ManageReservations />} />
           
           {/* 404 Route */}
