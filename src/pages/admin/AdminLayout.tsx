@@ -8,6 +8,8 @@ import {
   Settings
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/i18n/LanguageContext";
+import LanguageSelector from "@/components/LanguageSelector";
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -16,12 +18,13 @@ interface AdminLayoutProps {
 const AdminLayout = ({ children }: AdminLayoutProps) => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { t } = useLanguage();
   
   const menuItems = [
-    { to: "/admin/dashboard", icon: <Home className="mr-2 h-4 w-4" />, label: "Tableau de bord" },
-    { to: "/admin/cars", icon: <CarIcon className="mr-2 h-4 w-4" />, label: "Véhicules" },
-    { to: "/admin/reservations", icon: <Calendar className="mr-2 h-4 w-4" />, label: "Réservations" },
-    { to: "/admin/settings", icon: <Settings className="mr-2 h-4 w-4" />, label: "Paramètres" }
+    { to: "/admin/dashboard", icon: <Home className="mr-2 h-4 w-4" />, label: t('admin.dashboard') },
+    { to: "/admin/cars", icon: <CarIcon className="mr-2 h-4 w-4" />, label: t('admin.cars') },
+    { to: "/admin/reservations", icon: <Calendar className="mr-2 h-4 w-4" />, label: t('admin.reservations') },
+    { to: "/admin/settings", icon: <Settings className="mr-2 h-4 w-4" />, label: t('admin.settings') }
   ];
   
   return (
@@ -52,6 +55,10 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
               </li>
             ))}
           </ul>
+          
+          <div className="px-6 mt-6">
+            <LanguageSelector variant="admin" />
+          </div>
         </nav>
       </aside>
       
@@ -76,6 +83,7 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
                 {item.icon}
               </Link>
             ))}
+            <LanguageSelector onlyIcon={true} />
           </div>
         </div>
       </div>

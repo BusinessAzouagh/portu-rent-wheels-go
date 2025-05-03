@@ -2,6 +2,7 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 export interface Car {
   id: string;
@@ -17,6 +18,8 @@ interface CarCardProps {
 }
 
 const CarCard = ({ car }: CarCardProps) => {
+  const { t } = useLanguage();
+  
   return (
     <Card className="car-card overflow-hidden">
       <div className="aspect-video relative overflow-hidden">
@@ -27,7 +30,7 @@ const CarCard = ({ car }: CarCardProps) => {
         />
         {!car.available && (
           <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-            <span className="text-white font-semibold text-lg">Non disponible</span>
+            <span className="text-white font-semibold text-lg">{t('vehicles.unavailable')}</span>
           </div>
         )}
       </div>
@@ -37,7 +40,7 @@ const CarCard = ({ car }: CarCardProps) => {
           Plaque: {car.licensePlate}
         </div>
         <div className="mt-2 font-semibold text-primary">
-          {car.pricePerDay}€ <span className="text-sm font-normal text-gray-500">/ jour</span>
+          {car.pricePerDay}€ <span className="text-sm font-normal text-gray-500">{t('vehicles.pricePerDay')}</span>
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">
@@ -47,7 +50,7 @@ const CarCard = ({ car }: CarCardProps) => {
             className="w-full"
             disabled={!car.available}
           >
-            {car.available ? "Réserver" : "Indisponible"}
+            {car.available ? t('vehicles.reserve') : t('vehicles.unavailable')}
           </Button>
         </Link>
       </CardFooter>

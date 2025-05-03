@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Car } from "@/components/CarCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   CarIcon, 
@@ -12,6 +11,7 @@ import {
   LogOut 
 } from "lucide-react";
 import AdminLayout from "./AdminLayout";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 // Mock data for dashboard
 const MOCK_STATS = {
@@ -31,6 +31,7 @@ const MOCK_RECENT_RESERVATIONS = [
 const Dashboard = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useLanguage();
   
   useEffect(() => {
     // Check if user is logged in
@@ -56,7 +57,7 @@ const Dashboard = () => {
     return (
       <AdminLayout>
         <div className="flex items-center justify-center h-96">
-          <div className="animate-pulse text-gray-500">Chargement...</div>
+          <div className="animate-pulse text-gray-500">{t('common.loading')}</div>
         </div>
       </AdminLayout>
     );
@@ -65,10 +66,10 @@ const Dashboard = () => {
   return (
     <AdminLayout>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Tableau de bord</h1>
+        <h1 className="text-2xl font-bold">{t('admin.dashboard')}</h1>
         <Button variant="outline" size="sm" onClick={handleLogout}>
           <LogOut className="mr-2 h-4 w-4" />
-          Déconnexion
+          {t('admin.logout')}
         </Button>
       </div>
       
@@ -80,7 +81,7 @@ const Dashboard = () => {
               <CarIcon className="h-6 w-6 text-blue-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Total de véhicules</p>
+              <p className="text-sm text-gray-500">{t('admin.totalVehicles')}</p>
               <p className="text-2xl font-bold">{MOCK_STATS.totalCars}</p>
             </div>
           </CardContent>
@@ -92,7 +93,7 @@ const Dashboard = () => {
               <Clock className="h-6 w-6 text-green-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Véhicules disponibles</p>
+              <p className="text-sm text-gray-500">{t('admin.availableVehicles')}</p>
               <p className="text-2xl font-bold">{MOCK_STATS.availableCars}</p>
             </div>
           </CardContent>
@@ -104,7 +105,7 @@ const Dashboard = () => {
               <Calendar className="h-6 w-6 text-amber-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Réservations en attente</p>
+              <p className="text-sm text-gray-500">{t('admin.pendingReservations')}</p>
               <p className="text-2xl font-bold">{MOCK_STATS.pendingReservations}</p>
             </div>
           </CardContent>
@@ -116,7 +117,7 @@ const Dashboard = () => {
               <Users className="h-6 w-6 text-purple-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-500">Réservations confirmées</p>
+              <p className="text-sm text-gray-500">{t('admin.confirmedReservations')}</p>
               <p className="text-2xl font-bold">{MOCK_STATS.confirmedReservations}</p>
             </div>
           </CardContent>
@@ -126,7 +127,7 @@ const Dashboard = () => {
       {/* Recent Reservations */}
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle className="text-xl">Réservations récentes</CardTitle>
+          <CardTitle className="text-xl">{t('admin.recentReservations')}</CardTitle>
         </CardHeader>
         <CardContent>
           {MOCK_RECENT_RESERVATIONS.length > 0 ? (
@@ -134,12 +135,12 @@ const Dashboard = () => {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left py-3 px-4">ID</th>
-                    <th className="text-left py-3 px-4">Client</th>
-                    <th className="text-left py-3 px-4">Véhicule</th>
-                    <th className="text-left py-3 px-4">Date</th>
-                    <th className="text-left py-3 px-4">Statut</th>
-                    <th className="text-left py-3 px-4">Action</th>
+                    <th className="text-left py-3 px-4">{t('admin.id')}</th>
+                    <th className="text-left py-3 px-4">{t('admin.customer')}</th>
+                    <th className="text-left py-3 px-4">{t('admin.vehicle')}</th>
+                    <th className="text-left py-3 px-4">{t('admin.date')}</th>
+                    <th className="text-left py-3 px-4">{t('admin.status')}</th>
+                    <th className="text-left py-3 px-4">{t('admin.action')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -151,12 +152,12 @@ const Dashboard = () => {
                       <td className="py-3 px-4">{reservation.startDate}</td>
                       <td className="py-3 px-4">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${reservation.status === 'CONFIRMED' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
-                          {reservation.status === 'CONFIRMED' ? 'Confirmée' : 'En attente'}
+                          {reservation.status === 'CONFIRMED' ? t('admin.confirmed') : t('admin.pending')}
                         </span>
                       </td>
                       <td className="py-3 px-4">
                         <Link to={`/admin/reservations/${reservation.id}`}>
-                          <Button size="sm" variant="ghost">Détails</Button>
+                          <Button size="sm" variant="ghost">{t('admin.details')}</Button>
                         </Link>
                       </td>
                     </tr>
@@ -165,12 +166,12 @@ const Dashboard = () => {
               </table>
             </div>
           ) : (
-            <p className="text-gray-500 text-center py-4">Aucune réservation récente</p>
+            <p className="text-gray-500 text-center py-4">{t('admin.recentReservations')}</p>
           )}
           
           <div className="mt-4">
             <Link to="/admin/reservations">
-              <Button variant="outline" size="sm">Voir toutes les réservations</Button>
+              <Button variant="outline" size="sm">{t('admin.recentReservations')}</Button>
             </Link>
           </div>
         </CardContent>
@@ -179,22 +180,22 @@ const Dashboard = () => {
       {/* Quick Actions */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl">Actions rapides</CardTitle>
+          <CardTitle className="text-xl">{t('admin.quickActions')}</CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Link to="/admin/cars/new">
             <Button variant="outline" className="w-full">
-              Ajouter un véhicule
+              {t('admin.addVehicle')}
             </Button>
           </Link>
           <Link to="/admin/reservations/pending">
             <Button variant="outline" className="w-full">
-              Réservations en attente
+              {t('admin.pendingReservationsList')}
             </Button>
           </Link>
           <Link to="/admin/cars/availability">
             <Button variant="outline" className="w-full">
-              Gérer les disponibilités
+              {t('admin.manageAvailability')}
             </Button>
           </Link>
         </CardContent>

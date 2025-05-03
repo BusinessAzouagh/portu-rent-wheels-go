@@ -3,9 +3,12 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
+import LanguageSelector from "./LanguageSelector";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -17,19 +20,21 @@ const Navbar = () => {
           
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-600 hover:text-primary font-medium">Accueil</Link>
-            <Link to="/vehicles" className="text-gray-600 hover:text-primary font-medium">Véhicules</Link>
-            <Link to="/about" className="text-gray-600 hover:text-primary font-medium">À propos</Link>
-            <Link to="/contact" className="text-gray-600 hover:text-primary font-medium">Contact</Link>
+            <Link to="/" className="text-gray-600 hover:text-primary font-medium">{t('navbar.home')}</Link>
+            <Link to="/vehicles" className="text-gray-600 hover:text-primary font-medium">{t('navbar.vehicles')}</Link>
+            <Link to="/about" className="text-gray-600 hover:text-primary font-medium">{t('navbar.about')}</Link>
+            <Link to="/contact" className="text-gray-600 hover:text-primary font-medium">{t('navbar.contact')}</Link>
             <Link to="/admin">
               <Button variant="outline" size="sm">
-                Admin
+                {t('navbar.admin')}
               </Button>
             </Link>
+            <LanguageSelector onlyIcon={true} />
           </nav>
           
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-2">
+            <LanguageSelector onlyIcon={true} />
             <Button 
               variant="ghost" 
               size="sm" 
@@ -50,34 +55,34 @@ const Navbar = () => {
                 className="text-gray-600 hover:text-primary font-medium px-3 py-2 rounded-md hover:bg-gray-100"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Accueil
+                {t('navbar.home')}
               </Link>
               <Link 
                 to="/vehicles" 
                 className="text-gray-600 hover:text-primary font-medium px-3 py-2 rounded-md hover:bg-gray-100"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Véhicules
+                {t('navbar.vehicles')}
               </Link>
               <Link 
                 to="/about" 
                 className="text-gray-600 hover:text-primary font-medium px-3 py-2 rounded-md hover:bg-gray-100"
                 onClick={() => setIsMenuOpen(false)}
               >
-                À propos
+                {t('navbar.about')}
               </Link>
               <Link 
                 to="/contact" 
                 className="text-gray-600 hover:text-primary font-medium px-3 py-2 rounded-md hover:bg-gray-100"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Contact
+                {t('navbar.contact')}
               </Link>
               <Link 
                 to="/admin" 
                 onClick={() => setIsMenuOpen(false)}
               >
-                <Button className="w-full">Admin</Button>
+                <Button className="w-full">{t('navbar.admin')}</Button>
               </Link>
             </div>
           </nav>
