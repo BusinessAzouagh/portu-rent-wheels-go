@@ -11,7 +11,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { CalendarClock } from "lucide-react";
+import { CalendarIcon, Clock } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface DateTimeSelectorProps {
   label: string;
@@ -35,18 +42,23 @@ const DateTimeSelector = ({
   const { t } = useLanguage();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
-  // Generate time options in 30-minute increments
-  const timeOptions = [];
-  for (let hour = 8; hour < 20; hour++) {
-    for (let minute of [0, 30]) {
-      const formattedHour = hour.toString().padStart(2, '0');
-      const formattedMinute = minute.toString().padStart(2, '0');
-      timeOptions.push(`${formattedHour}:${formattedMinute}`);
-    }
-  }
+  // Split current time into hours and minutes
+  const [currentHour, currentMinute] = time.split(':');
 
-  const handleTimeClick = (timeValue: string) => {
-    onTimeChange(timeValue);
+  // Generate hours options (8-19)
+  const hours = Array.from({ length: 12 }, (_, i) => (i + 8).toString().padStart(2, '0'));
+  
+  // Generate minutes options (0, 15, 30, 45)
+  const minutes = ["00", "15", "30", "45"];
+  
+  const handleHourChange = (hour: string) => {
+    const newTime = `${hour}:${currentMinute}`;
+    onTimeChange(newTime);
+  };
+  
+  const handleMinuteChange = (minute: string) => {
+    const newTime = `${currentHour}:${minute}`;
+    onTimeChange(newTime);
   };
 
   return (
@@ -54,63 +66,78 @@ const DateTimeSelector = ({
       <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">
         {label}
       </label>
-      <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
-        <PopoverTrigger asChild>
-          <Button
-            variant="outline"
-            className={cn(
-              "w-full justify-start text-left font-normal bg-white border-gray-300 text-gray-800",
-              !date && "text-gray-500"
-            )}
-          >
-            <CalendarClock className="mr-2 h-4 w-4" />
-            {date ? (
-              <span className="text-gray-800">
-                {format(date, "dd MMMM yyyy", { locale })} à {time}
-              </span>
-            ) : (
-              <span>{t('search.chooseDate')}</span>
-            )}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
+      
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+        {/* Date Picker */}
+        <div className="md:col-span-1">
+          <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-full justify-start text-left font-normal bg-white border-gray-300 text-gray-800",
+                  !date && "text-gray-500"
+                )}
+              >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {date ? (
+                  format(date, "dd/MM/yyyy", { locale })
+                ) : (
+                  <span>{t('search.chooseDate')}</span>
+                )}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={(selectedDate) => {
+                  onDateChange(selectedDate);
+                  // Close the calendar immediately after selection
+                  setIsCalendarOpen(false);
+                }}
+                initialFocus
+                disabled={(currentDate) => 
+                  minDate ? currentDate < minDate : currentDate < new Date()
+                }
+                className="p-3 pointer-events-auto"
+                locale={locale}
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
+
+        {/* Time Selectors - Hour and Minute */}
+        <div className="md:col-span-2 grid grid-cols-2 gap-2">
           <div>
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={(selectedDate) => {
-                onDateChange(selectedDate);
-                // Close the calendar immediately after selection
-                setIsCalendarOpen(false);
-              }}
-              initialFocus
-              disabled={(currentDate) => 
-                minDate ? currentDate < minDate : currentDate < new Date()
-              }
-              className="p-3 pointer-events-auto"
-              locale={locale}
-            />
-            <div className="p-3 border-t border-gray-200">
-              <div className="mb-2 text-sm font-medium">{t('reservation.selectTime')}</div>
-              <div className="grid grid-cols-4 gap-1 max-h-48 overflow-y-auto">
-                {timeOptions.map((timeOption) => (
-                  <Button
-                    key={timeOption}
-                    variant={time === timeOption ? "default" : "outline"}
-                    className={cn(
-                      "text-xs py-1 px-2 h-auto",
-                      time === timeOption ? "bg-primary text-primary-foreground" : "hover:bg-muted"
-                    )}
-                    onClick={() => handleTimeClick(timeOption)}
-                  >
-                    {timeOption}
-                  </Button>
+            <Select value={currentHour} onValueChange={handleHourChange}>
+              <SelectTrigger className="w-full bg-white border-gray-300">
+                <div className="flex items-center">
+                  <Clock className="h-4 w-4 mr-2 text-gray-500" />
+                  <SelectValue placeholder={t('common.hour')} />
+                </div>
+              </SelectTrigger>
+              <SelectContent className="bg-white">
+                {hours.map(hour => (
+                  <SelectItem key={hour} value={hour}>{hour}</SelectItem>
                 ))}
-              </div>
-            </div>
+              </SelectContent>
+            </Select>
           </div>
-        </PopoverContent>
-      </Popover>
+          <div>
+            <Select value={currentMinute} onValueChange={handleMinuteChange}>
+              <SelectTrigger className="w-full bg-white border-gray-300">
+                <SelectValue placeholder={t('common.minute')} />
+              </SelectTrigger>
+              <SelectContent className="bg-white">
+                {minutes.map(minute => (
+                  <SelectItem key={minute} value={minute}>{minute}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
