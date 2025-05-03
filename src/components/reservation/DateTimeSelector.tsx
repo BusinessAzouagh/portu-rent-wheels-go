@@ -95,9 +95,11 @@ const DateTimeSelector = ({
                 mode="single"
                 selected={date}
                 onSelect={(selectedDate) => {
-                  onDateChange(selectedDate);
-                  // Close the popover after selection
-                  document.body.click();
+                  if (selectedDate) {
+                    onDateChange(selectedDate);
+                    // Close the popover after selection - automatically
+                    document.body.click();
+                  }
                 }}
                 initialFocus
                 disabled={(currentDate) => 

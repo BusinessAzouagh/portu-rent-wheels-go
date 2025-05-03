@@ -8,6 +8,7 @@ import CustomerForm from "./reservation/CustomerForm";
 import PriceSummary from "./reservation/PriceSummary";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { fr, es, ar, enUS } from "date-fns/locale";
+import { useIsMobile } from "@/hooks/use-mobile"; 
 
 interface ReservationFormProps {
   car: Car;
@@ -18,6 +19,7 @@ interface ReservationFormProps {
 
 const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEndDate, onSubmit }: ReservationFormProps) => {
   const { t, language } = useLanguage();
+  const isMobile = useIsMobile();
   
   // Function to get locale based on current language - now using directly imported locales
   const getLocale = () => {
@@ -61,33 +63,34 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
         
         {/* Date/Time selectors */}
         <div className="mb-4 space-y-6">
-          {/* Start date and time */}
-          <div className="space-y-4">
-            <h4 className="text-sm font-medium text-gray-700">{t('common.date')} {t('common.start')}</h4>
-            <DateTimeSelector
-              label={t('common.date')}
-              date={startDate}
-              time={startTime}
-              onDateChange={updateStartDateTime}
-              onTimeChange={handleStartTimeChange}
-              locale={getLocale()}
-              compact={false}
-            />
-          </div>
-          
-          {/* End date and time */}
-          <div className="space-y-4">
-            <h4 className="text-sm font-medium text-gray-700">{t('common.date')} {t('common.end')}</h4>
-            <DateTimeSelector
-              label={t('common.date')}
-              date={endDate}
-              time={endTime}
-              onDateChange={updateEndDateTime}
-              onTimeChange={handleEndTimeChange}
-              minDate={startDate}
-              locale={getLocale()}
-              compact={false}
-            />
+          {/* Start date and end date - display side by side on non-mobile screens */}
+          <div className={`grid ${isMobile ? 'gap-6' : 'grid-cols-2 gap-4'}`}>
+            <div className="space-y-2">
+              <h4 className="text-sm font-medium text-gray-700">{t('common.start')}</h4>
+              <DateTimeSelector
+                label={t('common.start')}
+                date={startDate}
+                time={startTime}
+                onDateChange={updateStartDateTime}
+                onTimeChange={handleStartTimeChange}
+                locale={getLocale()}
+                compact={false}
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <h4 className="text-sm font-medium text-gray-700">{t('common.end')}</h4>
+              <DateTimeSelector
+                label={t('common.end')}
+                date={endDate}
+                time={endTime}
+                onDateChange={updateEndDateTime}
+                onTimeChange={handleEndTimeChange}
+                minDate={startDate}
+                locale={getLocale()}
+                compact={false}
+              />
+            </div>
           </div>
         </div>
         
