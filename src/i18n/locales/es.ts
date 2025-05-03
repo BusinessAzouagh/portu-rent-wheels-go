@@ -1,4 +1,3 @@
-
 export const es = {
   common: {
     home: "Inicio",
@@ -20,7 +19,12 @@ export const es = {
     all: "Todos",
     required: "obligatorio",
     optional: "opcional",
-    close: "Cerrar"
+    close: "Cerrar",
+    date: "Fecha",
+    start: "de inicio",
+    end: "de fin",
+    hour: "Hora",
+    minute: "Minuto"
   },
   navbar: {
     home: "Inicio",

@@ -1,4 +1,3 @@
-
 export const ar = {
   common: {
     home: "الرئيسية",
@@ -20,7 +19,12 @@ export const ar = {
     all: "الكل",
     required: "مطلوب",
     optional: "اختياري",
-    close: "إغلاق"
+    close: "إغلاق",
+    date: "التاريخ",
+    start: "البدء",
+    end: "الانتهاء",
+    hour: "الساعة",
+    minute: "الدقيقة"
   },
   navbar: {
     home: "الرئيسية",

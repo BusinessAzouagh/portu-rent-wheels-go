@@ -61,13 +61,11 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
         
         {/* Date/Time selectors */}
         <div className="mb-4 space-y-6">
-          <p className="text-sm text-gray-500">{t('reservation.selectDates')}</p>
-          
           {/* Start date and time */}
           <div className="space-y-4">
-            <h4 className="text-sm font-medium text-gray-700">{t('search.startDate')}</h4>
+            <h4 className="text-sm font-medium text-gray-700">{t('common.date')} {t('common.start')}</h4>
             <DateTimeSelector
-              label={t('search.startDate')}
+              label={t('common.date')}
               date={startDate}
               time={startTime}
               onDateChange={updateStartDateTime}
@@ -79,9 +77,9 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
           
           {/* End date and time */}
           <div className="space-y-4">
-            <h4 className="text-sm font-medium text-gray-700">{t('search.endDate')}</h4>
+            <h4 className="text-sm font-medium text-gray-700">{t('common.date')} {t('common.end')}</h4>
             <DateTimeSelector
-              label={t('search.endDate')}
+              label={t('common.date')}
               date={endDate}
               time={endTime}
               onDateChange={updateEndDateTime}

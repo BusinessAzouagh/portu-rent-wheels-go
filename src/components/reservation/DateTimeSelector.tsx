@@ -94,7 +94,11 @@ const DateTimeSelector = ({
               <Calendar
                 mode="single"
                 selected={date}
-                onSelect={onDateChange}
+                onSelect={(selectedDate) => {
+                  onDateChange(selectedDate);
+                  // Close the popover after selection
+                  document.body.click();
+                }}
                 initialFocus
                 disabled={(currentDate) => 
                   minDate ? currentDate < minDate : currentDate < new Date()
@@ -127,12 +131,12 @@ const DateTimeSelector = ({
             <PopoverContent className="w-auto p-3 rounded-md border shadow-md" align="start">
               <div className="grid gap-4">
                 <div className="space-y-2">
-                  <h4 className="font-medium">{t('reservation.selectTime')}</h4>
+                  <h4 className="font-medium">{t('search.selectTime')}</h4>
                   <div className="flex gap-2">
                     <div className="flex-1">
                       <Select value={currentHour} onValueChange={handleHourChange}>
                         <SelectTrigger>
-                          <SelectValue placeholder={t('reservation.hour')} />
+                          <SelectValue />
                         </SelectTrigger>
                         <SelectContent className="max-h-[200px]">
                           {hours.map(hour => (
@@ -142,12 +146,12 @@ const DateTimeSelector = ({
                           ))}
                         </SelectContent>
                       </Select>
-                      <p className="text-xs text-muted-foreground mt-1">{t('reservation.hour')}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{t('common.hour')}</p>
                     </div>
                     <div className="flex-1">
                       <Select value={currentMinute} onValueChange={handleMinuteChange}>
                         <SelectTrigger>
-                          <SelectValue placeholder={t('reservation.minute')} />
+                          <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
                           {minutes.map(minute => (
@@ -157,7 +161,7 @@ const DateTimeSelector = ({
                           ))}
                         </SelectContent>
                       </Select>
-                      <p className="text-xs text-muted-foreground mt-1">{t('reservation.minute')}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{t('common.minute')}</p>
                     </div>
                   </div>
                 </div>
