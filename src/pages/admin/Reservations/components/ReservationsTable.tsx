@@ -155,7 +155,7 @@ const ReservationsTable = ({
                   <TableHead>Client</TableHead>
                   <TableHead>Téléphone</TableHead>
                   <TableHead>Véhicule</TableHead>
-                  <TableHead>Plaque</TableHead>
+                  <TableHead className="min-w-[100px]">Plaque</TableHead>
                   <TableHead>Date début</TableHead>
                   <TableHead>Date fin</TableHead>
                   <TableHead>Jours</TableHead>
@@ -176,7 +176,7 @@ const ReservationsTable = ({
                       <TableCell>{reservation.customerName}</TableCell>
                       <TableCell>{reservation.customerPhone}</TableCell>
                       <TableCell>{`${reservation.carBrand} ${reservation.carModel}`}</TableCell>
-                      <TableCell>{reservation.licensePlate || "N/A"}</TableCell>
+                      <TableCell className="whitespace-nowrap">{reservation.licensePlate || "N/A"}</TableCell>
                       <TableCell>{new Date(reservation.startDate).toLocaleDateString()}</TableCell>
                       <TableCell>{new Date(reservation.endDate).toLocaleDateString()}</TableCell>
                       <TableCell>{daysCount}</TableCell>
