@@ -55,11 +55,11 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   // Translation function
   const t = (key: string): string => {
     const keys = key.split('.');
-    let value = messages[language];
+    let value: any = messages[language];
     
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
-        value = value[k as keyof typeof value];
+        value = value[k];
       } else {
         console.warn(`Translation key not found: ${key}`);
         return key;
