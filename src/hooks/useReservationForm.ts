@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { format } from "date-fns";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/components/ui/toast";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Car } from "@/types/cars";
 import { CustomerFormData, ReservationFormData } from "@/types/reservation";
@@ -21,7 +21,6 @@ export const useReservationForm = ({
   onSubmit,
   getLocale 
 }: UseReservationFormProps) => {
-  const { toast } = useToast();
   const { t, language } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   

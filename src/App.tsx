@@ -1,8 +1,9 @@
+
 import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LanguageProvider } from "./i18n/LanguageContext";
 import Index from "./pages/Index";
 import VehiclesPage from "./pages/VehiclesPage";
 import ReservationPage from "./pages/ReservationPage";
@@ -15,17 +16,15 @@ import AddCar from "./pages/admin/Cars/AddCar";
 import ManageReservations from "./pages/admin/Reservations/ManageReservations";
 import Settings from "./pages/admin/Settings";
 import NotFound from "./pages/NotFound";
-import { LanguageProvider } from "./i18n/LanguageContext";
 
+// Create a new QueryClient instance
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <LanguageProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+      <BrowserRouter>
+        <TooltipProvider>
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<Index />} />
@@ -45,8 +44,9 @@ const App = () => (
             {/* 404 Route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+          <Toaster />
+        </TooltipProvider>
+      </BrowserRouter>
     </LanguageProvider>
   </QueryClientProvider>
 );

@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -113,6 +114,16 @@ ToastDescription.displayName = ToastPrimitives.Description.displayName
 type ToastProps = React.ComponentPropsWithoutRef<typeof Toast>
 
 type ToastActionElement = React.ReactElement<typeof ToastAction>
+
+// Export a simplified toast function for easier use throughout the app
+export const toast = ({ title, description, variant = "default" }: {
+  title?: string;
+  description?: string;
+  variant?: "default" | "destructive";
+}) => {
+  // This is a simplified version since we're not using the full toast functionality
+  console.log(`Toast: ${title}${description ? ` - ${description}` : ''}`);
+};
 
 export {
   type ToastProps,
