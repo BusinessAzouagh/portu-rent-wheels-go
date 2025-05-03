@@ -58,27 +58,32 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
       
       <div className="mb-6 p-4 bg-gray-50 rounded-md">
         <h3 className="font-medium mb-4 text-primary">{t('reservation.rentalPeriod')}</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          {/* Combined Start Date and Time */}
-          <DateTimeSelector
-            label={t('search.startDate')}
-            date={startDate}
-            time={startTime}
-            onDateChange={updateStartDateTime}
-            onTimeChange={handleStartTimeChange}
-            locale={getLocale()}
-          />
-          
-          {/* Combined End Date and Time */}
-          <DateTimeSelector
-            label={t('search.endDate')}
-            date={endDate}
-            time={endTime}
-            onDateChange={updateEndDateTime}
-            onTimeChange={handleEndTimeChange}
-            minDate={startDate}
-            locale={getLocale()}
-          />
+        
+        {/* Compact Date/Time selectors on one line */}
+        <div className="mb-4">
+          <p className="text-sm text-gray-500 mb-2">{t('reservation.selectDates')}</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <DateTimeSelector
+              label={t('search.startDate')}
+              date={startDate}
+              time={startTime}
+              onDateChange={updateStartDateTime}
+              onTimeChange={handleStartTimeChange}
+              locale={getLocale()}
+              compact={true}
+            />
+            
+            <DateTimeSelector
+              label={t('search.endDate')}
+              date={endDate}
+              time={endTime}
+              onDateChange={updateEndDateTime}
+              onTimeChange={handleEndTimeChange}
+              minDate={startDate}
+              locale={getLocale()}
+              compact={true}
+            />
+          </div>
         </div>
         
         <PriceSummary 

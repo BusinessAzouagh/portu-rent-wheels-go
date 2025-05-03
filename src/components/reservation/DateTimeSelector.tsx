@@ -21,6 +21,7 @@ interface DateTimeSelectorProps {
   onTimeChange: (time: string) => void;
   minDate?: Date;
   locale?: Locale;
+  compact?: boolean;
 }
 
 const DateTimeSelector = ({
@@ -30,10 +31,10 @@ const DateTimeSelector = ({
   onDateChange,
   onTimeChange,
   minDate,
-  locale
+  locale,
+  compact = false
 }: DateTimeSelectorProps) => {
   const { t } = useLanguage();
-  const [isTimeOpen, setIsTimeOpen] = useState(false);
   
   // Generate time options in 30-minute increments
   const timeOptions = [];
@@ -47,23 +48,35 @@ const DateTimeSelector = ({
   
   const handleTimeClick = (selectedTime: string) => {
     onTimeChange(selectedTime);
-    setIsTimeOpen(false);
   };
   
+  // Format the date in a more compact way
+  const formattedDate = format(date, compact ? "dd/MM/yy" : "dd MMMM yyyy", { locale });
+  
   return (
-    <div>
-      <label htmlFor={`${label}-date`} className="block mb-2">{label}</label>
+    <div className={compact ? "" : "w-full"}>
+      {!compact && <label htmlFor={`${label}-date`} className="block mb-2">{label}</label>}
       <Popover>
         <PopoverTrigger asChild>
           <Button
             variant="outline"
             className={cn(
               "w-full justify-start text-left font-normal text-gray-800",
+              compact ? "text-sm px-3 py-1 h-auto" : "",
               !date && "text-muted-foreground"
             )}
           >
-            <CalendarClock className="mr-2 h-4 w-4" />
-            {format(date, "dd MMMM yyyy", { locale })} à {time}
+            <CalendarClock className={cn("mr-2", compact ? "h-3 w-3" : "h-4 w-4")} />
+            {compact ? (
+              <>
+                {compact && <span className="font-medium mr-1">{label}:</span>}
+                {formattedDate} {time}
+              </>
+            ) : (
+              <>
+                {formattedDate} à {time}
+              </>
+            )}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
