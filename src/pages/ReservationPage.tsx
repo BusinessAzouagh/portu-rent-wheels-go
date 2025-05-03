@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -7,39 +8,78 @@ import { Car } from "@/components/CarCard";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 
+// Extended car information
+interface ExtendedCar extends Car {
+  brand?: string;
+  transmission?: "Manuelle" | "Automatique";
+  fuelType?: "Essence" | "Diesel";
+  features?: string[];
+  seats?: number;
+  luggage?: number;
+  airConditioned?: boolean;
+}
+
 // Mock data for cars (would be fetched from API in real app)
-const MOCK_CARS: { [key: string]: Car } = {
+const MOCK_CARS: { [key: string]: ExtendedCar } = {
   "1": {
     id: "1",
-    model: "Renault Clio",
+    model: "Clio",
+    brand: "Renault",
     licensePlate: "AA-123-BB",
     image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=800",
     pricePerDay: 40,
     available: true,
+    transmission: "Manuelle",
+    fuelType: "Essence",
+    features: ["Bluetooth", "USB", "GPS"],
+    seats: 5,
+    luggage: 2,
+    airConditioned: true,
   },
   "2": {
     id: "2",
-    model: "Peugeot 208",
+    model: "208",
+    brand: "Peugeot",
     licensePlate: "CC-456-DD",
     image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=800",
     pricePerDay: 45,
     available: true,
+    transmission: "Automatique",
+    fuelType: "Diesel",
+    features: ["Bluetooth", "Caméra de recul", "USB"],
+    seats: 5,
+    luggage: 2,
+    airConditioned: true,
   },
   "3": {
     id: "3",
-    model: "Volkswagen Golf",
+    model: "Golf",
+    brand: "Volkswagen",
     licensePlate: "EE-789-FF",
     image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800",
     pricePerDay: 50,
     available: false,
+    transmission: "Manuelle",
+    fuelType: "Diesel",
+    features: ["Bluetooth", "Caméra de recul", "GPS", "USB"],
+    seats: 5,
+    luggage: 3,
+    airConditioned: true,
   },
   "4": {
     id: "4",
-    model: "Fiat 500",
+    model: "500",
+    brand: "Fiat",
     licensePlate: "GG-012-HH",
     image: "https://images.unsplash.com/photo-1617654112368-307b8947646c?q=80&w=800",
     pricePerDay: 35,
     available: true,
+    transmission: "Manuelle",
+    fuelType: "Essence",
+    features: ["Bluetooth", "USB"],
+    seats: 4,
+    luggage: 1,
+    airConditioned: true,
   }
 };
 
@@ -47,7 +87,7 @@ const ReservationPage = () => {
   const { carId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const [car, setCar] = useState<Car | null>(null);
+  const [car, setCar] = useState<ExtendedCar | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -152,23 +192,41 @@ const ReservationPage = () => {
               <div className="bg-white rounded-lg overflow-hidden shadow-md">
                 <img 
                   src={car.image} 
-                  alt={car.model} 
+                  alt={`${car.brand} ${car.model}`} 
                   className="w-full h-64 object-cover"
                 />
                 <div className="p-6">
-                  <h1 className="text-2xl font-bold mb-2">{car.model}</h1>
+                  <h1 className="text-2xl font-bold mb-2">
+                    {car.brand} {car.model}
+                  </h1>
                   <p className="text-gray-600 mb-4">Plaque d'immatriculation: {car.licensePlate}</p>
                   
                   <div className="mb-4">
                     <h3 className="font-semibold mb-2">Informations sur le véhicule:</h3>
                     <ul className="list-disc pl-5 text-gray-700">
-                      <li>Climatisation</li>
-                      <li>Transmission manuelle</li>
-                      <li>Essence</li>
-                      <li>5 sièges</li>
-                      <li>2 bagages</li>
+                      {car.airConditioned && <li>Climatisation</li>}
+                      {car.transmission && <li>Transmission {car.transmission.toLowerCase()}</li>}
+                      {car.fuelType && <li>{car.fuelType}</li>}
+                      {car.seats && <li>{car.seats} sièges</li>}
+                      {car.luggage && <li>{car.luggage} bagages</li>}
                     </ul>
                   </div>
+                  
+                  {car.features && car.features.length > 0 && (
+                    <div className="mb-4">
+                      <h3 className="font-semibold mb-2">Équipements:</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {car.features.map((feature, index) => (
+                          <span 
+                            key={index} 
+                            className="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded"
+                          >
+                            {feature}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                   
                   <div className="text-xl font-bold text-primary">
                     {car.pricePerDay}€ <span className="text-sm font-normal text-gray-500">/ jour</span>

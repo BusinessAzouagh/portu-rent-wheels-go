@@ -71,6 +71,13 @@ const Home = () => {
               <p className="text-lg md:text-xl opacity-90">
                 Des véhicules de qualité, des prix compétitifs et un service client exceptionnel.
               </p>
+              <div className="mt-8 flex justify-center space-x-4">
+                <Link to="/vehicles">
+                  <Button size="lg" variant="outline" className="bg-white bg-opacity-20 hover:bg-opacity-30 border-white text-white">
+                    Voir tous nos véhicules
+                  </Button>
+                </Link>
+              </div>
             </div>
             <SearchForm onSearch={handleSearch} />
           </div>
@@ -110,7 +117,7 @@ const Home = () => {
             </div>
             
             <div className="text-center mt-8">
-              <Link to="/cars">
+              <Link to="/vehicles">
                 <Button variant="outline">Voir tous nos véhicules</Button>
               </Link>
             </div>
