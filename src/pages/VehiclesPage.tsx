@@ -399,7 +399,7 @@ const VehicleCard = ({ car }: { car: ExtendedCarInfo }) => {
         
         <div className="flex items-end justify-between">
           <div className="font-semibold text-primary text-lg">
-            {car.pricePerDay}€ <span className="text-sm font-normal text-gray-500">{t('vehicles.pricePerDay')}</span>
+            {car.pricePerDay * 10} DH <span className="text-sm font-normal text-gray-500">{t('vehicles.pricePerDay')}</span>
           </div>
           
           <Button

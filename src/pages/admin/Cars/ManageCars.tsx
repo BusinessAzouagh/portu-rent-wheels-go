@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -186,7 +185,7 @@ const ManageCars = () => {
                       </TableCell>
                       <TableCell className="font-medium">{car.model}</TableCell>
                       <TableCell>{car.licensePlate}</TableCell>
-                      <TableCell>{car.pricePerDay}€</TableCell>
+                      <TableCell>{car.pricePerDay * 10} DH</TableCell>
                       <TableCell>
                         <Switch 
                           checked={car.available}

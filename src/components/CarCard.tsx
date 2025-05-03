@@ -40,7 +40,7 @@ const CarCard = ({ car }: CarCardProps) => {
           {t('vehicles.licensePlate')}: {car.licensePlate}
         </div>
         <div className="mt-2 font-semibold text-primary">
-          {car.pricePerDay}€ <span className="text-sm font-normal text-gray-500">{t('vehicles.pricePerDay')}</span>
+          {car.pricePerDay * 10} DH <span className="text-sm font-normal text-gray-500">{t('vehicles.pricePerDay')}</span>
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">

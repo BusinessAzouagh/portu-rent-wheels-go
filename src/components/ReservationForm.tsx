@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,11 +16,23 @@ import {
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/i18n/LanguageContext";
 
+export interface ReservationFormData {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  nationalId?: string;
+  email?: string;
+  carId: string;
+  startDate: Date;
+  endDate: Date;
+  status: string;
+}
+
 interface ReservationFormProps {
   car: Car;
   startDate: Date;
   endDate: Date;
-  onSubmit: (formData: any) => Promise<void>;
+  onSubmit: (formData: ReservationFormData) => Promise<void>;
 }
 
 const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEndDate, onSubmit }: ReservationFormProps) => {
@@ -175,7 +186,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
 
   // Calculate number of days
   const days = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-  const totalPrice = days * car.pricePerDay;
+  const totalPrice = days * car.pricePerDay * 10;
 
   return (
     <div className="w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
@@ -269,7 +280,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
         
         <div className="bg-white p-3 rounded-md border border-gray-200 mt-4">
           <p className="font-medium text-primary">{t('reservation.totalPrice')}</p>
-          <p className="font-bold text-lg">{totalPrice}€ ({days} {t('reservation.days')} {car.pricePerDay}€)</p>
+          <p className="font-bold text-lg">{totalPrice} DH ({days} {t('reservation.days')} {car.pricePerDay * 10} DH)</p>
         </div>
       </div>
       

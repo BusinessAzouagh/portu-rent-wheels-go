@@ -233,7 +233,7 @@ const AddCar = () => {
                     <FormItem>
                       <FormLabel className="flex items-center">
                         <Coins className="mr-2 h-4 w-4" />
-                        Prix par jour (€)
+                        Prix par jour (DH)
                       </FormLabel>
                       <FormControl>
                         <Input 
