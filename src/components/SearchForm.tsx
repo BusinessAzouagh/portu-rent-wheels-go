@@ -14,8 +14,13 @@ interface SearchFormData {
 }
 
 const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void }) => {
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  // Initialize with today's date and today + 3 days
+  const today = new Date();
+  const threeDaysLater = new Date();
+  threeDaysLater.setDate(today.getDate() + 3);
+
+  const [startDate, setStartDate] = useState<Date>(today);
+  const [endDate, setEndDate] = useState<Date>(threeDaysLater);
   const [startTime, setStartTime] = useState("12:00");
   const [endTime, setEndTime] = useState("12:00");
   const [errors, setErrors] = useState({
@@ -32,6 +37,36 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void
       case 'fr': return fr;
       // Add other locale imports if needed
       default: return undefined;
+    }
+  };
+
+  // Handle startDate change with bidirectional validation
+  const handleStartDateChange = (date?: Date) => {
+    if (date) {
+      setStartDate(date);
+      
+      // If the new start date is after the current end date, adjust the end date
+      if (date > endDate) {
+        // Set end date to start date + 1 day
+        const newEndDate = new Date(date);
+        newEndDate.setDate(date.getDate() + 1);
+        setEndDate(newEndDate);
+      }
+    }
+  };
+
+  // Handle endDate change with bidirectional validation
+  const handleEndDateChange = (date?: Date) => {
+    if (date) {
+      setEndDate(date);
+      
+      // If the new end date is before the current start date, adjust the start date
+      if (date < startDate) {
+        // Set start date to end date - 1 day
+        const newStartDate = new Date(date);
+        newStartDate.setDate(date.getDate() - 1);
+        setStartDate(newStartDate);
+      }
     }
   };
 
@@ -58,9 +93,9 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void
     }
 
     const formData = {
-      startDate: startDate as Date, // Type assertion since we validate it exists
+      startDate,
       startTime,
-      endDate: endDate as Date, // Type assertion since we validate it exists
+      endDate,
       endTime
     };
 
@@ -78,11 +113,12 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void
             label={t('search.startDate')}
             date={startDate}
             time={startTime}
-            onDateChange={setStartDate}
+            onDateChange={handleStartDateChange}
             onTimeChange={setStartTime}
             locale={getLocale()}
             dateError={errors.startDate}
             timeError={!!errors.startTime}
+            maxDate={endDate} // Add this to limit the start date to be before or equal to end date
           />
         </div>
         
@@ -92,7 +128,7 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void
             label={t('search.endDate')}
             date={endDate}
             time={endTime}
-            onDateChange={setEndDate}
+            onDateChange={handleEndDateChange}
             onTimeChange={setEndTime}
             minDate={startDate}
             locale={getLocale()}

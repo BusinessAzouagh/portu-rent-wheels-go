@@ -14,6 +14,8 @@ interface DateTimeSelectorProps {
   maxDate?: Date;
   locale?: Locale;
   compact?: boolean;
+  dateError?: string;
+  timeError?: boolean;
 }
 
 const DateTimeSelector = ({
@@ -25,7 +27,9 @@ const DateTimeSelector = ({
   minDate,
   maxDate,
   locale,
-  compact = false
+  compact = false,
+  dateError,
+  timeError
 }: DateTimeSelectorProps) => {
   const { t } = useLanguage();
   
@@ -44,6 +48,7 @@ const DateTimeSelector = ({
             locale={locale}
             compact={compact}
           />
+          {dateError && <p className="text-sm text-red-500 mt-1">{dateError}</p>}
         </div>
         
         {/* Time Picker Component */}
@@ -52,6 +57,7 @@ const DateTimeSelector = ({
             time={time}
             onTimeChange={onTimeChange}
           />
+          {timeError && <p className="text-sm text-red-500 mt-1">{t('validation.required')}</p>}
         </div>
       </div>
     </div>
