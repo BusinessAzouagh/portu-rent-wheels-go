@@ -49,6 +49,7 @@ const ReservationForm = ({
     days,
     totalPrice,
     isSubmitting,
+    validationError,
     handleChange,
     updateStartDateTime,
     updateEndDateTime,
@@ -103,6 +104,13 @@ const ReservationForm = ({
               />
             </div>
           </div>
+          
+          {/* Display validation error if present */}
+          {validationError && (
+            <div className="text-sm font-medium text-destructive mt-2">
+              {t(validationError)}
+            </div>
+          )}
         </div>
         
         <PriceSummary 
@@ -121,7 +129,7 @@ const ReservationForm = ({
         <Button
           type="submit"
           className="w-full mt-6"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !!validationError}
         >
           {isSubmitting ? t('reservation.processing') : t('reservation.confirmReservation')}
         </Button>

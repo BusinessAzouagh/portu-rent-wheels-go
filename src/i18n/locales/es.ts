@@ -1,3 +1,4 @@
+
 export const es = {
   common: {
     home: "Inicio",
@@ -176,7 +177,8 @@ export const es = {
     reservationError: "Se produjo un error durante la reserva. Por favor, inténtelo de nuevo.",
     fillRequired: "Por favor, complete todos los campos obligatorios.",
     endDateAfterStart: "La fecha de finalización debe ser posterior a la fecha de inicio.",
-    endTimeAfterStart: "La hora de finalización debe ser posterior a la hora de inicio para el mismo día."
+    endTimeAfterStart: "La hora de finalización debe ser posterior a la hora de inicio para el mismo día.",
+    invalidEndDate: "La fecha y hora de fin deben ser posteriores a las de inicio."
   },
   services: {
     ourServices: "Nuestros servicios",

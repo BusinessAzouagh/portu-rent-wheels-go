@@ -1,3 +1,4 @@
+
 export const ar = {
   common: {
     home: "الرئيسية",
@@ -176,7 +177,8 @@ export const ar = {
     reservationError: "حدث خطأ أثناء الحجز. يرجى المحاولة مرة أخرى.",
     fillRequired: "يرجى ملء جميع الحقول المطلوبة.",
     endDateAfterStart: "يجب أن يكون تاريخ الانتهاء بعد تاريخ البدء.",
-    endTimeAfterStart: "يجب أن يكون وقت الانتهاء بعد وقت البدء لنفس اليوم."
+    endTimeAfterStart: "يجب أن يكون وقت الانتهاء بعد وقت البدء لنفس اليوم.",
+    invalidEndDate: "يجب أن يكون تاريخ ووقت الانتهاء بعد تاريخ ووقت البدء."
   },
   services: {
     ourServices: "خدماتنا",
