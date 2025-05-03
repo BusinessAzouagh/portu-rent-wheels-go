@@ -74,7 +74,8 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
             onDateChange={setStartDate}
             onTimeChange={setStartTime}
             locale={getLocale()}
-            error={errors.startDate}
+            dateError={errors.startDate}
+            timeError={!!errors.startTime}
           />
         </div>
         
@@ -88,7 +89,8 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
             onTimeChange={setEndTime}
             minDate={startDate}
             locale={getLocale()}
-            error={errors.endDate}
+            dateError={errors.endDate}
+            timeError={!!errors.endTime}
           />
         </div>
         
