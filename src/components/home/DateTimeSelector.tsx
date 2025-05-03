@@ -28,6 +28,7 @@ interface DateTimeSelectorProps {
   onTimeChange: (time: string) => void;
   minDate?: Date;
   locale?: Locale;
+  error?: string;
 }
 
 const DateTimeSelector = ({
@@ -38,6 +39,7 @@ const DateTimeSelector = ({
   onTimeChange,
   minDate,
   locale,
+  error,
 }: DateTimeSelectorProps) => {
   const { t } = useLanguage();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -76,7 +78,8 @@ const DateTimeSelector = ({
                 variant="outline"
                 className={cn(
                   "w-full justify-start text-left font-normal bg-white border-gray-300 text-gray-800",
-                  !date && "text-gray-500"
+                  !date && "text-gray-500",
+                  error && "border-red-500"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
@@ -111,7 +114,10 @@ const DateTimeSelector = ({
         <div className="md:col-span-4 grid grid-cols-2 gap-2">
           <div>
             <Select value={currentHour} onValueChange={handleHourChange}>
-              <SelectTrigger className="w-full bg-white border-gray-300 text-black">
+              <SelectTrigger className={cn(
+                "w-full bg-white border-gray-300 text-black",
+                error && "border-red-500"
+              )}>
                 <div className="flex items-center">
                   <Clock className="h-4 w-4 mr-2 text-gray-500" />
                   <SelectValue className="text-black" placeholder={t('common.hour')} />
@@ -126,7 +132,10 @@ const DateTimeSelector = ({
           </div>
           <div>
             <Select value={currentMinute} onValueChange={handleMinuteChange}>
-              <SelectTrigger className="w-full bg-white border-gray-300 text-black">
+              <SelectTrigger className={cn(
+                "w-full bg-white border-gray-300 text-black",
+                error && "border-red-500"
+              )}>
                 <SelectValue className="text-black" placeholder={t('common.minute')} />
               </SelectTrigger>
               <SelectContent className="bg-white shadow-md">
@@ -138,6 +147,11 @@ const DateTimeSelector = ({
           </div>
         </div>
       </div>
+      
+      {/* Error message */}
+      {error && (
+        <p className="text-red-500 text-sm mt-1">{error}</p>
+      )}
     </div>
   );
 };

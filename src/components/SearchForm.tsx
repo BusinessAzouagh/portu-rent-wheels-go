@@ -11,6 +11,12 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
   const [endDate, setEndDate] = useState<Date>();
   const [startTime, setStartTime] = useState("12:00");
   const [endTime, setEndTime] = useState("12:00");
+  const [errors, setErrors] = useState({
+    startDate: "",
+    endDate: "",
+    startTime: "",
+    endTime: "",
+  });
   const { t, language } = useLanguage();
   
   // Get locale based on current language
@@ -22,10 +28,25 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
     }
   };
 
+  const validateForm = () => {
+    const newErrors = {
+      startDate: !startDate ? t('validation.required') : "",
+      endDate: !endDate ? t('validation.required') : "",
+      startTime: !startTime ? t('validation.required') : "",
+      endTime: !endTime ? t('validation.required') : "",
+    };
+    
+    setErrors(newErrors);
+    
+    // Check if any errors exist
+    return !Object.values(newErrors).some(error => error !== "");
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!startDate || !endDate) {
+    // Validate form before submission
+    if (!validateForm()) {
       return;
     }
 
@@ -53,6 +74,7 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
             onDateChange={setStartDate}
             onTimeChange={setStartTime}
             locale={getLocale()}
+            error={errors.startDate}
           />
         </div>
         
@@ -66,6 +88,7 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
             onTimeChange={setEndTime}
             minDate={startDate}
             locale={getLocale()}
+            error={errors.endDate}
           />
         </div>
         
