@@ -48,7 +48,7 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg md:w-full lg:max-w-4xl mx-auto">
+    <div className="bg-white/90 backdrop-blur p-6 rounded-lg shadow-lg md:w-full lg:max-w-4xl mx-auto">
       <h2 className="text-lg md:text-xl font-bold mb-4 text-center text-gray-800">{t('search.findPerfectCar')}</h2>
       
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -62,8 +62,8 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal",
-                  !startDate && "text-muted-foreground"
+                  "w-full justify-start text-left font-normal bg-white border-gray-300",
+                  !startDate && "text-gray-500"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
@@ -97,7 +97,7 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
             id="startTime"
             value={startTime}
             onChange={(e) => setStartTime(e.target.value)}
-            className="w-full"
+            className="w-full bg-white border-gray-300 text-gray-800"
             required
           />
         </div>
@@ -112,8 +112,8 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal",
-                  !endDate && "text-muted-foreground"
+                  "w-full justify-start text-left font-normal bg-white border-gray-300",
+                  !endDate && "text-gray-500"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
@@ -147,7 +147,7 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
             id="endTime"
             value={endTime}
             onChange={(e) => setEndTime(e.target.value)}
-            className="w-full"
+            className="w-full bg-white border-gray-300 text-gray-800"
             required
           />
         </div>

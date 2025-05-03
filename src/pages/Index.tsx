@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -63,8 +64,24 @@ const Home = () => {
       
       <main className="flex-grow">
         {/* Hero Section with Search Form */}
-        <section className="hero-section flex items-center justify-center text-white">
-          <div className="container mx-auto px-4 py-16">
+        <section 
+          className="hero-section relative flex items-center justify-center text-white"
+          style={{
+            minHeight: "600px"
+          }}
+        >
+          {/* Background Image with Overlay */}
+          <div 
+            className="absolute inset-0 z-0 bg-cover bg-center" 
+            style={{
+              backgroundImage: "url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format')",
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
+          />
+          <div className="absolute inset-0 z-0 bg-black bg-opacity-60" />
+          
+          <div className="container relative z-10 mx-auto px-4 py-16">
             <div className="max-w-3xl mx-auto text-center mb-8">
               <h1 className="text-3xl md:text-5xl font-bold mb-4">
                 {t('home.rentIdealCar')}

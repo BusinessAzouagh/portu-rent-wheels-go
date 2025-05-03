@@ -133,3 +133,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Hero section custom styles */
+.hero-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
