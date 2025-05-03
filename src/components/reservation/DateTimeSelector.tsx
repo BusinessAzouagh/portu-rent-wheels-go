@@ -27,6 +27,7 @@ interface DateTimeSelectorProps {
   onDateChange: (date?: Date) => void;
   onTimeChange: (time: string) => void;
   minDate?: Date;
+  maxDate?: Date;
   locale?: Locale;
   compact?: boolean;
 }
@@ -38,6 +39,7 @@ const DateTimeSelector = ({
   onDateChange,
   onTimeChange,
   minDate,
+  maxDate,
   locale,
   compact = false
 }: DateTimeSelectorProps) => {
@@ -104,9 +106,38 @@ const DateTimeSelector = ({
                   }
                 }}
                 initialFocus
-                disabled={(currentDate) => 
-                  minDate ? currentDate < minDate : currentDate < new Date()
-                }
+                disabled={(currentDate) => {
+                  let isDisabled = false;
+                  
+                  // Disable dates before minDate (for endDate picker)
+                  if (minDate) {
+                    const minDateWithoutTime = new Date(minDate);
+                    minDateWithoutTime.setHours(0, 0, 0, 0);
+                    if (currentDate < minDateWithoutTime) {
+                      isDisabled = true;
+                    }
+                  }
+                  
+                  // Disable dates after maxDate (for startDate picker)
+                  if (maxDate && !isDisabled) {
+                    const maxDateWithoutTime = new Date(maxDate);
+                    maxDateWithoutTime.setHours(23, 59, 59, 999);
+                    if (currentDate > maxDateWithoutTime) {
+                      isDisabled = true;
+                    }
+                  }
+                  
+                  // If neither of the above conditions matched, check if date is before today
+                  if (!isDisabled && !minDate) {
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    if (currentDate < today) {
+                      isDisabled = true;
+                    }
+                  }
+                  
+                  return isDisabled;
+                }}
                 className="p-3 pointer-events-auto rounded-md border shadow-md"
                 locale={locale}
               />

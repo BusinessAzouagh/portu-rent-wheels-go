@@ -71,15 +71,20 @@ export const useReservationForm = ({
       const [hours, minutes] = startTime.split(':').map(Number);
       const newDate = new Date(date);
       newDate.setHours(hours, minutes, 0, 0);
-      setStartDate(newDate);
       
-      // If end date is before new start date, update end date
-      if (endDate < newDate) {
-        // Set end date to start date + 1 day
-        const newEndDate = new Date(newDate);
-        newEndDate.setDate(newDate.getDate() + 1);
-        setEndDate(newEndDate);
-        setEndTime(startTime);
+      // Ensure start date is not after end date
+      if (newDate < endDate) {
+        setStartDate(newDate);
+        setValidationError(null); // Clear validation error since dates are valid
+      } else {
+        toast({
+          title: t('common.error'),
+          description: t('reservation.startDateBeforeEnd'),
+          variant: "destructive",
+        });
+        setValidationError('reservation.invalidEndDate');
+        // Don't update the date if it would create an invalid state
+        return;
       }
       
       // Validate dates after update
@@ -113,14 +118,20 @@ export const useReservationForm = ({
     const [hours, minutes] = timeValue.split(':').map(Number);
     const newStartDate = new Date(startDate);
     newStartDate.setHours(hours, minutes, 0, 0);
-    setStartDate(newStartDate);
     
     // Check if new start time makes start date after end date
-    if (newStartDate > endDate) {
-      const newEndDate = new Date(newStartDate);
-      newEndDate.setDate(newStartDate.getDate() + 1);
-      setEndDate(newEndDate);
-      setEndTime(timeValue);
+    if (newStartDate < endDate) {
+      setStartDate(newStartDate);
+      setValidationError(null); // Clear validation error
+    } else {
+      toast({
+        title: t('common.error'),
+        description: t('reservation.startTimeBeforeEnd'),
+        variant: "destructive",
+      });
+      setValidationError('reservation.invalidEndDate');
+      // Reset to a valid time
+      setStartTime(timeValue);
     }
     
     // Validate dates after time change
@@ -214,3 +225,4 @@ export const useReservationForm = ({
     handleSubmit
   };
 };
+

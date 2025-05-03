@@ -85,6 +85,7 @@ const ReservationForm = ({
                 time={startTime}
                 onDateChange={updateStartDateTime}
                 onTimeChange={handleStartTimeChange}
+                maxDate={endDate}
                 locale={getLocale()}
                 compact={false}
               />
