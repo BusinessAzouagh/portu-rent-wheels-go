@@ -6,9 +6,16 @@ import { fr } from "date-fns/locale";
 import { useLanguage } from "@/i18n/LanguageContext";
 import DateTimeSelector from "./home/DateTimeSelector";
 
-const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
+interface SearchFormData {
+  startDate: Date;
+  endDate: Date;
+  startTime: string;
+  endTime: string;
+}
+
+const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void }) => {
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date(Date.now() + 3 * 24 * 60 * 60 * 1000));
   const [startTime, setStartTime] = useState("12:00");
   const [endTime, setEndTime] = useState("12:00");
   const [errors, setErrors] = useState({
@@ -105,3 +112,4 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
 };
 
 export default SearchForm;
+

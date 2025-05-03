@@ -50,15 +50,33 @@ const MOCK_CARS: Car[] = [
   },
 ];
 
+interface SearchResult extends Car {
+  startDate?: Date;
+  endDate?: Date;
+  startTime?: string;
+  endTime?: string;
+}
+
 const Home = () => {
-  const [searchResults, setSearchResults] = useState<Car[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
   const { t } = useLanguage();
   
   const handleSearch = (formData: any) => {
     console.log("Search data:", formData);
     // In a real app, this would make an API call to fetch available cars
-    setSearchResults(MOCK_CARS.filter(car => car.available));
+    // Now include the search dates/times with each car result
+    const results = MOCK_CARS
+      .filter(car => car.available)
+      .map(car => ({
+        ...car,
+        startDate: formData.startDate,
+        endDate: formData.endDate,
+        startTime: formData.startTime,
+        endTime: formData.endTime
+      }));
+    
+    setSearchResults(results);
     setHasSearched(true);
   };
 
@@ -117,7 +135,14 @@ const Home = () => {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {searchResults.map(car => (
-                  <CarCard key={car.id} car={car} />
+                  <CarCard 
+                    key={car.id} 
+                    car={car} 
+                    startDate={car.startDate}
+                    endDate={car.endDate}
+                    startTime={car.startTime}
+                    endTime={car.endTime}
+                  />
                 ))}
               </div>
             </div>

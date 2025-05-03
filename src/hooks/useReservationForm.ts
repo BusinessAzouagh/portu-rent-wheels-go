@@ -1,6 +1,5 @@
 
 import { useState } from "react";
-import { format } from "date-fns";
 import { toast } from "@/components/ui/toast";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Car } from "@/types/cars";
@@ -10,6 +9,8 @@ interface UseReservationFormProps {
   car: Car;
   initialStartDate: Date;
   initialEndDate: Date;
+  initialStartTime?: string;
+  initialEndTime?: string;
   onSubmit: (formData: ReservationFormData) => Promise<void>;
   getLocale: () => any; // Function to get the locale provided by parent component
 }
@@ -17,24 +18,20 @@ interface UseReservationFormProps {
 export const useReservationForm = ({ 
   car, 
   initialStartDate, 
-  initialEndDate, 
+  initialEndDate,
+  initialStartTime = "12:00",
+  initialEndTime = "12:00",
   onSubmit,
   getLocale 
 }: UseReservationFormProps) => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
   
-  // Définir les heures à 12:00 par défaut
-  const defaultStartDate = new Date(initialStartDate);
-  defaultStartDate.setHours(12, 0, 0, 0);
-  
-  const defaultEndDate = new Date(initialEndDate);
-  defaultEndDate.setHours(12, 0, 0, 0);
-  
-  const [startDate, setStartDate] = useState<Date>(defaultStartDate);
-  const [endDate, setEndDate] = useState<Date>(defaultEndDate);
-  const [startTime, setStartTime] = useState("12:00");
-  const [endTime, setEndTime] = useState("12:00");
+  // Use the provided times or defaults
+  const [startDate, setStartDate] = useState<Date>(initialStartDate);
+  const [endDate, setEndDate] = useState<Date>(initialEndDate);
+  const [startTime, setStartTime] = useState(initialStartTime);
+  const [endTime, setEndTime] = useState(initialEndTime);
   
   const [formData, setFormData] = useState<CustomerFormData>({
     firstName: "",

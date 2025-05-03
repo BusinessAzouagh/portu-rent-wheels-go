@@ -14,10 +14,19 @@ interface ReservationFormProps {
   car: Car;
   startDate: Date;
   endDate: Date;
+  startTime?: string;
+  endTime?: string;
   onSubmit: (formData: ReservationFormData) => Promise<void>;
 }
 
-const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEndDate, onSubmit }: ReservationFormProps) => {
+const ReservationForm = ({ 
+  car, 
+  startDate: initialStartDate, 
+  endDate: initialEndDate, 
+  startTime: initialStartTime = "12:00", 
+  endTime: initialEndTime = "12:00",
+  onSubmit 
+}: ReservationFormProps) => {
   const { t, language } = useLanguage();
   const isMobile = useIsMobile();
   
@@ -50,6 +59,8 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
     car,
     initialStartDate,
     initialEndDate,
+    initialStartTime,
+    initialEndTime,
     onSubmit,
     getLocale
   });

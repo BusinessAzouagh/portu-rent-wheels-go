@@ -24,13 +24,31 @@ const ReservationPage = () => {
   const { car, isLoading } = useCarData({ carId });
   const isMobile = useIsMobile();
 
-  // Get date params from URL or use defaults
+  // Get date/time parameters from URL
   const searchParams = new URLSearchParams(location.search);
   const startDateParam = searchParams.get('startDate');
   const endDateParam = searchParams.get('endDate');
+  const startTimeParam = searchParams.get('startTime');
+  const endTimeParam = searchParams.get('endTime');
   
+  // Parse the dates from the URL or use defaults
   let startDate = startDateParam ? new Date(startDateParam) : new Date();
   let endDate = endDateParam ? new Date(endDateParam) : new Date(Date.now() + 3 * 24 * 60 * 60 * 1000); // 3 days from now
+  
+  // Use the times from URL or defaults
+  const startTime = startTimeParam || "12:00";
+  const endTime = endTimeParam || "12:00";
+  
+  // If we have time parameters, properly set the hours/minutes in the date objects
+  if (startTimeParam && startDate) {
+    const [hours, minutes] = startTimeParam.split(':').map(Number);
+    startDate.setHours(hours, minutes, 0, 0);
+  }
+  
+  if (endTimeParam && endDate) {
+    const [hours, minutes] = endTimeParam.split(':').map(Number);
+    endDate.setHours(hours, minutes, 0, 0);
+  }
 
   const handleSubmitReservation = async (formData: ReservationFormData) => {
     console.log("Submitting reservation:", formData);
@@ -83,6 +101,8 @@ const ReservationPage = () => {
               car={car} 
               startDate={startDate} 
               endDate={endDate} 
+              startTime={startTime}
+              endTime={endTime}
               onSubmit={handleSubmitReservation}
             />
           </div>
@@ -94,7 +114,7 @@ const ReservationPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className="flex-grow container mx-auto px-4 py-2">
+      <main className="flex-grow container mx-auto py-2">
         {renderContent()}
       </main>
       <Footer />
