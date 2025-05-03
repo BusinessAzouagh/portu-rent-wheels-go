@@ -26,6 +26,7 @@ export const useReservationForm = ({
 }: UseReservationFormProps) => {
   const { t } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
   
   // Use the provided times or defaults
   const [startDate, setStartDate] = useState<Date>(initialStartDate);
@@ -53,6 +54,18 @@ export const useReservationForm = ({
     }));
   };
 
+  const validateDates = () => {
+    // Check if end date/time is after start date/time
+    if (endDate <= startDate) {
+      setValidationError('reservation.invalidEndDate');
+      return false;
+    }
+    
+    // Clear validation errors if dates are valid
+    setValidationError(null);
+    return true;
+  };
+
   const updateStartDateTime = (date?: Date) => {
     if (date) {
       const [hours, minutes] = startTime.split(':').map(Number);
@@ -68,6 +81,9 @@ export const useReservationForm = ({
         setEndDate(newEndDate);
         setEndTime(startTime);
       }
+      
+      // Validate dates after update
+      validateDates();
     }
   };
 
@@ -80,12 +96,14 @@ export const useReservationForm = ({
       // Ensure end date is not before start date
       if (newDate > startDate) {
         setEndDate(newDate);
+        setValidationError(null); // Clear validation error since dates are valid
       } else {
         toast({
           title: t('common.error'),
           description: t('reservation.endDateAfterStart'),
           variant: "destructive",
         });
+        setValidationError('reservation.invalidEndDate');
       }
     }
   };
@@ -104,6 +122,9 @@ export const useReservationForm = ({
       setEndDate(newEndDate);
       setEndTime(timeValue);
     }
+    
+    // Validate dates after time change
+    validateDates();
   };
 
   const handleEndTimeChange = (timeValue: string) => {
@@ -115,12 +136,14 @@ export const useReservationForm = ({
     // Ensure end date is not before start date
     if (newEndDate > startDate) {
       setEndDate(newEndDate);
+      setValidationError(null); // Clear validation error since dates are valid
     } else {
       toast({
         title: t('common.error'),
         description: t('reservation.endTimeAfterStart'),
         variant: "destructive",
       });
+      setValidationError('reservation.invalidEndDate');
       // Reset to a valid time
       setEndTime(startTime);
     }
@@ -128,6 +151,11 @@ export const useReservationForm = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate dates before submission
+    if (!validateDates()) {
+      return;
+    }
     
     if (!formData.firstName || !formData.lastName || !formData.phone) {
       toast({
@@ -176,6 +204,7 @@ export const useReservationForm = ({
     days,
     totalPrice,
     isSubmitting,
+    validationError,
     getLocale,
     handleChange,
     updateStartDateTime,
