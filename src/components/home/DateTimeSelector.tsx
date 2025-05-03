@@ -117,7 +117,7 @@ const DateTimeSelector = ({
                   <SelectValue className="text-black" placeholder={t('common.hour')} />
                 </div>
               </SelectTrigger>
-              <SelectContent className="bg-white">
+              <SelectContent className="bg-white shadow-md">
                 {hours.map(hour => (
                   <SelectItem key={hour} value={hour} className="text-black">{hour}</SelectItem>
                 ))}
@@ -129,7 +129,7 @@ const DateTimeSelector = ({
               <SelectTrigger className="w-full bg-white border-gray-300">
                 <SelectValue className="text-black" placeholder={t('common.minute')} />
               </SelectTrigger>
-              <SelectContent className="bg-white">
+              <SelectContent className="bg-white shadow-md">
                 {minutes.map(minute => (
                   <SelectItem key={minute} value={minute} className="text-black">{minute}</SelectItem>
                 ))}
