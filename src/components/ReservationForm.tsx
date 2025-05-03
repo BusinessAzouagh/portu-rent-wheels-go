@@ -7,6 +7,7 @@ import DateTimeSelector from "./reservation/DateTimeSelector";
 import CustomerForm from "./reservation/CustomerForm";
 import PriceSummary from "./reservation/PriceSummary";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { fr, es, ar, enUS } from "date-fns/locale";
 
 interface ReservationFormProps {
   car: Car;
@@ -18,13 +19,13 @@ interface ReservationFormProps {
 const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEndDate, onSubmit }: ReservationFormProps) => {
   const { t, language } = useLanguage();
   
-  // Function to get locale based on current language
+  // Function to get locale based on current language - now using directly imported locales
   const getLocale = () => {
     switch (language) {
-      case 'fr': return require("date-fns/locale").fr;
-      case 'es': return require("date-fns/locale").es;
-      case 'ar': return require("date-fns/locale").ar;
-      default: return require("date-fns/locale").enUS; // Default to English
+      case 'fr': return fr;
+      case 'es': return es;
+      case 'ar': return ar;
+      default: return enUS; // Default to English
     }
   };
   
