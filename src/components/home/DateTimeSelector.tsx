@@ -68,14 +68,14 @@ const DateTimeSelector = ({
       </label>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-        {/* Date Picker */}
+        {/* Date Picker - Width increased for better text visibility */}
         <div className="md:col-span-1">
           <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 className={cn(
-                  "w-full justify-start text-left font-normal bg-white border-gray-300 text-gray-800",
+                  "w-full min-w-[170px] justify-start text-left font-normal bg-white border-gray-300 text-gray-800",
                   !date && "text-gray-500"
                 )}
               >
@@ -107,19 +107,19 @@ const DateTimeSelector = ({
           </Popover>
         </div>
 
-        {/* Time Selectors - Hour and Minute */}
+        {/* Time Selectors - Hour and Minute with darker text */}
         <div className="md:col-span-2 grid grid-cols-2 gap-2">
           <div>
             <Select value={currentHour} onValueChange={handleHourChange}>
               <SelectTrigger className="w-full bg-white border-gray-300">
-                <div className="flex items-center">
+                <div className="flex items-center text-gray-800">
                   <Clock className="h-4 w-4 mr-2 text-gray-500" />
-                  <SelectValue placeholder={t('common.hour')} />
+                  <SelectValue className="text-gray-800" placeholder={t('common.hour')} />
                 </div>
               </SelectTrigger>
               <SelectContent className="bg-white">
                 {hours.map(hour => (
-                  <SelectItem key={hour} value={hour}>{hour}</SelectItem>
+                  <SelectItem key={hour} value={hour} className="text-gray-800">{hour}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -127,11 +127,11 @@ const DateTimeSelector = ({
           <div>
             <Select value={currentMinute} onValueChange={handleMinuteChange}>
               <SelectTrigger className="w-full bg-white border-gray-300">
-                <SelectValue placeholder={t('common.minute')} />
+                <SelectValue className="text-gray-800" placeholder={t('common.minute')} />
               </SelectTrigger>
               <SelectContent className="bg-white">
                 {minutes.map(minute => (
-                  <SelectItem key={minute} value={minute}>{minute}</SelectItem>
+                  <SelectItem key={minute} value={minute} className="text-gray-800">{minute}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
