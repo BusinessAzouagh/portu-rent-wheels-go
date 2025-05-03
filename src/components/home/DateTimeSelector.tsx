@@ -107,19 +107,19 @@ const DateTimeSelector = ({
           </Popover>
         </div>
 
-        {/* Time Selectors - Hour and Minute with darker text */}
+        {/* Time Selectors - Hour and Minute with black text */}
         <div className="md:col-span-2 grid grid-cols-2 gap-2">
           <div>
             <Select value={currentHour} onValueChange={handleHourChange}>
               <SelectTrigger className="w-full bg-white border-gray-300">
-                <div className="flex items-center text-gray-800">
+                <div className="flex items-center text-black">
                   <Clock className="h-4 w-4 mr-2 text-gray-500" />
-                  <SelectValue className="text-gray-800" placeholder={t('common.hour')} />
+                  <SelectValue className="text-black" placeholder={t('common.hour')} />
                 </div>
               </SelectTrigger>
               <SelectContent className="bg-white">
                 {hours.map(hour => (
-                  <SelectItem key={hour} value={hour} className="text-gray-800">{hour}</SelectItem>
+                  <SelectItem key={hour} value={hour} className="text-black">{hour}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -127,11 +127,11 @@ const DateTimeSelector = ({
           <div>
             <Select value={currentMinute} onValueChange={handleMinuteChange}>
               <SelectTrigger className="w-full bg-white border-gray-300">
-                <SelectValue className="text-gray-800" placeholder={t('common.minute')} />
+                <SelectValue className="text-black" placeholder={t('common.minute')} />
               </SelectTrigger>
               <SelectContent className="bg-white">
                 {minutes.map(minute => (
-                  <SelectItem key={minute} value={minute} className="text-gray-800">{minute}</SelectItem>
+                  <SelectItem key={minute} value={minute} className="text-black">{minute}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
