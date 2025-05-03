@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Send } from "lucide-react";
 import { toast } from "sonner";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -21,6 +22,7 @@ import { sendEmail } from "./ContactFormActions";
 
 const ContactForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t } = useLanguage();
   
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactFormSchema),
@@ -40,16 +42,16 @@ const ContactForm = () => {
       const success = await sendEmail(data);
       
       if (success) {
-        toast.success("Votre message a été envoyé avec succès. Nous vous contacterons bientôt.", {
+        toast.success(t('contact.messageSent'), {
           duration: 5000,
         });
         form.reset();
       } else {
-        throw new Error("Échec de l'envoi du message");
+        throw new Error(t('contact.messageFailed'));
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast.error("Une erreur s'est produite lors de l'envoi du message. Veuillez réessayer plus tard.", {
+      toast.error(t('contact.messageFailed'), {
         duration: 5000,
       });
     } finally {
@@ -59,7 +61,7 @@ const ContactForm = () => {
 
   return (
     <div>
-      <h2 className="text-2xl font-semibold mb-4">Envoyez-nous un message</h2>
+      <h2 className="text-2xl font-semibold mb-4">{t('contact.sendMessage')}</h2>
       
       <div className="bg-white p-6 rounded-lg shadow-md">
         <Form {...form}>
@@ -69,9 +71,9 @@ const ContactForm = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nom <span className="text-red-500">*</span></FormLabel>
+                  <FormLabel>{t('contact.name')} <span className="text-red-500">*</span></FormLabel>
                   <FormControl>
-                    <Input placeholder="Votre nom" {...field} />
+                    <Input placeholder={t('contact.yourName')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -83,7 +85,7 @@ const ContactForm = () => {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Téléphone <span className="text-red-500">*</span></FormLabel>
+                  <FormLabel>{t('contact.phone')} <span className="text-red-500">*</span></FormLabel>
                   <FormControl>
                     <Input 
                       type="tel"
@@ -101,9 +103,9 @@ const ContactForm = () => {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email <span className="text-gray-400">(facultatif)</span></FormLabel>
+                  <FormLabel>{t('contact.email')} <span className="text-gray-400">({t('common.optional')})</span></FormLabel>
                   <FormControl>
-                    <Input placeholder="Votre email" {...field} />
+                    <Input placeholder={t('contact.yourEmail')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -115,9 +117,9 @@ const ContactForm = () => {
               name="subject"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Sujet <span className="text-red-500">*</span></FormLabel>
+                  <FormLabel>{t('contact.subject')} <span className="text-red-500">*</span></FormLabel>
                   <FormControl>
-                    <Input placeholder="Sujet de votre message" {...field} />
+                    <Input placeholder={t('contact.messageSubject')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -129,10 +131,10 @@ const ContactForm = () => {
               name="message"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Message <span className="text-red-500">*</span></FormLabel>
+                  <FormLabel>{t('contact.message')} <span className="text-red-500">*</span></FormLabel>
                   <FormControl>
                     <Textarea 
-                      placeholder="Écrivez votre message ici" 
+                      placeholder={t('contact.writeMessage')} 
                       className="min-h-[150px]"
                       {...field} 
                     />
@@ -149,11 +151,11 @@ const ContactForm = () => {
             >
               {isSubmitting ? (
                 <span className="flex items-center gap-2">
-                  Envoi en cours... 
+                  {t('contact.sending')}
                 </span>
               ) : (
                 <span className="flex items-center gap-2">
-                  <Send className="h-4 w-4" /> Envoyer le message
+                  <Send className="h-4 w-4" /> {t('contact.send')}
                 </span>
               )}
             </Button>

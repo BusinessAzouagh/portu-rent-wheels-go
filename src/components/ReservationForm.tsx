@@ -15,6 +15,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface ReservationFormProps {
   car: Car;
@@ -26,6 +27,7 @@ interface ReservationFormProps {
 const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEndDate, onSubmit }: ReservationFormProps) => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t, language } = useLanguage();
   
   const [startDate, setStartDate] = useState<Date>(initialStartDate);
   const [endDate, setEndDate] = useState<Date>(initialEndDate);
@@ -39,6 +41,15 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
     nationalId: "",
     email: "",
   });
+
+  // Get locale based on current language
+  const getLocale = () => {
+    switch (language) {
+      case 'fr': return fr;
+      // Add other locale imports if needed
+      default: return undefined;
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -77,8 +88,8 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
         setEndDate(newDate);
       } else {
         toast({
-          title: "Erreur",
-          description: "La date de fin doit être après la date de début.",
+          title: t('common.error'),
+          description: t('reservation.endDateAfterStart'),
           variant: "destructive",
         });
       }
@@ -112,8 +123,8 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
       setEndDate(newEndDate);
     } else {
       toast({
-        title: "Erreur",
-        description: "L'heure de fin doit être après l'heure de début pour la même journée.",
+        title: t('common.error'),
+        description: t('reservation.endTimeAfterStart'),
         variant: "destructive",
       });
       // Reset to a valid time
@@ -126,8 +137,8 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
     
     if (!formData.firstName || !formData.lastName || !formData.phone) {
       toast({
-        title: "Erreur",
-        description: "Veuillez remplir tous les champs obligatoires.",
+        title: t('common.error'),
+        description: t('reservation.fillRequired'),
         variant: "destructive",
       });
       return;
@@ -147,14 +158,14 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
       await onSubmit(reservationData);
       
       toast({
-        title: "Réservation envoyée",
-        description: "Merci pour votre réservation ! Nous allons analyser votre demande et vous contacter par téléphone dès que possible.",
+        title: t('reservation.reservationSent'),
+        description: t('reservation.reservationSuccess'),
       });
       
     } catch (error) {
       toast({
-        title: "Erreur",
-        description: "Une erreur est survenue lors de la réservation. Veuillez réessayer.",
+        title: t('common.error'),
+        description: t('reservation.reservationError'),
         variant: "destructive",
       });
     } finally {
@@ -168,14 +179,14 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
 
   return (
     <div className="w-full max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold mb-6 text-center">Réserver {car.model}</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center">{t('reservation.bookNow')} {car.model}</h2>
       
       <div className="mb-6 p-4 bg-gray-50 rounded-md">
-        <h3 className="font-medium mb-4 text-primary">Période de location:</h3>
+        <h3 className="font-medium mb-4 text-primary">{t('reservation.rentalPeriod')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           {/* Date et heure de début */}
           <div>
-            <Label htmlFor="startDate" className="block mb-2">Date de début</Label>
+            <Label htmlFor="startDate" className="block mb-2">{t('search.startDate')}</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -186,7 +197,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
                   )}
                 >
                   <CalendarClock className="mr-2 h-4 w-4" />
-                  {format(startDate, "dd MMMM yyyy", { locale: fr })}
+                  {format(startDate, "dd MMMM yyyy", { locale: getLocale() })}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
@@ -202,7 +213,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
             </Popover>
             
             <div className="mt-2">
-              <Label htmlFor="startTime" className="block mb-2">Heure de début</Label>
+              <Label htmlFor="startTime" className="block mb-2">{t('search.startTime')}</Label>
               <Input
                 type="time"
                 id="startTime"
@@ -216,7 +227,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
           
           {/* Date et heure de fin */}
           <div>
-            <Label htmlFor="endDate" className="block mb-2">Date de fin</Label>
+            <Label htmlFor="endDate" className="block mb-2">{t('search.endDate')}</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
@@ -227,7 +238,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
                   )}
                 >
                   <CalendarClock className="mr-2 h-4 w-4" />
-                  {format(endDate, "dd MMMM yyyy", { locale: fr })}
+                  {format(endDate, "dd MMMM yyyy", { locale: getLocale() })}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
@@ -243,7 +254,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
             </Popover>
             
             <div className="mt-2">
-              <Label htmlFor="endTime" className="block mb-2">Heure de fin</Label>
+              <Label htmlFor="endTime" className="block mb-2">{t('search.endTime')}</Label>
               <Input
                 type="time"
                 id="endTime"
@@ -257,15 +268,15 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
         </div>
         
         <div className="bg-white p-3 rounded-md border border-gray-200 mt-4">
-          <p className="font-medium text-primary">Prix total:</p>
-          <p className="font-bold text-lg">{totalPrice}€ ({days} jours à {car.pricePerDay}€)</p>
+          <p className="font-medium text-primary">{t('reservation.totalPrice')}</p>
+          <p className="font-bold text-lg">{totalPrice}€ ({days} {t('reservation.days')} {car.pricePerDay}€)</p>
         </div>
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="lastName">Nom <span className="text-red-500">*</span></Label>
+            <Label htmlFor="lastName">{t('reservation.lastName')} <span className="text-red-500">*</span></Label>
             <Input
               id="lastName"
               name="lastName"
@@ -276,7 +287,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="firstName">Prénom <span className="text-red-500">*</span></Label>
+            <Label htmlFor="firstName">{t('reservation.firstName')} <span className="text-red-500">*</span></Label>
             <Input
               id="firstName"
               name="firstName"
@@ -289,7 +300,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
         
         <div className="space-y-2">
           <Label htmlFor="phone">
-            Numéro de téléphone <span className="text-red-500">*</span>
+            {t('reservation.phoneNumber')} <span className="text-red-500">*</span>
           </Label>
           <Input
             id="phone"
@@ -303,7 +314,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
         
         <div className="space-y-2">
           <Label htmlFor="nationalId">
-            Numéro de registre national <span className="text-gray-400">(optionnel)</span>
+            {t('reservation.nationalId')} <span className="text-gray-400">({t('common.optional')})</span>
           </Label>
           <Input
             id="nationalId"
@@ -315,7 +326,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
         
         <div className="space-y-2">
           <Label htmlFor="email">
-            Email <span className="text-gray-400">(optionnel)</span>
+            {t('contact.email')} <span className="text-gray-400">({t('common.optional')})</span>
           </Label>
           <Input
             id="email"
@@ -331,7 +342,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
           className="w-full mt-6"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Traitement en cours..." : "Confirmer la réservation"}
+          {isSubmitting ? t('reservation.processing') : t('reservation.confirmReservation')}
         </Button>
       </form>
     </div>

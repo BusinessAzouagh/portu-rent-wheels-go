@@ -12,12 +12,23 @@ import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { fr } from "date-fns/locale";
 import { cn } from "@/lib/utils";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
   const [startDate, setStartDate] = useState<Date>();
   const [endDate, setEndDate] = useState<Date>();
   const [startTime, setStartTime] = useState("10:00");
   const [endTime, setEndTime] = useState("10:00");
+  const { t, language } = useLanguage();
+  
+  // Get locale based on current language
+  const getLocale = () => {
+    switch (language) {
+      case 'fr': return fr;
+      // Add other locale imports if needed
+      default: return undefined;
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,13 +49,13 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-lg md:w-full lg:max-w-4xl mx-auto">
-      <h2 className="text-lg md:text-xl font-bold mb-4 text-center text-gray-800">Trouvez la voiture parfaite pour votre séjour</h2>
+      <h2 className="text-lg md:text-xl font-bold mb-4 text-center text-gray-800">{t('search.findPerfectCar')}</h2>
       
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Date de prise en charge */}
         <div>
           <label htmlFor="startDate" className="block text-sm font-medium text-gray-700 mb-1">
-            Date de début
+            {t('search.startDate')}
           </label>
           <Popover>
             <PopoverTrigger asChild>
@@ -57,9 +68,9 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
                 {startDate ? (
-                  format(startDate, "dd MMMM yyyy", { locale: fr })
+                  format(startDate, "dd MMMM yyyy", { locale: getLocale() })
                 ) : (
-                  <span>Choisir une date</span>
+                  <span>{t('search.chooseDate')}</span>
                 )}
               </Button>
             </PopoverTrigger>
@@ -79,7 +90,7 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
         {/* Heure de prise en charge */}
         <div>
           <label htmlFor="startTime" className="block text-sm font-medium text-gray-700 mb-1">
-            Heure de début
+            {t('search.startTime')}
           </label>
           <Input
             type="time"
@@ -94,7 +105,7 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
         {/* Date de restitution */}
         <div>
           <label htmlFor="endDate" className="block text-sm font-medium text-gray-700 mb-1">
-            Date de fin
+            {t('search.endDate')}
           </label>
           <Popover>
             <PopoverTrigger asChild>
@@ -107,9 +118,9 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
                 {endDate ? (
-                  format(endDate, "dd MMMM yyyy", { locale: fr })
+                  format(endDate, "dd MMMM yyyy", { locale: getLocale() })
                 ) : (
-                  <span>Choisir une date</span>
+                  <span>{t('search.chooseDate')}</span>
                 )}
               </Button>
             </PopoverTrigger>
@@ -129,7 +140,7 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
         {/* Heure de restitution */}
         <div>
           <label htmlFor="endTime" className="block text-sm font-medium text-gray-700 mb-1">
-            Heure de fin
+            {t('search.endTime')}
           </label>
           <Input
             type="time"
@@ -143,7 +154,7 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: any) => void }) => {
         
         <div className="col-span-1 md:col-span-2 lg:col-span-4 mt-2">
           <Button type="submit" className="w-full py-6">
-            Rechercher
+            {t('common.search')}
           </Button>
         </div>
       </form>

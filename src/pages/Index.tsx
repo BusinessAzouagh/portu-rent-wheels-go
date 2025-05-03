@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -8,6 +7,7 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Car as CarIcon, Shield, Clock, Map } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 // Mock data for cars
 const MOCK_CARS: Car[] = [
@@ -48,6 +48,7 @@ const MOCK_CARS: Car[] = [
 const Home = () => {
   const [searchResults, setSearchResults] = useState<Car[]>([]);
   const [hasSearched, setHasSearched] = useState(false);
+  const { t } = useLanguage();
   
   const handleSearch = (formData: any) => {
     console.log("Search data:", formData);
@@ -66,15 +67,15 @@ const Home = () => {
           <div className="container mx-auto px-4 py-16">
             <div className="max-w-3xl mx-auto text-center mb-8">
               <h1 className="text-3xl md:text-5xl font-bold mb-4">
-                Louez la voiture idéale pour votre voyage
+                {t('home.rentIdealCar')}
               </h1>
               <p className="text-lg md:text-xl opacity-90">
-                Des véhicules de qualité, des prix compétitifs et un service client exceptionnel.
+                {t('home.qualityVehicles')}
               </p>
               <div className="mt-8 flex justify-center space-x-4">
                 <Link to="/vehicles">
                   <Button size="lg" variant="outline" className="bg-white bg-opacity-20 hover:bg-opacity-30 border-white text-white">
-                    Voir tous nos véhicules
+                    {t('vehicles.ourVehicles')}
                   </Button>
                 </Link>
               </div>
@@ -89,8 +90,8 @@ const Home = () => {
             <div className="container mx-auto px-4">
               <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
                 {searchResults.length > 0 
-                  ? `${searchResults.length} véhicules disponibles`
-                  : "Aucun véhicule disponible pour cette période"}
+                  ? `${searchResults.length} ${t('vehicles.availableVehicles')}`
+                  : t('vehicles.noVehiclesFound')}
               </h2>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -106,8 +107,8 @@ const Home = () => {
         <section className="py-12">
           <div className="container mx-auto px-4">
             <div className="text-center mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold">Nos véhicules populaires</h2>
-              <p className="text-gray-600 mt-2">Découvrez notre sélection de véhicules les plus demandés</p>
+              <h2 className="text-2xl md:text-3xl font-bold">{t('vehicles.popularVehicles')}</h2>
+              <p className="text-gray-600 mt-2">{t('vehicles.discoverFleet')}</p>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -118,7 +119,7 @@ const Home = () => {
             
             <div className="text-center mt-8">
               <Link to="/vehicles">
-                <Button variant="outline">Voir tous nos véhicules</Button>
+                <Button variant="outline">{t('vehicles.ourVehicles')}</Button>
               </Link>
             </div>
           </div>
@@ -128,29 +129,29 @@ const Home = () => {
         <section className="py-12 bg-gray-50">
           <div className="container mx-auto px-4">
             <div className="text-center mb-10">
-              <h2 className="text-2xl md:text-3xl font-bold">Nos services</h2>
-              <p className="text-gray-600 mt-2">Des services pensés pour votre confort et sécurité</p>
+              <h2 className="text-2xl md:text-3xl font-bold">{t('services.ourServices')}</h2>
+              <p className="text-gray-600 mt-2">{t('services.forYourComfort')}</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <ServiceCard 
-                title="Large gamme de véhicules" 
-                description="Du compact économique au SUV luxueux, trouvez le véhicule adapté à votre voyage."
+                title={t('services.wideRange')}
+                description={t('services.wideRangeText')}
                 icon={<CarIcon size={32} />}
               />
               <ServiceCard 
-                title="Assurance complète" 
-                description="Voyagez l'esprit tranquille avec notre assurance tous risques incluse."
+                title={t('services.insurance')}
+                description={t('services.insuranceText')}
                 icon={<Shield size={32} />}
               />
               <ServiceCard 
-                title="Assistance 24/7" 
-                description="Notre équipe est disponible à tout moment pour vous aider en cas de besoin."
+                title={t('services.assistance')}
+                description={t('services.assistanceText')}
                 icon={<Clock size={32} />}
               />
               <ServiceCard 
-                title="Livraison à l'aéroport" 
-                description="Récupérez votre véhicule directement à l'aéroport pour un départ immédiat."
+                title={t('services.airportDelivery')}
+                description={t('services.airportDeliveryText')}
                 icon={<Map size={32} />}
               />
             </div>
@@ -169,15 +170,15 @@ const Home = () => {
                 />
               </div>
               <div className="lg:w-1/2">
-                <h2 className="text-2xl md:text-3xl font-bold mb-4">À propos de Portu Rent</h2>
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">{t('about.aboutPortuRent')}</h2>
                 <p className="text-gray-600 mb-4">
-                  Fondée en 2010, Portu Rent s'est imposée comme l'une des agences de location de voitures les plus fiables au Portugal. Notre mission est simple : offrir un service de qualité supérieure à des prix compétitifs.
+                  {t('about.historyText1')}
                 </p>
                 <p className="text-gray-600 mb-6">
-                  Avec une flotte moderne et régulièrement renouvelée, nous garantissons des véhicules en parfait état pour que votre voyage se déroule sans accroc. Notre équipe multilingue est là pour vous conseiller et vous accompagner tout au long de votre location.
+                  {t('about.historyText2')}
                 </p>
                 <Link to="/about">
-                  <Button>En savoir plus</Button>
+                  <Button>{t('common.about')}</Button>
                 </Link>
               </div>
             </div>

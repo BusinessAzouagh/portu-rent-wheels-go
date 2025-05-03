@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -7,6 +6,7 @@ import ReservationForm from "@/components/ReservationForm";
 import { Car } from "@/components/CarCard";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 // Extended car information
 interface ExtendedCar extends Car {
@@ -90,6 +90,7 @@ const ReservationPage = () => {
   const [car, setCar] = useState<ExtendedCar | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
+  const { t } = useLanguage();
 
   // Get date params from URL or use defaults
   const searchParams = new URLSearchParams(location.search);
@@ -126,7 +127,7 @@ const ReservationPage = () => {
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow flex items-center justify-center">
-          <div className="animate-pulse">Chargement...</div>
+          <div className="animate-pulse">{t('common.loading')}</div>
         </main>
         <Footer />
       </div>
@@ -139,9 +140,9 @@ const ReservationPage = () => {
         <Navbar />
         <main className="flex-grow container mx-auto px-4 py-8">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-red-600 mb-4">Véhicule non trouvé</h1>
-            <p className="mb-6">Le véhicule que vous recherchez n'existe pas ou n'est plus disponible.</p>
-            <Button onClick={() => navigate("/")}>Retour à l'accueil</Button>
+            <h1 className="text-2xl font-bold text-red-600 mb-4">{t('reservation.vehicleNotFound')}</h1>
+            <p className="mb-6">{t('reservation.vehicleNotFoundText')}</p>
+            <Button onClick={() => navigate("/")}>{t('reservation.returnHome')}</Button>
           </div>
         </main>
         <Footer />
@@ -160,11 +161,11 @@ const ReservationPage = () => {
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold mb-4">Réservation reçue !</h2>
+            <h2 className="text-2xl font-bold mb-4">{t('reservation.reservationReceived')}</h2>
             <p className="text-lg mb-8">
-              Merci pour votre réservation ! Nous allons analyser votre demande et vous contacter par téléphone dès que possible.
+              {t('reservation.reservationThanks')}
             </p>
-            <Button onClick={() => navigate("/")}>Retour à l'accueil</Button>
+            <Button onClick={() => navigate("/")}>{t('reservation.returnHome')}</Button>
           </div>
         </main>
         <Footer />
@@ -184,7 +185,7 @@ const ReservationPage = () => {
             onClick={() => navigate(-1)}
           >
             <ChevronLeft className="mr-2" size={16} />
-            Retour
+            {t('common.back')}
           </Button>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -199,22 +200,22 @@ const ReservationPage = () => {
                   <h1 className="text-2xl font-bold mb-2">
                     {car.brand} {car.model}
                   </h1>
-                  <p className="text-gray-600 mb-4">Plaque d'immatriculation: {car.licensePlate}</p>
+                  <p className="text-gray-600 mb-4">{t('vehicles.licensePlate')}: {car.licensePlate}</p>
                   
                   <div className="mb-4">
-                    <h3 className="font-semibold mb-2">Informations sur le véhicule:</h3>
+                    <h3 className="font-semibold mb-2">{t('vehicles.vehicleInfo')}</h3>
                     <ul className="list-disc pl-5 text-gray-700">
-                      {car.airConditioned && <li>Climatisation</li>}
-                      {car.transmission && <li>Transmission {car.transmission.toLowerCase()}</li>}
-                      {car.fuelType && <li>{car.fuelType}</li>}
-                      {car.seats && <li>{car.seats} sièges</li>}
-                      {car.luggage && <li>{car.luggage} bagages</li>}
+                      {car.airConditioned && <li>{t('vehicles.airConditioning')}</li>}
+                      {car.transmission && <li>{t('vehicles.transmission')} {car.transmission.toLowerCase() === 'manuelle' ? t('vehicles.manual').toLowerCase() : t('vehicles.automatic').toLowerCase()}</li>}
+                      {car.fuelType && <li>{car.fuelType === 'Essence' ? t('vehicles.gasoline') : t('vehicles.diesel')}</li>}
+                      {car.seats && <li>{car.seats} {t('vehicles.seats')}</li>}
+                      {car.luggage && <li>{car.luggage} {t('vehicles.luggage')}</li>}
                     </ul>
                   </div>
                   
                   {car.features && car.features.length > 0 && (
                     <div className="mb-4">
-                      <h3 className="font-semibold mb-2">Équipements:</h3>
+                      <h3 className="font-semibold mb-2">{t('vehicles.equipment')}</h3>
                       <div className="flex flex-wrap gap-2">
                         {car.features.map((feature, index) => (
                           <span 
@@ -229,7 +230,7 @@ const ReservationPage = () => {
                   )}
                   
                   <div className="text-xl font-bold text-primary">
-                    {car.pricePerDay}€ <span className="text-sm font-normal text-gray-500">/ jour</span>
+                    {car.pricePerDay}€ <span className="text-sm font-normal text-gray-500">{t('vehicles.pricePerDay')}</span>
                   </div>
                 </div>
               </div>

@@ -6,6 +6,7 @@ import CarCard, { Car } from "@/components/CarCard";
 import { Car as CarIcon, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useLanguage } from "@/i18n/LanguageContext";
 import {
   Select,
   SelectContent,
@@ -159,6 +160,7 @@ const VehiclesPage = () => {
     fuelType: "",
     priceMax: "",
   });
+  const { t } = useLanguage();
 
   const handleFilterChange = (
     key: string,
@@ -219,10 +221,10 @@ const VehiclesPage = () => {
           <div className="container mx-auto px-4">
             <div className="text-center">
               <h1 className="text-3xl md:text-4xl font-bold mb-4">
-                Notre flotte de véhicules
+                {t('vehicles.ourFleet')}
               </h1>
               <p className="text-lg text-gray-600">
-                Découvrez notre gamme complète de véhicules disponibles à la location
+                {t('vehicles.discoverFleet')}
               </p>
             </div>
           </div>
@@ -237,24 +239,24 @@ const VehiclesPage = () => {
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-xl font-bold flex items-center">
                     <Filter size={20} className="mr-2" />
-                    Filtres
+                    {t('vehicles.filters')}
                   </h2>
                   <Button 
                     variant="ghost" 
                     size="sm" 
                     onClick={resetFilters}
                   >
-                    Réinitialiser
+                    {t('vehicles.resetFilters')}
                   </Button>
                 </div>
                 
                 <div className="space-y-6">
                   {/* Brand Filter */}
                   <div className="space-y-2">
-                    <Label htmlFor="brand">Marque</Label>
+                    <Label htmlFor="brand">{t('vehicles.brand')}</Label>
                     <Input
                       id="brand"
-                      placeholder="Rechercher une marque"
+                      placeholder={t('vehicles.searchBrand')}
                       value={filters.brand}
                       onChange={(e) => handleFilterChange("brand", e.target.value)}
                     />
@@ -262,43 +264,43 @@ const VehiclesPage = () => {
                   
                   {/* Transmission Filter */}
                   <div className="space-y-2">
-                    <Label htmlFor="transmission">Transmission</Label>
+                    <Label htmlFor="transmission">{t('vehicles.transmission')}</Label>
                     <Select
                       value={filters.transmission}
                       onValueChange={(value) => handleFilterChange("transmission", value)}
                     >
                       <SelectTrigger id="transmission">
-                        <SelectValue placeholder="Tous types" />
+                        <SelectValue placeholder={t('vehicles.allTypes')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">Tous types</SelectItem>
-                        <SelectItem value="Manuelle">Manuelle</SelectItem>
-                        <SelectItem value="Automatique">Automatique</SelectItem>
+                        <SelectItem value="all">{t('vehicles.allTypes')}</SelectItem>
+                        <SelectItem value="Manuelle">{t('vehicles.manual')}</SelectItem>
+                        <SelectItem value="Automatique">{t('vehicles.automatic')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   
                   {/* Fuel Type Filter */}
                   <div className="space-y-2">
-                    <Label htmlFor="fuelType">Carburant</Label>
+                    <Label htmlFor="fuelType">{t('vehicles.fuelType')}</Label>
                     <Select
                       value={filters.fuelType}
                       onValueChange={(value) => handleFilterChange("fuelType", value)}
                     >
                       <SelectTrigger id="fuelType">
-                        <SelectValue placeholder="Tous types" />
+                        <SelectValue placeholder={t('vehicles.allTypes')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">Tous types</SelectItem>
-                        <SelectItem value="Essence">Essence</SelectItem>
-                        <SelectItem value="Diesel">Diesel</SelectItem>
+                        <SelectItem value="all">{t('vehicles.allTypes')}</SelectItem>
+                        <SelectItem value="Essence">{t('vehicles.gasoline')}</SelectItem>
+                        <SelectItem value="Diesel">{t('vehicles.diesel')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   
                   {/* Price Range Filter */}
                   <div className="space-y-2">
-                    <Label htmlFor="priceMax">Prix maximum par jour</Label>
+                    <Label htmlFor="priceMax">{t('vehicles.maxPrice')}</Label>
                     <Input
                       id="priceMax"
                       type="number"
@@ -315,21 +317,21 @@ const VehiclesPage = () => {
                 <div className="mb-6 flex justify-between items-center">
                   <h2 className="text-xl font-bold flex items-center">
                     <CarIcon size={24} className="mr-2" />
-                    {filteredCars.length} véhicules disponibles
+                    {filteredCars.length} {t('vehicles.availableVehicles')}
                   </h2>
                 </div>
                 
                 {filteredCars.length === 0 ? (
                   <div className="bg-white rounded-lg shadow p-6 text-center">
                     <p className="text-lg text-gray-600">
-                      Aucun véhicule ne correspond à vos critères de recherche.
+                      {t('vehicles.noVehiclesFound')}
                     </p>
                     <Button 
                       variant="outline" 
                       className="mt-4"
                       onClick={resetFilters}
                     >
-                      Réinitialiser les filtres
+                      {t('vehicles.resetFilters')}
                     </Button>
                   </div>
                 ) : (
@@ -352,6 +354,8 @@ const VehiclesPage = () => {
 
 // Vehicle Card Component
 const VehicleCard = ({ car }: { car: ExtendedCarInfo }) => {
+  const { t } = useLanguage();
+  
   return (
     <div className="bg-white rounded-lg shadow overflow-hidden h-full flex flex-col">
       <div className="aspect-video relative overflow-hidden">
@@ -362,7 +366,7 @@ const VehicleCard = ({ car }: { car: ExtendedCarInfo }) => {
         />
         {!car.available && (
           <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-            <span className="text-white font-semibold text-lg">Non disponible</span>
+            <span className="text-white font-semibold text-lg">{t('vehicles.unavailable')}</span>
           </div>
         )}
       </div>
@@ -372,17 +376,21 @@ const VehicleCard = ({ car }: { car: ExtendedCarInfo }) => {
         
         <div className="mt-2 space-y-1 text-sm text-gray-600 flex-grow">
           <div className="flex justify-between">
-            <span>Transmission:</span>
-            <span className="font-medium">{car.transmission}</span>
+            <span>{t('vehicles.transmission')}:</span>
+            <span className="font-medium">
+              {car.transmission === "Manuelle" ? t('vehicles.manual') : t('vehicles.automatic')}
+            </span>
           </div>
           
           <div className="flex justify-between">
-            <span>Carburant:</span>
-            <span className="font-medium">{car.fuelType}</span>
+            <span>{t('vehicles.fuelType')}:</span>
+            <span className="font-medium">
+              {car.fuelType === "Essence" ? t('vehicles.gasoline') : t('vehicles.diesel')}
+            </span>
           </div>
           
           <div className="flex justify-between">
-            <span>Plaque:</span>
+            <span>{t('vehicles.licensePlate')}:</span>
             <span className="font-medium">{car.licensePlate}</span>
           </div>
         </div>
@@ -391,7 +399,7 @@ const VehicleCard = ({ car }: { car: ExtendedCarInfo }) => {
         
         <div className="flex items-end justify-between">
           <div className="font-semibold text-primary text-lg">
-            {car.pricePerDay}€ <span className="text-sm font-normal text-gray-500">/ jour</span>
+            {car.pricePerDay}€ <span className="text-sm font-normal text-gray-500">{t('vehicles.pricePerDay')}</span>
           </div>
           
           <Button
@@ -399,7 +407,7 @@ const VehicleCard = ({ car }: { car: ExtendedCarInfo }) => {
             disabled={!car.available}
             onClick={() => window.location.href = `/reservation/${car.id}`}
           >
-            {car.available ? "Réserver" : "Indisponible"}
+            {car.available ? t('vehicles.reserve') : t('vehicles.unavailable')}
           </Button>
         </div>
       </div>

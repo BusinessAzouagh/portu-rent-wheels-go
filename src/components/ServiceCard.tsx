@@ -1,6 +1,7 @@
 
 import { ReactNode } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface ServiceCardProps {
   title: string;
@@ -17,6 +18,8 @@ export const ServiceCard = ({
   selected = false,
   onClick 
 }: ServiceCardProps) => {
+  const { t } = useLanguage();
+  
   return (
     <Card 
       className={`hover:shadow-lg transition-shadow ${selected ? 'border-primary border-2' : ''}`}

@@ -17,8 +17,8 @@ const Settings = () => {
 
   const handleSaveDefaultLanguage = () => {
     setDefaultLanguage(selectedLanguage);
-    toast.success(t('admin.languageSettings'), {
-      description: t('admin.changeLanguage'),
+    toast.success(t('admin.changeLanguage'), {
+      description: t('admin.languageSettings'),
     });
   };
 

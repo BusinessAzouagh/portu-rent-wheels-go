@@ -6,9 +6,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -26,13 +28,13 @@ const AdminLogin = () => {
         setIsLoading(false);
         // Store in localStorage to persist login
         localStorage.setItem("isAdminLoggedIn", "true");
-        toast("Connecté avec succès!");
+        toast(t('admin.loginSuccess'));
         navigate("/admin/dashboard");
       }, 1000);
     } else {
       setTimeout(() => {
         setIsLoading(false);
-        setError("Identifiants invalides");
+        setError(t('admin.invalidCredentials'));
       }, 1000);
     }
   };
@@ -52,7 +54,7 @@ const AdminLogin = () => {
             )}
             
             <div className="space-y-2">
-              <Label htmlFor="username">Nom d'utilisateur</Label>
+              <Label htmlFor="username">{t('admin.username')}</Label>
               <Input
                 id="username"
                 type="text"
@@ -63,7 +65,7 @@ const AdminLogin = () => {
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="password">Mot de passe</Label>
+              <Label htmlFor="password">{t('admin.password')}</Label>
               <Input
                 id="password"
                 type="password"
@@ -78,7 +80,7 @@ const AdminLogin = () => {
               className="w-full" 
               disabled={isLoading}
             >
-              {isLoading ? "Connexion en cours..." : "Se connecter"}
+              {isLoading ? t('admin.loggingIn') : t('admin.login')}
             </Button>
           </form>
         </CardContent>

@@ -37,7 +37,7 @@ const CarCard = ({ car }: CarCardProps) => {
       <CardContent className="p-4">
         <h3 className="font-bold text-lg">{car.model}</h3>
         <div className="text-sm text-gray-500 mt-1">
-          Plaque: {car.licensePlate}
+          {t('vehicles.licensePlate')}: {car.licensePlate}
         </div>
         <div className="mt-2 font-semibold text-primary">
           {car.pricePerDay}€ <span className="text-sm font-normal text-gray-500">{t('vehicles.pricePerDay')}</span>
