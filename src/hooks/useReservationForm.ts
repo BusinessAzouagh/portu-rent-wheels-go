@@ -87,9 +87,9 @@ export const useReservationForm = ({
     }
   };
 
-  const handleStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setStartTime(e.target.value);
-    const [hours, minutes] = e.target.value.split(':').map(Number);
+  const handleStartTimeChange = (timeValue: string) => {
+    setStartTime(timeValue);
+    const [hours, minutes] = timeValue.split(':').map(Number);
     const newStartDate = new Date(startDate);
     newStartDate.setHours(hours, minutes, 0, 0);
     setStartDate(newStartDate);
@@ -99,13 +99,13 @@ export const useReservationForm = ({
       const newEndDate = new Date(newStartDate);
       newEndDate.setDate(newStartDate.getDate() + 1);
       setEndDate(newEndDate);
-      setEndTime(e.target.value);
+      setEndTime(timeValue);
     }
   };
 
-  const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEndTime(e.target.value);
-    const [hours, minutes] = e.target.value.split(':').map(Number);
+  const handleEndTimeChange = (timeValue: string) => {
+    setEndTime(timeValue);
+    const [hours, minutes] = timeValue.split(':').map(Number);
     const newEndDate = new Date(endDate);
     newEndDate.setHours(hours, minutes, 0, 0);
     

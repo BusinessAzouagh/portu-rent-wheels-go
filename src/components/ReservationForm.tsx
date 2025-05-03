@@ -59,7 +59,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
       <div className="mb-6 p-4 bg-gray-50 rounded-md">
         <h3 className="font-medium mb-4 text-primary">{t('reservation.rentalPeriod')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-          {/* Start Date and Time */}
+          {/* Combined Start Date and Time */}
           <DateTimeSelector
             label={t('search.startDate')}
             date={startDate}
@@ -69,7 +69,7 @@ const ReservationForm = ({ car, startDate: initialStartDate, endDate: initialEnd
             locale={getLocale()}
           />
           
-          {/* End Date and Time */}
+          {/* Combined End Date and Time */}
           <DateTimeSelector
             label={t('search.endDate')}
             date={endDate}
