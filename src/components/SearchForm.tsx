@@ -14,8 +14,8 @@ interface SearchFormData {
 }
 
 const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void }) => {
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date(Date.now() + 3 * 24 * 60 * 60 * 1000));
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
   const [startTime, setStartTime] = useState("12:00");
   const [endTime, setEndTime] = useState("12:00");
   const [errors, setErrors] = useState({
@@ -58,9 +58,9 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void
     }
 
     const formData = {
-      startDate,
+      startDate: startDate as Date, // Type assertion since we validate it exists
       startTime,
-      endDate,
+      endDate: endDate as Date, // Type assertion since we validate it exists
       endTime
     };
 
@@ -112,4 +112,3 @@ const SearchForm = ({ onSearch }: { onSearch: (formData: SearchFormData) => void
 };
 
 export default SearchForm;
-
