@@ -116,7 +116,7 @@ export const en = {
   about: {
     aboutPortuRent: "About Portu Rent",
     ourHistory: "Our History",
-    historyText1: "Founded in 2010, Portu Rent has established itself as one of the most reliable car rental agencies in Portugal. Our mission is simple: to offer superior quality service at competitive prices.",
+    historyText1: "Founded in 2024, Portu Rent has established itself as one of the most reliable car rental agencies in Portugal. Our mission is simple: to offer superior quality service at competitive prices.",
     historyText2: "With a modern and regularly renewed fleet, we guarantee vehicles in perfect condition for a trouble-free journey. Our multilingual team is there to advise and accompany you throughout your rental.",
     ourValues: "Our Values",
     quality: "Quality",

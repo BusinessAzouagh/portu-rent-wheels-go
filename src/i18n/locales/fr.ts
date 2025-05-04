@@ -116,7 +116,7 @@ export const fr = {
   about: {
     aboutPortuRent: "À propos de Portu Rent",
     ourHistory: "Notre Histoire",
-    historyText1: "Fondée en 2010, Portu Rent s'est imposée comme l'une des agences de location de voitures les plus fiables au Portugal. Notre mission est simple : offrir un service de qualité supérieure à des prix compétitifs.",
+    historyText1: "Fondée en 2024, Portu Rent s'est imposée comme l'une des agences de location de voitures les plus fiables au Portugal. Notre mission est simple : offrir un service de qualité supérieure à des prix compétitifs.",
     historyText2: "Avec une flotte moderne et régulièrement renouvelée, nous garantissons des véhicules en parfait état pour que votre voyage se déroule sans accroc. Notre équipe multilingue est là pour vous conseiller et vous accompagner tout au long de votre location.",
     ourValues: "Nos Valeurs",
     quality: "Qualité",
