@@ -14,7 +14,7 @@ const PriceSummary = ({ car, days, totalPrice }: PriceSummaryProps) => {
   return (
     <div className="bg-white p-3 rounded-md border border-gray-200 mt-4">
       <p className="font-medium text-primary">{t('reservation.totalPrice')}</p>
-      <p className="font-bold text-lg">{totalPrice} {car.currencySymbol || 'DH'} ({days} {t('reservation.days')} {car.pricePerDay * 10} {car.currencySymbol || 'DH'})</p>
+      <p className="font-bold text-lg">{totalPrice} {car.currencySymbol || 'DH'} ({days} {t('reservation.days')} {car.pricePerDay} {car.currencySymbol || 'DH'})</p>
     </div>
   );
 };

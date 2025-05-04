@@ -110,9 +110,8 @@ const ReservationForm = ({
           {/* Start date and end date - display side by side on non-mobile screens */}
           <div className={`grid ${isMobile ? 'gap-6' : 'grid-cols-2 gap-4'}`}>
             <div className="space-y-2">
-              <h4 className="text-sm font-medium text-gray-700">{t('common.start')}</h4>
               <DateTimeSelector
-                label={t('common.start')}
+                label={`${t('common.date')} ${t('common.start')}`}
                 date={startDate}
                 time={startTime}
                 onDateChange={updateStartDateTime}
@@ -124,9 +123,8 @@ const ReservationForm = ({
             </div>
             
             <div className="space-y-2">
-              <h4 className="text-sm font-medium text-gray-700">{t('common.end')}</h4>
               <DateTimeSelector
-                label={t('common.end')}
+                label={`${t('common.date')} ${t('common.end')}`}
                 date={endDate}
                 time={endTime}
                 onDateChange={updateEndDateTime}

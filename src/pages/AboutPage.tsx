@@ -12,9 +12,9 @@ const AboutPage = () => {
         
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <div>
-            <img 
-              src="https://images.unsplash.com/photo-1612057457904-28f4785d24e5?q=80&w=800" 
-              alt="Portu Rent Team" 
+            <img
+                src="https://peoplespheres.com/wp-content/uploads/2018/08/Le-travail-en-equipe-levier-de-performance-666x380.webp"
+                alt="Portu Rent Team"
               className="rounded-lg shadow-lg w-full"
             />
           </div>

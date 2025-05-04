@@ -24,7 +24,7 @@ const MOCK_CARS: Car[] = [
     model: "Renault Clio",
     licensePlate: "AA-123-BB",
     image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=800",
-    pricePerDay: 40,
+    pricePerDay: 400,
     available: true,
   },
   {
@@ -32,7 +32,7 @@ const MOCK_CARS: Car[] = [
     model: "Peugeot 208",
     licensePlate: "CC-456-DD",
     image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=800",
-    pricePerDay: 45,
+    pricePerDay: 450,
     available: true,
   },
   {
@@ -40,7 +40,7 @@ const MOCK_CARS: Car[] = [
     model: "Volkswagen Golf",
     licensePlate: "EE-789-FF",
     image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800",
-    pricePerDay: 50,
+    pricePerDay: 300,
     available: false,
   },
   {
@@ -48,7 +48,7 @@ const MOCK_CARS: Car[] = [
     model: "Fiat 500",
     licensePlate: "GG-012-HH",
     image: "https://images.unsplash.com/photo-1617654112368-307b8947646c?q=80&w=800",
-    pricePerDay: 35,
+    pricePerDay: 350,
     available: true,
   },
   {
@@ -56,7 +56,7 @@ const MOCK_CARS: Car[] = [
     model: "Citroën C3",
     licensePlate: "II-345-JJ",
     image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=800",
-    pricePerDay: 38,
+    pricePerDay: 380,
     available: true,
   },
   {
@@ -64,7 +64,7 @@ const MOCK_CARS: Car[] = [
     model: "Ford Fiesta",
     licensePlate: "KK-678-LL",
     image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=800",
-    pricePerDay: 42,
+    pricePerDay: 402,
     available: true,
   },
 ];
@@ -90,7 +90,7 @@ const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
     brand: "Renault",
     licensePlate: "AA-123-BB",
     image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=800",
-    pricePerDay: 40,
+    pricePerDay: 400,
     available: true,
     transmission: "Manuelle",
     fuelType: "Essence",
@@ -101,7 +101,7 @@ const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
     brand: "Peugeot",
     licensePlate: "CC-456-DD",
     image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=800",
-    pricePerDay: 45,
+    pricePerDay: 450,
     available: true,
     transmission: "Automatique",
     fuelType: "Diesel",
@@ -112,7 +112,7 @@ const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
     brand: "Volkswagen",
     licensePlate: "EE-789-FF",
     image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800",
-    pricePerDay: 50,
+    pricePerDay: 300,
     available: false,
     transmission: "Manuelle",
     fuelType: "Diesel",
@@ -123,7 +123,7 @@ const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
     brand: "Fiat",
     licensePlate: "GG-012-HH",
     image: "https://images.unsplash.com/photo-1617654112368-307b8947646c?q=80&w=800",
-    pricePerDay: 35,
+    pricePerDay: 350,
     available: true,
     transmission: "Manuelle",
     fuelType: "Essence",
@@ -134,7 +134,7 @@ const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
     brand: "Citroën",
     licensePlate: "II-345-JJ",
     image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=800",
-    pricePerDay: 38,
+    pricePerDay: 380,
     available: true,
     transmission: "Automatique",
     fuelType: "Essence",
@@ -145,7 +145,7 @@ const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
     brand: "Ford",
     licensePlate: "KK-678-LL",
     image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=800",
-    pricePerDay: 42,
+    pricePerDay: 402,
     available: true,
     transmission: "Manuelle",
     fuelType: "Diesel",
@@ -399,7 +399,7 @@ const VehicleCard = ({ car }: { car: ExtendedCarInfo }) => {
         
         <div className="flex items-end justify-between">
           <div className="font-semibold text-primary text-lg">
-            {car.pricePerDay * 10} DH <span className="text-sm font-normal text-gray-500">{t('vehicles.pricePerDay')}</span>
+            {car.pricePerDay} DH <span className="text-sm font-normal text-gray-500">{t('vehicles.pricePerDay')}</span>
           </div>
           
           <Button

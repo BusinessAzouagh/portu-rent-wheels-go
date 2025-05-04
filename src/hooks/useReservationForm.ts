@@ -40,7 +40,7 @@ export const useReservationForm = ({
   const formManager = useCustomerForm();
   
   // Calculate the total price based on the car and days
-  const totalPrice = dateManager.days * car.pricePerDay * 10;
+  const totalPrice = dateManager.days * car.pricePerDay;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
