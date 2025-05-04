@@ -18,11 +18,11 @@ const HeroSection = ({ onSearch }: HeroSectionProps) => {
         minHeight: "600px"
       }}
     >
-      {/* Background Image with Overlay */}
+      {/* Background Image with Overlay - Updated with new URL */}
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center" 
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=2000&auto=format')",
+          backgroundImage: "url('https://i.imgur.com/cZONdw9.jpeg')",
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}

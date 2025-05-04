@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AdminLayout from "../AdminLayout";
 import ReservationsHeader from "./components/ReservationsHeader";
 import ReservationsTable from "./components/ReservationsTable";
@@ -33,6 +33,9 @@ const ManageReservations = () => {
 
   return (
     <AdminLayout>
+      {/* Title is now properly translated */}
+      <h1 className="text-2xl font-bold mb-6">{t('admin.manageReservations')}</h1>
+      
       <ReservationsHeader 
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}

@@ -15,7 +15,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-1">
             <h3 className="text-xl font-bold mb-4">Portu Rent</h3>
-            <div className="w-full">
+            <div className="w-full max-w-[250px] mx-auto md:mx-0">
               <img 
                 src="/lovable-uploads/c74a4187-508f-46b7-bd8c-f4ac7fc977ce.png" 
                 alt="Portu Rent Location"

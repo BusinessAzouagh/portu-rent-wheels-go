@@ -37,7 +37,7 @@ import {
 import AdminLayout from "../AdminLayout";
 import { useLanguage } from "@/i18n/LanguageContext";
 
-// Définir le schéma de validation du formulaire avec zod
+// Define form validation schema using zod
 const carSchema = z.object({
   licensePlate: z.string().min(2, "Plaque d'immatriculation requise"),
   brand: z.string().min(1, "Marque requise"),
@@ -92,7 +92,7 @@ const AddCar = () => {
     }
   }, [location]);
 
-  // Initialiser le formulaire avec react-hook-form et zod
+  // Initialize form with react-hook-form and zod
   const form = useForm<CarFormValues>({
     resolver: zodResolver(carSchema),
     defaultValues: {
@@ -107,7 +107,7 @@ const AddCar = () => {
     },
   });
 
-  // Gérer l'upload de photos
+  // Handle photo upload
   const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileList = event.target.files;
     
@@ -115,19 +115,19 @@ const AddCar = () => {
       const newPhotos = Array.from(fileList);
       setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
       
-      // Créer des URLs pour les aperçus
+      // Create URLs for previews
       const newPhotoUrls = newPhotos.map(file => URL.createObjectURL(file));
       setPhotoPreviewUrls(prevUrls => [...prevUrls, ...newPhotoUrls]);
     }
   };
 
-  // Supprimer une photo
+  // Remove a photo
   const removePhoto = (index: number) => {
     const updatedPhotos = [...photos];
     updatedPhotos.splice(index, 1);
     setPhotos(updatedPhotos);
     
-    // Libérer l'URL de l'objet
+    // Release the object URL
     URL.revokeObjectURL(photoPreviewUrls[index]);
     
     const updatedPhotoUrls = [...photoPreviewUrls];
@@ -135,16 +135,16 @@ const AddCar = () => {
     setPhotoPreviewUrls(updatedPhotoUrls);
   };
 
-  // Soumettre le formulaire
+  // Submit form
   const onSubmit = async (values: CarFormValues) => {
     setIsSubmitting(true);
     
     try {
-      // Simulation d'un appel API pour enregistrer la voiture
+      // Simulation of an API call to save the car
       console.log("Car data to submit:", values);
       console.log("Photos to upload:", photos);
       
-      // Simuler un délai de traitement
+      // Simulate processing delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       if (isEditMode) {
@@ -153,7 +153,7 @@ const AddCar = () => {
         toast.success(t('admin.vehicleAdded'));
       }
       
-      // Rediriger vers la liste des voitures
+      // Redirect to cars list
       navigate("/admin/cars");
     } catch (error) {
       console.error("Error submitting car:", error);
@@ -180,189 +180,186 @@ const AddCar = () => {
       <div className="bg-white rounded-md shadow p-6">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* Section infos générales */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-6">
-                {/* Plaque d'immatriculation */}
-                <FormField
-                  control={form.control}
-                  name="licensePlate"
-                  render={({ field }) => (
-                    <FormItem>
+            {/* First row - 4 fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* License Plate */}
+              <FormField
+                control={form.control}
+                name="licensePlate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center">
+                      <FileText className="mr-2 h-4 w-4" />
+                      {t('admin.licensePlate')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="AA-123-BB" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Brand */}
+              <FormField
+                control={form.control}
+                name="brand"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center">
+                      <Car className="mr-2 h-4 w-4" />
+                      {t('admin.brand')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="Renault, Peugeot, etc." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Model */}
+              <FormField
+                control={form.control}
+                name="model"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center">
+                      <Car className="mr-2 h-4 w-4" />
+                      {t('admin.model')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder="Clio, 208, etc." {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Price per day */}
+              <FormField
+                control={form.control}
+                name="pricePerDay"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center">
+                      <Coins className="mr-2 h-4 w-4" />
+                      {t('admin.pricePerDay')} ({currencySymbol})
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="number" 
+                        min="0" 
+                        step="0.01" 
+                        placeholder="0.00" 
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            {/* Second row - 4 fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {/* Available */}
+              <FormField
+                control={form.control}
+                name="available"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 h-[76px]">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
                       <FormLabel className="flex items-center">
-                        <FileText className="mr-2 h-4 w-4" />
-                        {t('admin.licensePlate')}
+                        <Check className="mr-2 h-4 w-4" />
+                        {t('admin.available')}
                       </FormLabel>
+                    </div>
+                  </FormItem>
+                )}
+              />
+
+              {/* Transmission */}
+              <FormField
+                control={form.control}
+                name="transmission"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center">
+                      <Settings className="mr-2 h-4 w-4" />
+                      {t('admin.transmission')}
+                    </FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <Input placeholder="AA-123-BB" {...field} />
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('vehicles.allTypes')} />
+                        </SelectTrigger>
                       </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                      <SelectContent>
+                        <SelectItem value="manual">{t('vehicles.manual')}</SelectItem>
+                        <SelectItem value="automatic">{t('vehicles.automatic')}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                {/* Marque */}
-                <FormField
-                  control={form.control}
-                  name="brand"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center">
-                        <Car className="mr-2 h-4 w-4" />
-                        {t('admin.brand')}
-                      </FormLabel>
+              {/* Fuel type */}
+              <FormField
+                control={form.control}
+                name="fuelType"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center">
+                      <Fuel className="mr-2 h-4 w-4" />
+                      {t('admin.fuelType')}
+                    </FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <Input placeholder="Renault, Peugeot, etc." {...field} />
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('vehicles.allTypes')} />
+                        </SelectTrigger>
                       </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                      <SelectContent>
+                        <SelectItem value="essence">{t('vehicles.gasoline')}</SelectItem>
+                        <SelectItem value="diesel">{t('vehicles.diesel')}</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                {/* Modèle */}
-                <FormField
-                  control={form.control}
-                  name="model"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center">
-                        <Car className="mr-2 h-4 w-4" />
-                        {t('admin.model')}
-                      </FormLabel>
-                      <FormControl>
-                        <Input placeholder="Clio, 208, etc." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Prix par jour */}
-                  <FormField
-                    control={form.control}
-                    name="pricePerDay"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center">
-                          <Coins className="mr-2 h-4 w-4" />
-                          {t('admin.pricePerDay')} ({currencySymbol})
-                        </FormLabel>
-                        <FormControl>
-                          <Input 
-                            type="number" 
-                            min="0" 
-                            step="0.01" 
-                            placeholder="0.00" 
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  {/* Kilométrage */}
-                  <FormField
-                    control={form.control}
-                    name="mileage"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center">
-                          <Gauge className="mr-2 h-4 w-4" />
-                          {t('admin.mileage')}
-                        </FormLabel>
-                        <FormControl>
-                          <Input 
-                            type="number" 
-                            min="0" 
-                            step="1" 
-                            placeholder="0" 
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                {/* Disponible */}
-                <FormField
-                  control={form.control}
-                  name="available"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                      <FormControl>
-                        <Checkbox
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                      <div className="space-y-1 leading-none">
-                        <FormLabel className="flex items-center">
-                          <Check className="mr-2 h-4 w-4" />
-                          {t('admin.available')}
-                        </FormLabel>
-                      </div>
-                    </FormItem>
-                  )}
-                />
-
-                {/* Transmission */}
-                <FormField
-                  control={form.control}
-                  name="transmission"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center">
-                        <Settings className="mr-2 h-4 w-4" />
-                        {t('admin.transmission')}
-                      </FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder={t('vehicles.allTypes')} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="manual">{t('vehicles.manual')}</SelectItem>
-                          <SelectItem value="automatic">{t('vehicles.automatic')}</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                {/* Type de carburant */}
-                <FormField
-                  control={form.control}
-                  name="fuelType"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center">
-                        <Fuel className="mr-2 h-4 w-4" />
-                        {t('admin.fuelType')}
-                      </FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder={t('vehicles.allTypes')} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          <SelectItem value="essence">{t('vehicles.gasoline')}</SelectItem>
-                          <SelectItem value="diesel">{t('vehicles.diesel')}</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              {/* Mileage */}
+              <FormField
+                control={form.control}
+                name="mileage"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center">
+                      <Gauge className="mr-2 h-4 w-4" />
+                      {t('admin.mileage')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="number" 
+                        min="0" 
+                        step="1" 
+                        placeholder="0" 
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
 
             {/* Section upload photos */}
@@ -394,7 +391,7 @@ const AddCar = () => {
                 </label>
               </div>
 
-              {/* Aperçu des photos uploadées */}
+              {/* Photos preview */}
               {photoPreviewUrls.length > 0 && (
                 <div className="mt-4">
                   <h3 className="text-sm font-medium mb-2">{t('admin.photos')} ({photoPreviewUrls.length})</h3>

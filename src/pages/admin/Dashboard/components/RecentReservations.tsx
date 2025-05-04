@@ -3,14 +3,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useLanguage } from "@/i18n/LanguageContext";
-
-interface Reservation {
-  id: string;
-  customer: string;
-  car: string;
-  startDate: string;
-  status: "PENDING" | "CONFIRMED";
-}
+import { Eye } from "lucide-react";
+import { useState } from "react";
+import ReservationDetailsDialog from "../../Reservations/components/ReservationDetailsDialog";
+import { Reservation } from "@/types/reservation";
 
 interface RecentReservationsProps {
   reservations: Reservation[];
@@ -18,6 +14,14 @@ interface RecentReservationsProps {
 
 const RecentReservations = ({ reservations }: RecentReservationsProps) => {
   const { t } = useLanguage();
+  const [selectedReservation, setSelectedReservation] = useState<Reservation | null>(null);
+  const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false);
+  
+  // Open details dialog
+  const openDetailsDialog = (reservation: Reservation) => {
+    setSelectedReservation(reservation);
+    setIsDetailsDialogOpen(true);
+  };
   
   return (
     <Card className="mb-8">
@@ -51,9 +55,14 @@ const RecentReservations = ({ reservations }: RecentReservationsProps) => {
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <Link to={`/admin/reservations/${reservation.id}`}>
-                        <Button size="sm" variant="ghost">{t('admin.details')}</Button>
-                      </Link>
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={() => openDetailsDialog(reservation)}
+                      >
+                        <Eye className="h-4 w-4 mr-1" />
+                        {t('admin.details')}
+                      </Button>
                     </td>
                   </tr>
                 ))}
@@ -61,14 +70,21 @@ const RecentReservations = ({ reservations }: RecentReservationsProps) => {
             </table>
           </div>
         ) : (
-          <p className="text-gray-500 text-center py-4">{t('admin.recentReservations')}</p>
+          <p className="text-gray-500 text-center py-4">{t('admin.noReservationsAvailable')}</p>
         )}
         
         <div className="mt-4">
           <Link to="/admin/reservations">
-            <Button variant="outline" size="sm">{t('admin.recentReservations')}</Button>
+            <Button variant="outline" size="sm">{t('admin.allReservations')}</Button>
           </Link>
         </div>
+
+        {/* Details Dialog */}
+        <ReservationDetailsDialog 
+          reservation={selectedReservation}
+          isOpen={isDetailsDialogOpen}
+          onOpenChange={setIsDetailsDialogOpen}
+        />
       </CardContent>
     </Card>
   );

@@ -12,7 +12,7 @@ const AboutSection = () => {
         <div className="lg:flex items-center gap-12">
           <div className="lg:w-1/2 mb-8 lg:mb-0">
             <img 
-              src="https://images.unsplash.com/photo-1612057457904-28f4785d24e5?q=80&w=800" 
+              src="https://peoplespheres.com/wp-content/uploads/2018/08/Le-travail-en-equipe-levier-de-performance-666x380.webp" 
               alt="Portu Rent Team" 
               className="rounded-lg shadow-lg w-full"
             />
