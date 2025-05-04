@@ -6,8 +6,10 @@ import ReservationsTable from "./components/ReservationsTable";
 import ReservationDetailsDialog from "./components/ReservationDetailsDialog";
 import { useReservations } from "./hooks/useReservations";
 import { Reservation } from "@/types/reservation";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const ManageReservations = () => {
+  const { t } = useLanguage();
   const { 
     reservations,
     filteredReservations,

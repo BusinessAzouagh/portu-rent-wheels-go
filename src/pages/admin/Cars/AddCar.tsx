@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -12,8 +13,6 @@ import {
   Coins, 
   Check, 
   Settings, 
-  Bluetooth, 
-  Camera, 
   Gauge 
 } from "lucide-react";
 
@@ -35,9 +34,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import AdminLayout from "../AdminLayout";
-import { ServiceCard } from "@/components/ServiceCard";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 // Définir le schéma de validation du formulaire avec zod
 const carSchema = z.object({
@@ -49,21 +47,50 @@ const carSchema = z.object({
   transmission: z.enum(["manual", "automatic"]),
   fuelType: z.enum(["essence", "diesel"]),
   mileage: z.coerce.number().nonnegative("Le kilométrage ne peut pas être négatif"),
-  features: z.object({
-    bluetooth: z.boolean().default(false),
-    camera: z.boolean().default(false),
-    // On pourrait ajouter d'autres fonctionnalités ici
-  }),
-  // Pour la gestion des photos, nous utiliserons un état local séparé
 });
 
 type CarFormValues = z.infer<typeof carSchema>;
 
 const AddCar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { t, language } = useLanguage();
+  const currencySymbol = language === 'ar' ? 'درهم' : 'DH';
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [photos, setPhotos] = useState<File[]>([]);
   const [photoPreviewUrls, setPhotoPreviewUrls] = useState<string[]>([]);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [carId, setCarId] = useState<string | null>(null);
+
+  // Check if we're in edit mode
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    
+    if (id) {
+      setIsEditMode(true);
+      setCarId(id);
+      // In a real app, we would fetch the car data here
+      // For now we'll simulate loading with default data
+      
+      // Simulating a car fetch
+      setTimeout(() => {
+        form.setValue('licensePlate', `AA-${id}-BB`);
+        form.setValue('brand', 'Example Brand');
+        form.setValue('model', `Model ${id}`);
+        form.setValue('pricePerDay', 50);
+        form.setValue('available', true);
+        form.setValue('transmission', 'automatic');
+        form.setValue('fuelType', 'essence');
+        form.setValue('mileage', 15000);
+        
+        // Mock photo previews
+        setPhotoPreviewUrls([
+          'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=200',
+        ]);
+      }, 500);
+    }
+  }, [location]);
 
   // Initialiser le formulaire avec react-hook-form et zod
   const form = useForm<CarFormValues>({
@@ -77,10 +104,6 @@ const AddCar = () => {
       transmission: "manual",
       fuelType: "essence",
       mileage: 0,
-      features: {
-        bluetooth: false,
-        camera: false,
-      },
     },
   });
 
@@ -118,50 +141,39 @@ const AddCar = () => {
     
     try {
       // Simulation d'un appel API pour enregistrer la voiture
-      // Dans une implémentation réelle, nous enverrions les données + photos au backend
       console.log("Car data to submit:", values);
       console.log("Photos to upload:", photos);
       
       // Simuler un délai de traitement
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      toast.success("Véhicule ajouté avec succès");
+      if (isEditMode) {
+        toast.success(t('admin.vehicleUpdated'));
+      } else {
+        toast.success(t('admin.vehicleAdded'));
+      }
       
       // Rediriger vers la liste des voitures
       navigate("/admin/cars");
     } catch (error) {
       console.error("Error submitting car:", error);
-      toast.error("Erreur lors de l'ajout du véhicule");
+      toast.error(t('admin.errorAddingVehicle'));
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Liste des features disponibles pour la visualisation
-  const featuresList = [
-    {
-      name: "bluetooth",
-      label: "Bluetooth",
-      description: "Connectivité Bluetooth pour appareils mobiles",
-      icon: <Bluetooth className="h-8 w-8" />
-    },
-    {
-      name: "camera",
-      label: "Caméra arrière",
-      description: "Caméra de recul pour faciliter les manœuvres",
-      icon: <Camera className="h-8 w-8" />
-    }
-  ];
-
   return (
     <AdminLayout>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Ajouter un véhicule</h1>
+        <h1 className="text-2xl font-bold">
+          {isEditMode ? t('admin.editVehicle') : t('admin.addVehicle')}
+        </h1>
         <Button 
           variant="outline" 
           onClick={() => navigate("/admin/cars")}
         >
-          Retour
+          {t('admin.return')}
         </Button>
       </div>
 
@@ -179,7 +191,7 @@ const AddCar = () => {
                     <FormItem>
                       <FormLabel className="flex items-center">
                         <FileText className="mr-2 h-4 w-4" />
-                        Plaque d'immatriculation
+                        {t('admin.licensePlate')}
                       </FormLabel>
                       <FormControl>
                         <Input placeholder="AA-123-BB" {...field} />
@@ -197,7 +209,7 @@ const AddCar = () => {
                     <FormItem>
                       <FormLabel className="flex items-center">
                         <Car className="mr-2 h-4 w-4" />
-                        Marque
+                        {t('admin.brand')}
                       </FormLabel>
                       <FormControl>
                         <Input placeholder="Renault, Peugeot, etc." {...field} />
@@ -215,7 +227,7 @@ const AddCar = () => {
                     <FormItem>
                       <FormLabel className="flex items-center">
                         <Car className="mr-2 h-4 w-4" />
-                        Modèle
+                        {t('admin.model')}
                       </FormLabel>
                       <FormControl>
                         <Input placeholder="Clio, 208, etc." {...field} />
@@ -225,53 +237,55 @@ const AddCar = () => {
                   )}
                 />
 
-                {/* Prix par jour */}
-                <FormField
-                  control={form.control}
-                  name="pricePerDay"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center">
-                        <Coins className="mr-2 h-4 w-4" />
-                        Prix par jour (DH)
-                      </FormLabel>
-                      <FormControl>
-                        <Input 
-                          type="number" 
-                          min="0" 
-                          step="0.01" 
-                          placeholder="0.00" 
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Prix par jour */}
+                  <FormField
+                    control={form.control}
+                    name="pricePerDay"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center">
+                          <Coins className="mr-2 h-4 w-4" />
+                          {t('admin.pricePerDay')} ({currencySymbol})
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="number" 
+                            min="0" 
+                            step="0.01" 
+                            placeholder="0.00" 
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-                {/* Kilométrage */}
-                <FormField
-                  control={form.control}
-                  name="mileage"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center">
-                        <Gauge className="mr-2 h-4 w-4" />
-                        Kilométrage (km)
-                      </FormLabel>
-                      <FormControl>
-                        <Input 
-                          type="number" 
-                          min="0" 
-                          step="1" 
-                          placeholder="0" 
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                  {/* Kilométrage */}
+                  <FormField
+                    control={form.control}
+                    name="mileage"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center">
+                          <Gauge className="mr-2 h-4 w-4" />
+                          {t('admin.mileage')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            type="number" 
+                            min="0" 
+                            step="1" 
+                            placeholder="0" 
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
 
               <div className="space-y-6">
@@ -290,7 +304,7 @@ const AddCar = () => {
                       <div className="space-y-1 leading-none">
                         <FormLabel className="flex items-center">
                           <Check className="mr-2 h-4 w-4" />
-                          Disponible
+                          {t('admin.available')}
                         </FormLabel>
                       </div>
                     </FormItem>
@@ -305,17 +319,17 @@ const AddCar = () => {
                     <FormItem>
                       <FormLabel className="flex items-center">
                         <Settings className="mr-2 h-4 w-4" />
-                        Transmission
+                        {t('admin.transmission')}
                       </FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Sélectionner" />
+                            <SelectValue placeholder={t('vehicles.allTypes')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="manual">Manuelle</SelectItem>
-                          <SelectItem value="automatic">Automatique</SelectItem>
+                          <SelectItem value="manual">{t('vehicles.manual')}</SelectItem>
+                          <SelectItem value="automatic">{t('vehicles.automatic')}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -331,17 +345,17 @@ const AddCar = () => {
                     <FormItem>
                       <FormLabel className="flex items-center">
                         <Fuel className="mr-2 h-4 w-4" />
-                        Type de carburant
+                        {t('admin.fuelType')}
                       </FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Sélectionner" />
+                            <SelectValue placeholder={t('vehicles.allTypes')} />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="essence">Essence</SelectItem>
-                          <SelectItem value="diesel">Diesel</SelectItem>
+                          <SelectItem value="essence">{t('vehicles.gasoline')}</SelectItem>
+                          <SelectItem value="diesel">{t('vehicles.diesel')}</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -355,7 +369,7 @@ const AddCar = () => {
             <div className="space-y-4">
               <FormLabel className="flex items-center">
                 <Upload className="mr-2 h-4 w-4" />
-                Photos
+                {t('admin.photos')}
               </FormLabel>
               <div className="border-dashed border-2 border-gray-300 rounded-md p-6 text-center">
                 <input
@@ -372,10 +386,10 @@ const AddCar = () => {
                 >
                   <Upload className="h-8 w-8 text-gray-400 mb-2" />
                   <p className="text-sm text-gray-500">
-                    Cliquez pour sélectionner des photos ou glissez-déposez
+                    {t('admin.clickToUpload')}
                   </p>
                   <p className="text-xs text-gray-400 mt-1">
-                    JPG, PNG, GIF jusqu'à 10 MB
+                    {t('admin.photoFormat')}
                   </p>
                 </label>
               </div>
@@ -383,7 +397,7 @@ const AddCar = () => {
               {/* Aperçu des photos uploadées */}
               {photoPreviewUrls.length > 0 && (
                 <div className="mt-4">
-                  <h3 className="text-sm font-medium mb-2">Photos ({photoPreviewUrls.length})</h3>
+                  <h3 className="text-sm font-medium mb-2">{t('admin.photos')} ({photoPreviewUrls.length})</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                     {photoPreviewUrls.map((url, index) => (
                       <div key={index} className="relative group rounded-md overflow-hidden border">
@@ -408,44 +422,21 @@ const AddCar = () => {
               )}
             </div>
 
-            {/* Section features */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium">Fonctionnalités</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {featuresList.map((feature) => (
-                  <FormField
-                    key={feature.name}
-                    control={form.control}
-                    name={`features.${feature.name as "bluetooth" | "camera"}`}
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value}
-                            onCheckedChange={field.onChange}
-                          />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                          <FormLabel>{feature.label}</FormLabel>
-                          <p className="text-sm text-gray-500">{feature.description}</p>
-                        </div>
-                      </FormItem>
-                    )}
-                  />
-                ))}
-              </div>
-            </div>
-
             <div className="flex justify-end space-x-4 pt-4">
               <Button
                 type="button"
                 variant="outline"
                 onClick={() => navigate("/admin/cars")}
               >
-                Annuler
+                {t('common.cancel')}
               </Button>
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Enregistrement..." : "Ajouter le véhicule"}
+                {isSubmitting 
+                  ? t('common.loading')
+                  : isEditMode 
+                    ? t('admin.updateVehicle') 
+                    : t('admin.addVehicle')
+                }
               </Button>
             </div>
           </form>

@@ -3,7 +3,7 @@ import { Car } from "@/types/cars";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Edit, Trash } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 import { 
   Table,
   TableBody,
@@ -12,6 +12,7 @@ import {
   TableHeader,
   TableRow 
 } from "@/components/ui/table";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 interface CarsTableProps {
   cars: Car[];
@@ -20,17 +21,20 @@ interface CarsTableProps {
 }
 
 const CarsTable = ({ cars, onToggleAvailability, onDeleteClick }: CarsTableProps) => {
+  const { t, language } = useLanguage();
+  const currencySymbol = language === 'ar' ? 'درهم' : 'DH';
+  
   return (
     <div className="overflow-x-auto">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-28">Image</TableHead>
-            <TableHead>Modèle</TableHead>
-            <TableHead>Plaque</TableHead>
-            <TableHead>Prix / jour</TableHead>
-            <TableHead>Disponible</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            <TableHead className="w-28">{t('admin.image')}</TableHead>
+            <TableHead>{t('admin.model')}</TableHead>
+            <TableHead>{t('admin.licensePlate')}</TableHead>
+            <TableHead>{t('admin.pricePerDay')}</TableHead>
+            <TableHead>{t('admin.available')}</TableHead>
+            <TableHead className="text-right">{t('admin.actions')}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -45,7 +49,7 @@ const CarsTable = ({ cars, onToggleAvailability, onDeleteClick }: CarsTableProps
               </TableCell>
               <TableCell className="font-medium">{car.model}</TableCell>
               <TableCell>{car.licensePlate}</TableCell>
-              <TableCell>{car.pricePerDay * 10} DH</TableCell>
+              <TableCell>{car.pricePerDay * 10} {currencySymbol}</TableCell>
               <TableCell>
                 <Switch 
                   checked={car.available}
@@ -54,7 +58,7 @@ const CarsTable = ({ cars, onToggleAvailability, onDeleteClick }: CarsTableProps
               </TableCell>
               <TableCell className="text-right">
                 <div className="flex justify-end gap-2">
-                  <Link to={`/admin/cars/edit/${car.id}`}>
+                  <Link to={`/admin/cars/new?id=${car.id}`}>
                     <Button size="sm" variant="outline">
                       <Edit className="h-4 w-4" />
                     </Button>
@@ -65,7 +69,7 @@ const CarsTable = ({ cars, onToggleAvailability, onDeleteClick }: CarsTableProps
                     className="text-red-600 hover:bg-red-50"
                     onClick={() => onDeleteClick(car)}
                   >
-                    <Trash className="h-4 w-4" />
+                    <Trash2 className="h-4 w-4" />
                   </Button>
                 </div>
               </TableCell>

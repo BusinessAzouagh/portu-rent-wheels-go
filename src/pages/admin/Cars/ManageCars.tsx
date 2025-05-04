@@ -4,8 +4,10 @@ import CarsHeader from "./components/CarsHeader";
 import CarsTable from "./components/CarsTable";
 import DeleteCarDialog from "./components/DeleteCarDialog";
 import { useCarsManagement } from "./hooks/useCarsManagement";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const ManageCars = () => {
+  const { t } = useLanguage();
   const {
     cars: filteredCars,
     isLoading,
@@ -28,7 +30,7 @@ const ManageCars = () => {
       
       {isLoading ? (
         <div className="flex items-center justify-center h-64">
-          <div className="animate-pulse text-gray-500">Chargement...</div>
+          <div className="animate-pulse text-gray-500">{t('common.loading')}</div>
         </div>
       ) : (
         <div className="bg-white rounded-md shadow">
@@ -41,9 +43,9 @@ const ManageCars = () => {
           ) : (
             <div className="py-10 text-center text-gray-500">
               {searchTerm ? (
-                <p>Aucun véhicule ne correspond à la recherche.</p>
+                <p>{t('admin.noReservationsFound')}</p>
               ) : (
-                <p>Aucun véhicule disponible. Ajoutez-en un !</p>
+                <p>{t('admin.noReservationsAvailable')}</p>
               )}
             </div>
           )}

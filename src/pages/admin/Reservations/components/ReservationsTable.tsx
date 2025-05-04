@@ -22,6 +22,14 @@ import { generateInvoice } from "@/services/invoiceService";
 import { toast } from "sonner";
 import StatusBadge from "./StatusBadge";
 import { useState } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface ReservationsTableProps {
   filteredReservations: Reservation[];
@@ -40,9 +48,12 @@ const ReservationsTable = ({
   handleStatusChange,
   openDetailsDialog,
 }: ReservationsTableProps) => {
+  const { t, language } = useLanguage();
+  const currencySymbol = language === 'ar' ? 'درهم' : 'DH';
+  
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   // Calculate total pages
   const totalPages = Math.max(1, Math.ceil(filteredReservations.length / itemsPerPage));
@@ -63,6 +74,12 @@ const ReservationsTable = ({
   // Change page
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+  };
+  
+  // Change items per page
+  const handleItemsPerPageChange = (value: string) => {
+    setItemsPerPage(Number(value));
+    setCurrentPage(1); // Reset to first page when changing items per page
   };
   
   // Pagination navigation
@@ -102,7 +119,7 @@ const ReservationsTable = ({
         (i === currentPage - 2 && currentPage > 3) || 
         (i === currentPage + 2 && currentPage < totalPages - 2)
       ) {
-        // Add ellipsis - Fixed: Removed the 'disabled' prop and used aria-disabled instead
+        // Add ellipsis
         items.push(
           <PaginationItem key={`ellipsis-${i}`}>
             <PaginationLink aria-disabled="true">...</PaginationLink>
@@ -128,17 +145,17 @@ const ReservationsTable = ({
   const handleDownloadInvoice = (reservation: Reservation) => {
     try {
       generateInvoice(reservation);
-      toast.success("Génération de la facture en cours");
+      toast.success(t('admin.invoiceGeneration'));
     } catch (error) {
       console.error("Erreur lors de la génération de la facture:", error);
-      toast.error("Erreur lors de la génération de la facture");
+      toast.error(t('admin.invoiceError'));
     }
   };
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-pulse text-gray-500">Chargement...</div>
+        <div className="animate-pulse text-gray-500">{t('common.loading')}</div>
       </div>
     );
   }
@@ -152,17 +169,17 @@ const ReservationsTable = ({
               <TableHeader>
                 <TableRow>
                   <TableHead>ID</TableHead>
-                  <TableHead>Client</TableHead>
-                  <TableHead>Téléphone</TableHead>
-                  <TableHead>Véhicule</TableHead>
-                  <TableHead className="min-w-[100px]">Plaque</TableHead>
-                  <TableHead>Date début</TableHead>
-                  <TableHead>Date fin</TableHead>
-                  <TableHead>Jours</TableHead>
-                  <TableHead>Prix/jour</TableHead>
-                  <TableHead className="min-w-[120px]">Prix total</TableHead>
-                  <TableHead>Statut</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead>{t('admin.customer')}</TableHead>
+                  <TableHead>{t('admin.phone')}</TableHead>
+                  <TableHead>{t('admin.vehicle')}</TableHead>
+                  <TableHead className="min-w-[100px]">{t('vehicles.licensePlate')}</TableHead>
+                  <TableHead>{t('admin.startDate')}</TableHead>
+                  <TableHead>{t('admin.endDate')}</TableHead>
+                  <TableHead>{t('reservation.days')}</TableHead>
+                  <TableHead>{t('vehicles.pricePerDay')}</TableHead>
+                  <TableHead className="min-w-[120px]">{t('admin.totalPrice')}</TableHead>
+                  <TableHead>{t('admin.status')}</TableHead>
+                  <TableHead className="text-right">{t('admin.actions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -180,8 +197,8 @@ const ReservationsTable = ({
                       <TableCell>{new Date(reservation.startDate).toLocaleDateString()}</TableCell>
                       <TableCell>{new Date(reservation.endDate).toLocaleDateString()}</TableCell>
                       <TableCell>{daysCount}</TableCell>
-                      <TableCell>{reservation.pricePerDay} DH</TableCell>
-                      <TableCell className="whitespace-nowrap">{totalPrice} DH</TableCell>
+                      <TableCell>{reservation.pricePerDay} {currencySymbol}</TableCell>
+                      <TableCell className="whitespace-nowrap">{totalPrice} {currencySymbol}</TableCell>
                       <TableCell>
                         <StatusBadge status={reservation.status} />
                       </TableCell>
@@ -191,7 +208,7 @@ const ReservationsTable = ({
                             size="sm" 
                             variant="outline"
                             onClick={() => openDetailsDialog(reservation)}
-                            title="Voir les détails"
+                            title={t('admin.details')}
                           >
                             <Eye className="h-4 w-4" />
                           </Button>
@@ -203,7 +220,7 @@ const ReservationsTable = ({
                               variant="outline"
                               className="text-blue-600 hover:bg-blue-50"
                               onClick={() => handleDownloadInvoice(reservation)}
-                              title="Télécharger la facture"
+                              title={t('admin.invoiceGeneration')}
                             >
                               <Download className="h-4 w-4" />
                             </Button>
@@ -216,7 +233,7 @@ const ReservationsTable = ({
                               className="text-green-600 hover:bg-green-50"
                               onClick={() => handleStatusChange(reservation.id, "CONFIRMED")}
                             >
-                              Confirmer
+                              {t('admin.confirm')}
                             </Button>
                           )}
                           {reservation.status !== "CANCELLED" && (
@@ -226,7 +243,7 @@ const ReservationsTable = ({
                               className="text-red-600 hover:bg-red-50"
                               onClick={() => handleStatusChange(reservation.id, "CANCELLED")}
                             >
-                              Annuler
+                              {t('admin.cancel')}
                             </Button>
                           )}
                         </div>
@@ -238,23 +255,38 @@ const ReservationsTable = ({
             </Table>
           </div>
           
-          {/* Pagination controls */}
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center py-4">
+          {/* Pagination controls and items per page selector */}
+          <div className="flex items-center justify-between border-t p-4">
+            <div className="flex items-center space-x-2">
+              <span className="text-sm text-gray-500">{t('admin.itemsPerPage')}</span>
+              <Select value={itemsPerPage.toString()} onValueChange={handleItemsPerPageChange}>
+                <SelectTrigger className="w-16">
+                  <SelectValue placeholder="5" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="5">5</SelectItem>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="20">20</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            {totalPages > 1 && (
               <Pagination>
                 <PaginationContent>
                   {renderPaginationItems()}
                 </PaginationContent>
               </Pagination>
-            </div>
-          )}
+            )}
+          </div>
         </>
       ) : (
         <div className="py-10 text-center text-gray-500">
           {searchTerm || statusFilter !== "ALL" ? (
-            <p>Aucune réservation ne correspond aux critères.</p>
+            <p>{t('admin.noReservationsFound')}</p>
           ) : (
-            <p>Aucune réservation disponible.</p>
+            <p>{t('admin.noReservationsAvailable')}</p>
           )}
         </div>
       )}
