@@ -13,7 +13,7 @@ const AboutPage = () => {
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <div>
             <img
-                src="https://peoplespheres.com/wp-content/uploads/2018/08/Le-travail-en-equipe-levier-de-performance-666x380.webp"
+                src="/lovable-uploads/about.webp"
                 alt="Portu Rent Team"
               className="rounded-lg shadow-lg w-full"
             />

@@ -22,18 +22,18 @@ export default function WhatsAppButton({ vehicleInfo, className, ...props }: Wha
     // If vehicle info is provided, add it to the WhatsApp message
     if (vehicleInfo) {
       const message = encodeURIComponent(
-        `${t('whatsapp.vehicleInterest')}: ${vehicleInfo.model} — ${vehicleInfo.image}`
+        `${t('whatsapp.vehicleInterest')}: ${vehicleInfo.model}`
       );
       url += `?text=${message}`;
     }
     
     window.open(url, "_blank", "noopener,noreferrer");
   };
-  
+  //azouagh
   return (
     <Button 
       onClick={handleClick} 
-      className={`gap-2 bg-[#25D366] hover:bg-[#128C7E] ${className || ""}`}
+      className={`gap-2 bg-[#25D100] hover:bg-[#128C7E] ${className || ""}`}
       {...props}
     >
       <svg 

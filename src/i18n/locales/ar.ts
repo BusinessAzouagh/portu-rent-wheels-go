@@ -2,7 +2,7 @@
 export const ar = {
   navbar: {
     home: "الرئيسية",
-    vehicles: "المركبات",
+    vehicles: "السيارات",
     about: "معلومات عنا",
     contact: "اتصل بنا",
   },
@@ -13,13 +13,13 @@ export const ar = {
   vehicles: {
     popularVehicles: "مركباتنا الأكثر شهرة",
     discoverFleet: "اكتشف أسطولنا المتنوع",
-    ourVehicles: "جميع مركباتنا",
+    ourVehicles: "جميع سياراتنا",
     ourFleet: "أسطولنا",
     availableVehicles: "المركبات المتاحة",
     noVehiclesFound: "لم يتم العثور على مركبات",
     filters: "الفلاتر",
     resetFilters: "إعادة تعيين الفلاتر",
-    brand: "العلامة التجارية",
+    brand: "نوع السيارة",
     color: "اللون",
     allColors: "كل الألوان",
     searchBrand: "ابحث عن العلامة التجارية",
@@ -43,8 +43,8 @@ export const ar = {
   about: {
     aboutPortuRent: "معلومات عن بورتو رينت",
     ourHistory: "تاريخنا",
-    historyText1: "Portu Rent est une entreprise de location de voitures fondée en 2010 avec l'objectif de fournir des services de location de voitures de qualité à des prix compétitifs.",
-    historyText2: "Depuis notre création, nous nous sommes efforcés d'offrir une large gamme de véhicules pour répondre aux divers besoins de nos clients, que ce soit pour des voyages d'affaires, des vacances en famille ou des escapades de week-end.",
+    historyText1: "بورتو رينت هي شركة لتأجير السيارات تأسست في عام 2024 في بني بوعياش، الحسيمة، وتهدف إلى تقديم خدمات تأجير سيارات عالية الجودة بأسعار تنافسية.",
+    historyText2: "منذ تأسيسنا، ونحن نسعى جاهدين لتقديم مجموعة واسعة من السيارات لتلبية الاحتياجات المتنوعة لعملائنا، سواء كانت لرحلات عمل، عطلات عائلية، أو عطلات نهاية الأسبوع.",
     ourValues: "قيمنا",
     quality: "الجودة",
     qualityText: "نحن ملتزمون بتقديم مركبات تلبي معايير عالية من السلامة والراحة والأداء.",

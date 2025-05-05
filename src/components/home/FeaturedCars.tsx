@@ -15,7 +15,6 @@ const FeaturedCars = () => {
           <h2 className="text-2xl md:text-3xl font-bold">{t('vehicles.popularVehicles')}</h2>
           <p className="text-gray-600 mt-2">{t('vehicles.discoverFleet')}</p>
         </div>
-        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {MOCK_CARS_WITH_GALLERY.map(car => (
             <CarCardWithGallery key={car.id} car={car} />

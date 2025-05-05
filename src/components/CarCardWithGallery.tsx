@@ -42,8 +42,8 @@ const CarCardWithGallery = ({ car }: CarCardProps) => {
         <div className="h-48 overflow-hidden relative">
           {/* Image carousel */}
           <img 
-            src={car.images[currentImageIndex]} 
-            alt={car.model} 
+            src={car.images[currentImageIndex]}
+            alt={`${car.brand} ${car.model}`}
             className="w-full h-full object-cover transition-all duration-300"
           />
           
@@ -85,7 +85,7 @@ const CarCardWithGallery = ({ car }: CarCardProps) => {
         </div>
       )}
       <div className="p-4">
-        <h3 className="text-lg font-bold">{car.model}</h3>
+        <h3 className="text-lg font-bold">{`${car.brand} ${car.model}`}</h3>
         <div className="space-y-1 mt-2 text-sm text-gray-600">
           <div className="flex justify-between">
             <span>{t('vehicles.transmission')}:</span>

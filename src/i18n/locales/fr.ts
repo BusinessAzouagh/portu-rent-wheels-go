@@ -42,7 +42,7 @@ export const fr = {
   about: {
     aboutPortuRent: "À propos de Portu Rent",
     ourHistory: "Notre Histoire",
-    historyText1: "Portu Rent est une entreprise de location de voitures fondée en 2010 avec l'objectif de fournir des services de location de voitures de qualité à des prix compétitifs.",
+    historyText1: "Portu Rent est une entreprise de location de voitures fondée en 2024 à Beni Bouayach, Al Hoceima avec l'objectif de fournir des services de location de voitures de qualité à des prix compétitifs.",
     historyText2: "Depuis notre création, nous nous sommes efforcés d'offrir une large gamme de véhicules pour répondre aux divers besoins de nos clients, que ce soit pour des voyages d'affaires, des vacances en famille ou des escapades de week-end.",
     ourValues: "Nos Valeurs",
     quality: "Qualité",

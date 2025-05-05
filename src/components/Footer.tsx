@@ -22,9 +22,10 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4">Portu Rent</h3>
             <div className="w-full max-w-[200px] mx-auto md:mx-0">
               <img 
-                src="/lovable-uploads/0a9deded-2aa4-4c35-beec-abb00872cdc8.png" 
-                alt="Portu Rent Logo"
+                src="/lovable-uploads/maps.png"
+                alt="Portu Rent Maps"
                 className="w-full h-auto rounded-lg shadow-lg"
+                onClick={handleMapClick}
               />
             </div>
             <p className="text-gray-300 mt-3 text-sm">{t('common.clickMap')}</p>
