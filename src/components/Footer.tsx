@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Phone, WhatsApp } from "lucide-react";
+import { Phone, MessageSquare } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const Footer = () => {
@@ -53,7 +53,7 @@ const Footer = () => {
                 className="flex items-center gap-2 mt-1 cursor-pointer text-primary-foreground hover:text-white"
                 onClick={handleWhatsAppClick}
               >
-                <WhatsApp size={14} /> WhatsApp: +212684057738
+                <MessageSquare size={14} /> WhatsApp: +212684057738
               </p>
             </address>
           </div>

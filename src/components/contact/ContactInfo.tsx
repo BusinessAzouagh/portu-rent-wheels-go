@@ -1,5 +1,5 @@
 
-import { Mail, Phone, WhatsApp } from "lucide-react";
+import { Mail, Phone, MessageSquare } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Button } from "../ui/button";
 
@@ -47,7 +47,7 @@ const ContactInfo = () => {
           </div>
           
           <div className="flex items-start gap-3">
-            <WhatsApp className="text-primary mt-1" />
+            <MessageSquare className="text-primary mt-1" />
             <div>
               <p className="font-medium">WhatsApp</p>
               <Button 

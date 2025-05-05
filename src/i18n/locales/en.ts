@@ -1,3 +1,4 @@
+
 export const en = {
   navbar: {
     home: "Home",
@@ -52,6 +53,7 @@ export const en = {
     yourEmail: "Your Email",
     message: "Message",
     sendMessage: "Send Message",
+    openAllDay: "Open 24/7",
   },
   footer: {
     usefulLinks: "Useful Links",
@@ -73,9 +75,6 @@ export const en = {
   },
   whatsapp: {
     vehicleInterest: "I'm interested in this vehicle",
-  },
-  contact: {
-    openAllDay: "Open 24/7",
   },
   validation: {
     required: "This field is required",

@@ -1,5 +1,5 @@
 
-import { WhatsApp } from "lucide-react";
+import { MessageSquare } from "lucide-react";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { useLanguage } from "@/i18n/LanguageContext";
 
@@ -36,7 +36,7 @@ export default function WhatsAppButton({ vehicleInfo, className, ...props }: Wha
       className={`gap-2 ${className || ""}`}
       {...props}
     >
-      <WhatsApp size={18} />
+      <MessageSquare size={18} />
       {props.children || t('common.contactWhatsApp')}
     </Button>
   );
