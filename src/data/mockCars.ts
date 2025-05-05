@@ -99,3 +99,4 @@ export const MOCK_CARS_WITH_GALLERY: CarWithGallery[] = [
     transmission: "Manuelle",
   },
 ];
+
