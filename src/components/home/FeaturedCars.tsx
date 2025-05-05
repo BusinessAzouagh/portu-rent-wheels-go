@@ -7,6 +7,8 @@ import { MOCK_CARS_WITH_GALLERY } from "@/data/mockCars";
 
 const FeaturedCars = () => {
   const { t } = useLanguage();
+  // Only show the first 4 cars on the homepage for better performance
+  const featuredCars = MOCK_CARS_WITH_GALLERY.slice(0, 4);
   
   return (
     <section className="py-12">
@@ -16,7 +18,7 @@ const FeaturedCars = () => {
           <p className="text-gray-600 mt-2">{t('vehicles.discoverFleet')}</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {MOCK_CARS_WITH_GALLERY.map(car => (
+          {featuredCars.map(car => (
             <CarCardWithGallery key={car.id} car={car} />
           ))}
         </div>

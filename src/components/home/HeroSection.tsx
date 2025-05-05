@@ -1,3 +1,4 @@
+
 import WhatsAppButton from "@/components/WhatsAppButton";
 import {useLanguage} from "@/i18n/LanguageContext";
 
@@ -7,14 +8,16 @@ const HeroSection = () => {
     return (
         <section
             className="hero-section relative flex items-center justify-center text-white min-h-[300px] sm:min-h-[450px]">
-            {/* Background Image with Overlay */}
+            {/* Background Image with Optimized WebP */}
             <div
                 className="absolute inset-0 z-0 bg-cover bg-center"
                 style={{
-                    backgroundImage: `url("/lovable-uploads/header.jpeg")`,
+                    backgroundImage: `url("/lovable-uploads/header.webp")`,
                     backgroundPosition: "center",
                     backgroundSize: "cover",
                 }}
+                role="img"
+                aria-label={t('home.heroImageAlt')}
             />
             <div className="absolute inset-0 z-0 bg-black bg-opacity-60"/>
 

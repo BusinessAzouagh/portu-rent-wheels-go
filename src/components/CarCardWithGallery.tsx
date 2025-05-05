@@ -35,19 +35,30 @@ const CarCardWithGallery = ({ car }: CarCardProps) => {
       prev === 0 ? car.images.length - 1 : prev - 1
     );
   };
+
+  // Constructing better alt text for images
+  const getImageAlt = () => {
+    const brandModel = `${car.brand || ''} ${car.model}`.trim();
+    const colorInfo = car.color ? ` - ${car.color}` : '';
+    const imagePosition = car.images.length > 1 ? ` (${currentImageIndex + 1}/${car.images.length})` : '';
+    return `${brandModel}${colorInfo}${imagePosition}`;
+  };
   
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       {car.images.length > 0 && (
         <div className="h-48 overflow-hidden relative">
-          {/* Image carousel */}
+          {/* Image carousel with explicit width/height and loading="lazy" */}
           <img 
             src={car.images[currentImageIndex]}
-            alt={`${car.brand} ${car.model}`}
+            alt={getImageAlt()}
             className="w-full h-full object-cover transition-all duration-300"
+            loading="lazy"
+            width="400"
+            height="192"
           />
           
-          {/* Navigation buttons */}
+          {/* Navigation buttons with improved accessibility */}
           {car.images.length > 1 && (
             <>
               <Button
@@ -55,6 +66,7 @@ const CarCardWithGallery = ({ car }: CarCardProps) => {
                 size="icon"
                 className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 hover:bg-white"
                 onClick={prevImage}
+                aria-label={t('common.previousImage')}
               >
                 <ChevronLeft size={18} />
               </Button>
@@ -63,12 +75,13 @@ const CarCardWithGallery = ({ car }: CarCardProps) => {
                 size="icon"
                 className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 hover:bg-white"
                 onClick={nextImage}
+                aria-label={t('common.nextImage')}
               >
                 <ChevronRight size={18} />
               </Button>
               
-              {/* Dots indicator */}
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+              {/* Dots indicator with improved accessibility */}
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5" role="tablist">
                 {car.images.map((_, index) => (
                   <span 
                     key={index}
@@ -77,6 +90,16 @@ const CarCardWithGallery = ({ car }: CarCardProps) => {
                       index === currentImageIndex ? "bg-white" : "bg-white/50"
                     )}
                     onClick={() => setCurrentImageIndex(index)}
+                    role="tab"
+                    tabIndex={0}
+                    aria-selected={index === currentImageIndex}
+                    aria-label={`${t('common.showImage')} ${index + 1}`}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setCurrentImageIndex(index);
+                      }
+                    }}
                   />
                 ))}
               </div>
