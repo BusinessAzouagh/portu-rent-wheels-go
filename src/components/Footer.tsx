@@ -1,5 +1,6 @@
 
 import { Link } from "react-router-dom";
+import { Phone, WhatsApp } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const Footer = () => {
@@ -8,6 +9,10 @@ const Footer = () => {
   const handleMapClick = () => {
     window.open("https://www.google.be/maps/place/Portu+rent/@35.1017685,-3.8377494,21z/data=!4m15!1m8!3m7!1s0xd75d38565cab5f9:0x1f41c088c7150079!2sBni+Bouayach,+Maroc!3b1!8m2!3d35.1019375!4d-3.8426291!16s%2Fm%2F09k7c8x!3m5!1s0xd75d3a70460d695:0x961a9964cfa78ecc!8m2!3d35.1018574!4d-3.8376694!16s%2Fg%2F11lmhsp6cp?entry=ttu&g_ep=EgoyMDI1MDQzMC4xIKXMDSoASAFQAw%3D%3D", "_blank", "noopener,noreferrer");
   };
+  
+  const handleWhatsAppClick = () => {
+    window.open("https://wa.me/212684057738", "_blank", "noopener,noreferrer");
+  };
 
   return (
     <footer className="bg-gray-900 text-white pt-12 pb-8">
@@ -15,7 +20,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-1">
             <h3 className="text-xl font-bold mb-4">Portu Rent</h3>
-            <div className="w-full max-w-[250px] mx-auto md:mx-0">
+            <div className="w-full max-w-[200px] mx-auto md:mx-0">
               <img 
                 src="/lovable-uploads/c74a4187-508f-46b7-bd8c-f4ac7fc977ce.png" 
                 alt="Portu Rent Location"
@@ -41,7 +46,15 @@ const Footer = () => {
             <address className="text-gray-300 not-italic">
               <p>Rue charif mohamed, Bni Bouayach 32050, Maroc</p>
               <p className="mt-2">Email: info@porturent.com</p>
-              <p>Téléphone: +212684057738</p>
+              <p className="flex items-center gap-2 mt-1">
+                <Phone size={14} /> Téléphone: +212684057738
+              </p>
+              <p 
+                className="flex items-center gap-2 mt-1 cursor-pointer text-primary-foreground hover:text-white"
+                onClick={handleWhatsAppClick}
+              >
+                <WhatsApp size={14} /> WhatsApp: +212684057738
+              </p>
             </address>
           </div>
         </div>

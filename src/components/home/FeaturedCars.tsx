@@ -1,18 +1,12 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import CarCard, { Car } from "@/components/CarCard";
 import { useLanguage } from "@/i18n/LanguageContext";
+import CarCardWithGallery from "@/components/CarCardWithGallery";
+import { MOCK_CARS_WITH_GALLERY } from "@/data/mockCars";
 
-interface FeaturedCarsProps {
-  cars: Car[];
-}
-
-const FeaturedCars = ({ cars }: FeaturedCarsProps) => {
-  const { t, language } = useLanguage();
-  
-  // Determine currency display based on language
-  const currencySymbol = language === "ar" ? "درهم" : "DH";
+const FeaturedCars = () => {
+  const { t } = useLanguage();
   
   return (
     <section className="py-12">
@@ -23,11 +17,8 @@ const FeaturedCars = ({ cars }: FeaturedCarsProps) => {
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {cars.map(car => (
-            <CarCard 
-              key={car.id} 
-              car={{...car, currencySymbol}} 
-            />
+          {MOCK_CARS_WITH_GALLERY.map(car => (
+            <CarCardWithGallery key={car.id} car={car} />
           ))}
         </div>
         
