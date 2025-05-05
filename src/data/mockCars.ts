@@ -10,10 +10,10 @@ export const MOCK_CARS_WITH_GALLERY: CarWithGallery[] = [
     licensePlate: "AA-123-BB",
     color: "Noir",
     images: [
-      "/cars/Peugeot_black/1.webp",
+      "/cars/Peugeot_black/1.jpg",
       "/cars/Peugeot_black/2.webp",
-      "/cars/Peugeot_black/3.webp",
-      "/cars/Peugeot_black/4.webp",
+      "/cars/Peugeot_black/3.png",
+      "/cars/Peugeot_black/4.jpg",
     ],
     transmission: "Manuelle",
   },
@@ -24,11 +24,11 @@ export const MOCK_CARS_WITH_GALLERY: CarWithGallery[] = [
     licensePlate: "CC-456-DD",
     color: "Gris",
     images: [
-      "/cars/Peugeot_gris/1.webp",
-      "/cars/Peugeot_gris/2.webp",
+      "/cars/Peugeot_gris/1.avif",
+      "/cars/Peugeot_gris/2.jpg",
       "/cars/Peugeot_gris/3.webp",
       "/cars/Peugeot_gris/4.webp",
-      "/cars/Peugeot_gris/5.webp",
+      "/cars/Peugeot_gris/5.jpg",
     ],
     transmission: "Manuelle",
   },
@@ -39,10 +39,10 @@ export const MOCK_CARS_WITH_GALLERY: CarWithGallery[] = [
     licensePlate: "EE-789-FF",
     color: "Rouge",
     images: [
-      "/cars/Peugeot_red/1.webp",
-      "/cars/Peugeot_red/2.webp",
-      "/cars/Peugeot_red/3.webp",
-      "/cars/Peugeot_red/4.webp"
+      "/cars/Peugeot_red/1.jpg",
+      "/cars/Peugeot_red/2.jpg",
+      "/cars/Peugeot_red/3.jpg",
+      "/cars/Peugeot_red/4.jpg"
     ],
     transmission: "Manuelle",
   },
@@ -53,8 +53,8 @@ export const MOCK_CARS_WITH_GALLERY: CarWithGallery[] = [
     licensePlate: "GG-012-HH",
     color: "Noir",
     images: [
-      "/cars/Seat_black/1.webp",
-      "/cars/Seat_black/2.webp"
+      "/cars/Seat_black/1.png",
+      "/cars/Seat_black/2.png"
     ],
     transmission: "Automatique",
   },
@@ -65,8 +65,8 @@ export const MOCK_CARS_WITH_GALLERY: CarWithGallery[] = [
     licensePlate: "II-345-JJ",
     color: "Jaune",
     images: [
-      "/cars/Peugeot_yellow/1.webp",
-      "/cars/Peugeot_yellow/2.webp"
+      "/cars/Peugeot_yellow/1.jpg",
+      "/cars/Peugeot_yellow/2.png"
     ],
     transmission: "Manuelle",
   },
@@ -78,12 +78,11 @@ export const MOCK_CARS_WITH_GALLERY: CarWithGallery[] = [
     color: "Vert",
     images: [
       "/cars/Peugeot_green/1.webp",
-      "/cars/Peugeot_green/2.webp",
+      "/cars/Peugeot_green/2.avif",
       "/cars/Peugeot_green/3.webp",
-      "/cars/Peugeot_green/4.webp",
+      "/cars/Peugeot_green/4.png",
       "/cars/Peugeot_green/5.webp",
     ],
-    transmission: "Manuelle",
   },
   {
     id: "7",
@@ -93,8 +92,8 @@ export const MOCK_CARS_WITH_GALLERY: CarWithGallery[] = [
     color: "Bleu",
     images: [
       "/cars/Peugeot_blue/1.webp",
-      "/cars/Peugeot_blue/2.webp",
-      "/cars/Peugeot_blue/3.webp"
+      "/cars/Peugeot_blue/2.jpg",
+      "/cars/Peugeot_blue/3.jpg"
     ],
     transmission: "Manuelle",
   },
