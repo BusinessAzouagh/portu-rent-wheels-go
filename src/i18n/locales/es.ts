@@ -1,3 +1,4 @@
+
 export const es = {
   navbar: {
     home: "Inicio",
@@ -19,6 +20,8 @@ export const es = {
     filters: "Filtros",
     resetFilters: "Restablecer filtros",
     brand: "Marca",
+    color: "Color",
+    allColors: "Todos los colores",
     searchBrand: "Buscar marca",
     transmission: "Transmisión",
     allTypes: "Todos los tipos",
@@ -32,13 +35,20 @@ export const es = {
     reserve: "Reservar",
     notSpecified: "No especificado",
     pricePerDay: "por día",
+    licensePlate: "Matrícula",
   },
   about: {
     aboutPortuRent: "Acerca de Portu Rent",
-    historyText1:
-      "Portu Rent es una empresa de alquiler de coches fundada en 2010 con la visión de ofrecer soluciones de movilidad asequibles y de calidad.",
-    historyText2:
-      "Desde nuestros humildes comienzos, nos hemos esforzado por construir una reputación basada en la confianza, la transparencia y la satisfacción del cliente.",
+    ourHistory: "Nuestra Historia",
+    historyText1: "Portu Rent est une entreprise de location de voitures fondée en 2010 avec l'objectif de fournir des services de location de voitures de qualité à des prix compétitifs.",
+    historyText2: "Depuis notre création, nous nous sommes efforcés d'offrir une large gamme de véhicules pour répondre aux divers besoins de nos clients, que ce soit pour des voyages d'affaires, des vacances en famille ou des escapades de week-end.",
+    ourValues: "Nuestros Valores",
+    quality: "Calidad",
+    qualityText: "Nos comprometemos a ofrecer vehículos que cumplan con altos estándares de seguridad, comodidad y rendimiento.",
+    transparency: "Transparencia",
+    transparencyText: "Creemos en una comunicación clara y honesta con nuestros clientes, incluyendo precios y condiciones.",
+    customerService: "Servicio al Cliente",
+    customerServiceText: "Nuestro equipo dedicado está siempre listo para ayudarlo antes, durante y después de su alquiler.",
   },
   contact: {
     contactUs: "Contáctenos",
@@ -61,8 +71,34 @@ export const es = {
     contactWhatsApp: "Contáctenos en WhatsApp",
     book: "Reservar",
     clickMap: "Haga clic en el mapa para ver nuestra ubicación",
+    search: "Buscar",
+    about: "Acerca de",
   },
   whatsapp: {
     vehicleInterest: "Estoy interesado en este vehículo",
   },
+  validation: {
+    required: "Este campo es obligatorio",
+  },
+  reservation: {
+    totalPrice: "Precio total",
+    days: "días",
+  },
+  search: {
+    findPerfectCar: "Encuentra tu coche perfecto",
+    startDate: "Fecha de inicio",
+    endDate: "Fecha de fin",
+  },
+  services: {
+    ourServices: "Nuestros Servicios",
+    forYourComfort: "Para su comodidad y tranquilidad",
+    wideRange: "Amplia Gama de Vehículos",
+    wideRangeText: "Desde coches compactos hasta vehículos de lujo, tenemos el coche perfecto para sus necesidades.",
+    insurance: "Seguro Completo",
+    insuranceText: "Todos nuestros vehículos vienen con un seguro completo para su tranquilidad.",
+    assistance: "Asistencia 24/7",
+    assistanceText: "Siempre estamos disponibles para ayudarlo con cualquier problema durante su alquiler.",
+    airportDelivery: "Entrega en el Aeropuerto",
+    airportDeliveryText: "Podemos entregar su vehículo directamente en el aeropuerto para su comodidad.",
+  }
 };

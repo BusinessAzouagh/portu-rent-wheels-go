@@ -1,3 +1,4 @@
+
 export const fr = {
   navbar: {
     home: "Accueil",
@@ -21,6 +22,8 @@ export const fr = {
     brand: "Marque",
     searchBrand: "Rechercher une marque",
     transmission: "Transmission",
+    color: "Couleur",
+    allColors: "Toutes les couleurs",
     allTypes: "Tous types",
     manual: "Manuelle",
     automatic: "Automatique",
@@ -38,8 +41,16 @@ export const fr = {
   },
   about: {
     aboutPortuRent: "À propos de Portu Rent",
-    historyText1: "Portu Rent est une entreprise de location de voitures basée à Bni Bouayach. Nous offrons une large gamme de véhicules pour répondre à tous vos besoins.",
-    historyText2: "Fondée en 2024, notre mission est de fournir un service de location de voitures fiable et abordable à nos clients.",
+    ourHistory: "Notre Histoire",
+    historyText1: "Portu Rent est une entreprise de location de voitures fondée en 2010 avec l'objectif de fournir des services de location de voitures de qualité à des prix compétitifs.",
+    historyText2: "Depuis notre création, nous nous sommes efforcés d'offrir une large gamme de véhicules pour répondre aux divers besoins de nos clients, que ce soit pour des voyages d'affaires, des vacances en famille ou des escapades de week-end.",
+    ourValues: "Nos Valeurs",
+    quality: "Qualité",
+    qualityText: "Nous nous engageons à offrir des véhicules répondant à des normes élevées de sécurité, de confort et de performance.",
+    transparency: "Transparence",
+    transparencyText: "Nous croyons en une communication claire et honnête avec nos clients, y compris sur les prix, les conditions générales.",
+    customerService: "Service Client",
+    customerServiceText: "Notre équipe dévouée est toujours prête à vous aider avant, pendant et après votre location.",
   },
   contact: {
     contactUs: "Contactez-nous",
@@ -75,7 +86,7 @@ export const fr = {
     contactWhatsApp: "Contactez-nous sur WhatsApp",
     clickMap: "Cliquez sur la carte pour voir notre emplacement",
   },
-   whatsapp: {
+  whatsapp: {
     vehicleInterest: "Ce véhicule m'intéresse",
   },
   validation: {
@@ -86,4 +97,16 @@ export const fr = {
     totalPrice: "Prix total",
     days: "jours",
   },
+  services: {
+    ourServices: "Nos Services",
+    forYourComfort: "Pour votre confort et votre tranquillité d'esprit",
+    wideRange: "Large Gamme de Véhicules",
+    wideRangeText: "Des voitures compactes aux véhicules de luxe, nous avons la voiture parfaite pour vos besoins.",
+    insurance: "Assurance Complète",
+    insuranceText: "Tous nos véhicules sont équipés d'une assurance complète pour votre tranquillité d'esprit.",
+    assistance: "Assistance 24/7",
+    assistanceText: "Nous sommes toujours disponibles pour vous aider en cas de problème pendant votre location.",
+    airportDelivery: "Livraison à l'Aéroport",
+    airportDeliveryText: "Nous pouvons livrer votre véhicule directement à l'aéroport pour votre confort.",
+  }
 };

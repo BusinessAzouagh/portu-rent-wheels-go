@@ -19,22 +19,28 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider = ({ children }: LanguageProviderProps) => {
-  // Retrieve language from localStorage or use default 'fr'
+  // Get browser language
+  const getBrowserLanguage = (): Language => {
+    const browserLang = navigator.language.split('-')[0];
+    const supportedLanguages: Language[] = ['fr', 'en', 'es', 'ar'];
+    
+    if (supportedLanguages.includes(browserLang as Language)) {
+      return browserLang as Language;
+    }
+    
+    return 'fr'; // Default to French if browser language not supported
+  };
+  
+  // Retrieve language from localStorage or use browser language
   const [language, setLanguageState] = useState<Language>(() => {
     const savedLanguage = localStorage.getItem('userLanguage');
-    return (savedLanguage as Language) || getDefaultLanguage();
+    return (savedLanguage as Language) || getBrowserLanguage();
   });
 
   const [defaultLanguage, setDefaultLanguageState] = useState<Language>(() => {
     const savedDefault = localStorage.getItem('defaultLanguage');
     return (savedDefault as Language) || 'fr';
   });
-
-  // Function to get the default language from localStorage or use 'fr'
-  function getDefaultLanguage(): Language {
-    const savedDefault = localStorage.getItem('defaultLanguage');
-    return (savedDefault as Language) || 'fr';
-  }
 
   // Set language and store in localStorage
   const setLanguage = (newLanguage: Language) => {

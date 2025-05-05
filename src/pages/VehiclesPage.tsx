@@ -1,6 +1,5 @@
+
 import { useState } from "react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import Layout from "@/components/Layout";
 import { Car as CarIcon, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -23,73 +22,147 @@ interface ExtendedCarInfo {
   model: string;
   brand: string;
   licensePlate: string;
+  color: string;
   image: string;
+  images: string[];
   available: boolean;
   transmission: "Manuelle" | "Automatique";
-  fuelType: "Essence" | "Diesel";
 }
 
 // Extended mock data with additional information
 const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
   {
     id: "1",
-    model: "Clio",
-    brand: "Renault",
+    model: "208",
+    brand: "Peugeot",
     licensePlate: "AA-123-BB",
-    image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=800",
+    color: "Noir",
+    image: "https://images.unsplash.com/photo-1617469767053-d3b16242fa54?q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1617469767053-d3b16242fa54?q=80&w=800",
+      "https://images.unsplash.com/photo-1617469767053-d3b16242fa54?q=80&w=800&angle=10",
+      "https://images.unsplash.com/photo-1617469815450-52a8af2f591d?q=80&w=800",
+      "https://images.unsplash.com/photo-1608983765214-1e455a249e17?q=80&w=800",
+      "https://images.unsplash.com/photo-1542362567-b07e54358753?q=80&w=800",
+      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=800",
+      "https://images.unsplash.com/photo-1617468149629-4788ae5c5151?q=80&w=800"
+    ],
     available: true,
-    transmission: "Manuelle",
-    fuelType: "Essence",
+    transmission: "Automatique",
   },
   {
     id: "2",
     model: "208",
     brand: "Peugeot",
     licensePlate: "CC-456-DD",
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=800",
+    color: "Gris",
+    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=800",
+      "https://images.unsplash.com/photo-1607861716497-e65ab29fc7ac?q=80&w=800",
+      "https://images.unsplash.com/photo-1555215695-3004980ad54e?q=80&w=800",
+      "https://images.unsplash.com/photo-1607953070259-4c2705d35173?q=80&w=800",
+      "https://images.unsplash.com/photo-1581829952606-7526345c99d6?q=80&w=800",
+      "https://images.unsplash.com/photo-1570733577524-3a047079e80d?q=80&w=800",
+      "https://images.unsplash.com/photo-1617284802361-d90a53cf45af?q=80&w=800"
+    ],
     available: true,
-    transmission: "Automatique",
-    fuelType: "Diesel",
+    transmission: "Manuelle",
   },
   {
     id: "3",
-    model: "Golf",
-    brand: "Volkswagen",
+    model: "208",
+    brand: "Peugeot",
     licensePlate: "EE-789-FF",
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?q=80&w=800",
-    available: false,
-    transmission: "Manuelle",
-    fuelType: "Diesel",
+    color: "Rouge",
+    image: "https://images.unsplash.com/photo-1612828512773-4192eae44937?q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1612828512773-4192eae44937?q=80&w=800",
+      "https://images.unsplash.com/photo-1617074172287-ea8eecb37184?q=80&w=800",
+      "https://images.unsplash.com/photo-1624135197012-5bce51ed9812?q=80&w=800",
+      "https://images.unsplash.com/photo-1601640365825-66327247a486?q=80&w=800",
+      "https://images.unsplash.com/photo-1617469817648-6bdb54e80efb?q=80&w=800",
+      "https://images.unsplash.com/photo-1605515298946-d0573885718c?q=80&w=800",
+      "https://images.unsplash.com/photo-1636292422797-1a201d8d9712?q=80&w=800"
+    ],
+    available: true,
+    transmission: "Automatique",
   },
   {
     id: "4",
-    model: "500",
-    brand: "Fiat",
+    model: "208",
+    brand: "Peugeot",
     licensePlate: "GG-012-HH",
-    image: "https://images.unsplash.com/photo-1617654112368-307b8947646c?q=80&w=800",
+    color: "Blanc",
+    image: "https://images.unsplash.com/photo-1605515340322-46718c184f35?q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1605515340322-46718c184f35?q=80&w=800",
+      "https://images.unsplash.com/photo-1617084246636-ffb6ba2d8f22?q=80&w=800",
+      "https://images.unsplash.com/photo-1584369372267-a85f98cd334e?q=80&w=800",
+      "https://images.unsplash.com/photo-1580274068197-0d3f2ee2a954?q=80&w=800",
+      "https://images.unsplash.com/photo-1617083934551-2178fc3255df?q=80&w=800",
+      "https://images.unsplash.com/photo-1524082983062-21c24967d6c9?q=80&w=800",
+      "https://images.unsplash.com/photo-1531920327645-347e96a7f31e?q=80&w=800"
+    ],
     available: true,
     transmission: "Manuelle",
-    fuelType: "Essence",
   },
   {
     id: "5",
-    model: "C3",
-    brand: "Citroën",
+    model: "208",
+    brand: "Peugeot",
     licensePlate: "II-345-JJ",
-    image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=800",
+    color: "Jaune",
+    image: "https://images.unsplash.com/photo-1610844330803-f7c495fe7ec7?q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1610844330803-f7c495fe7ec7?q=80&w=800",
+      "https://images.unsplash.com/photo-1610226444910-68b613162a80?q=80&w=800",
+      "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=800",
+      "https://images.unsplash.com/photo-1618843479255-1add2fae3215?q=80&w=800",
+      "https://images.unsplash.com/photo-1582639510494-c80b5de9f148?q=80&w=800",
+      "https://images.unsplash.com/photo-1575996367261-5bb9b1904133?q=80&w=800",
+      "https://images.unsplash.com/photo-1627694329308-df442eec48ab?q=80&w=800"
+    ],
     available: true,
     transmission: "Automatique",
-    fuelType: "Essence",
   },
   {
     id: "6",
-    model: "Fiesta",
-    brand: "Ford",
+    model: "208",
+    brand: "Peugeot",
     licensePlate: "KK-678-LL",
-    image: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?q=80&w=800",
+    color: "Vert",
+    image: "https://images.unsplash.com/photo-1615223456341-8a1c3be04166?q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1615223456341-8a1c3be04166?q=80&w=800",
+      "https://images.unsplash.com/photo-1608047246626-fc576853da28?q=80&w=800",
+      "https://images.unsplash.com/photo-1611651186286-44d700e2f149?q=80&w=800",
+      "https://images.unsplash.com/photo-1580274365290-3dde951e7a55?q=80&w=800",
+      "https://images.unsplash.com/photo-1536400705173-21f5aefe60ca?q=80&w=800",
+      "https://images.unsplash.com/photo-1626621335412-66dea66fc9a6?q=80&w=800",
+      "https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?q=80&w=800"
+    ],
     available: true,
     transmission: "Manuelle",
-    fuelType: "Diesel",
+  },
+  {
+    id: "7",
+    model: "208",
+    brand: "Peugeot",
+    licensePlate: "MM-901-NN",
+    color: "Bleu",
+    image: "https://images.unsplash.com/photo-1610630694586-2af0950a2747?q=80&w=800",
+    images: [
+      "https://images.unsplash.com/photo-1610630694586-2af0950a2747?q=80&w=800",
+      "https://images.unsplash.com/photo-1542362567-b07e54358753?q=80&w=800",
+      "https://images.unsplash.com/photo-1620366487638-195fb4e800ea?q=80&w=800",
+      "https://images.unsplash.com/photo-1577495508326-19a1b3cf65b7?q=80&w=800",
+      "https://images.unsplash.com/photo-1505156868547-9b49f4df4e04?q=80&w=800",
+      "https://images.unsplash.com/photo-1607853554264-fd1e737f1873?q=80&w=800",
+      "https://images.unsplash.com/photo-1625419584519-ce1c9df08be0?q=80&w=800"
+    ],
+    available: true,
+    transmission: "Automatique",
   },
 ];
 
@@ -98,7 +171,7 @@ const VehiclesPage = () => {
   const [filters, setFilters] = useState({
     brand: "",
     transmission: "",
-    fuelType: "",
+    color: "",
   });
   const { t } = useLanguage();
 
@@ -120,15 +193,15 @@ const VehiclesPage = () => {
       );
     }
 
-    if (currentFilters.transmission) {
+    if (currentFilters.transmission && currentFilters.transmission !== "all") {
       result = result.filter(car => 
         car.transmission === currentFilters.transmission
       );
     }
 
-    if (currentFilters.fuelType) {
+    if (currentFilters.color && currentFilters.color !== "all") {
       result = result.filter(car => 
-        car.fuelType === currentFilters.fuelType
+        car.color.toLowerCase() === currentFilters.color.toLowerCase()
       );
     }
 
@@ -139,10 +212,13 @@ const VehiclesPage = () => {
     setFilters({
       brand: "",
       transmission: "",
-      fuelType: "",
+      color: "",
     });
     setFilteredCars(EXTENDED_MOCK_CARS);
   };
+
+  // Get unique colors for filtering
+  const uniqueColors = [...new Set(EXTENDED_MOCK_CARS.map(car => car.color))];
 
   return (
     <Layout>
@@ -209,20 +285,21 @@ const VehiclesPage = () => {
                   </Select>
                 </div>
                 
-                {/* Fuel Type Filter */}
+                {/* Color Filter */}
                 <div className="space-y-2">
-                  <Label htmlFor="fuelType">{t('vehicles.fuelType')}</Label>
+                  <Label htmlFor="color">{t('vehicles.color')}</Label>
                   <Select
-                    value={filters.fuelType}
-                    onValueChange={(value) => handleFilterChange("fuelType", value)}
+                    value={filters.color}
+                    onValueChange={(value) => handleFilterChange("color", value)}
                   >
-                    <SelectTrigger id="fuelType">
-                      <SelectValue placeholder={t('vehicles.allTypes')} />
+                    <SelectTrigger id="color">
+                      <SelectValue placeholder={t('vehicles.allColors')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">{t('vehicles.allTypes')}</SelectItem>
-                      <SelectItem value="Essence">{t('vehicles.gasoline')}</SelectItem>
-                      <SelectItem value="Diesel">{t('vehicles.diesel')}</SelectItem>
+                      <SelectItem value="all">{t('vehicles.allColors')}</SelectItem>
+                      {uniqueColors.map(color => (
+                        <SelectItem key={color} value={color.toLowerCase()}>{color}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -269,15 +346,64 @@ const VehiclesPage = () => {
 // Vehicle Card Component
 const VehicleCard = ({ car }: { car: ExtendedCarInfo }) => {
   const { t } = useLanguage();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === car.images.length - 1 ? 0 : prev + 1
+    );
+  };
+  
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? car.images.length - 1 : prev - 1
+    );
+  };
   
   return (
     <div className="bg-white rounded-lg shadow overflow-hidden h-full flex flex-col">
       <div className="aspect-video relative overflow-hidden">
         <img
-          src={car.image}
-          alt={`${car.brand} ${car.model}`}
+          src={car.images[currentImageIndex]}
+          alt={`${car.brand} ${car.model} - ${car.color}`}
           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
         />
+        
+        {/* Navigation buttons */}
+        {car.images.length > 1 && (
+          <>
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 hover:bg-white"
+              onClick={prevImage}
+            >
+              <ChevronLeft size={18} />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 hover:bg-white"
+              onClick={nextImage}
+            >
+              <ChevronRight size={18} />
+            </Button>
+            
+            {/* Dots indicator */}
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+              {car.images.map((_, index) => (
+                <span 
+                  key={index}
+                  className={`w-2 h-2 rounded-full cursor-pointer ${
+                    index === currentImageIndex ? "bg-white" : "bg-white/50"
+                  }`}
+                  onClick={() => setCurrentImageIndex(index)}
+                />
+              ))}
+            </div>
+          </>
+        )}
+        
         {!car.available && (
           <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
             <span className="text-white font-semibold text-lg">{t('vehicles.unavailable')}</span>
@@ -286,7 +412,7 @@ const VehicleCard = ({ car }: { car: ExtendedCarInfo }) => {
       </div>
       
       <div className="p-4 flex-grow flex flex-col">
-        <h3 className="font-bold text-lg">{car.brand} {car.model}</h3>
+        <h3 className="font-bold text-lg">{car.brand} {car.model} - {car.color}</h3>
         
         <div className="mt-2 space-y-1 text-sm text-gray-600 flex-grow">
           <div className="flex justify-between">
@@ -297,10 +423,8 @@ const VehicleCard = ({ car }: { car: ExtendedCarInfo }) => {
           </div>
           
           <div className="flex justify-between">
-            <span>{t('vehicles.fuelType')}:</span>
-            <span className="font-medium">
-              {car.fuelType === "Essence" ? t('vehicles.gasoline') : t('vehicles.diesel')}
-            </span>
+            <span>{t('vehicles.color')}:</span>
+            <span className="font-medium">{car.color}</span>
           </div>
           
           <div className="flex justify-between">
@@ -315,8 +439,8 @@ const VehicleCard = ({ car }: { car: ExtendedCarInfo }) => {
           <WhatsAppButton
             size="sm"
             vehicleInfo={{
-              model: `${car.brand} ${car.model}`,
-              image: car.image
+              model: `${car.brand} ${car.model} - ${car.color}`,
+              image: car.images[0]
             }}
           >
             {t('common.contactUs')}

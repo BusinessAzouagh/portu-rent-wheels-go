@@ -46,30 +46,6 @@ const AboutPage = () => {
             </div>
           </div>
         </div>
-        
-        <div>
-          <h2 className="text-2xl font-semibold mb-6 text-center">{t('about.ourTeam')}</h2>
-          <div className="grid md:grid-cols-4 gap-6">
-            {[
-              t('about.director'), 
-              t('about.commercialManager'), 
-              t('about.customerServiceRole'), 
-              t('about.maintenanceManager')
-            ].map((role, index) => (
-              <div key={index} className="bg-white p-4 rounded-lg shadow-md text-center">
-                <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
-                  <img 
-                    src={`https://randomuser.me/api/portraits/${index % 2 === 0 ? 'men' : 'women'}/${index + 70}.jpg`} 
-                    alt={`Team member ${index + 1}`} 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h3 className="font-medium">John Doe {index + 1}</h3>
-                <p className="text-gray-600 text-sm">{role}</p>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </Layout>
   );

@@ -13,6 +13,7 @@ export interface CarWithGallery {
   licensePlate: string;
   images: string[];
   transmission?: string;
+  color?: string;
 }
 
 interface CarCardProps {
@@ -72,7 +73,7 @@ const CarCardWithGallery = ({ car }: CarCardProps) => {
                   <span 
                     key={index}
                     className={cn(
-                      "w-2 h-2 rounded-full", 
+                      "w-2 h-2 rounded-full cursor-pointer", 
                       index === currentImageIndex ? "bg-white" : "bg-white/50"
                     )}
                     onClick={() => setCurrentImageIndex(index)}
@@ -85,14 +86,23 @@ const CarCardWithGallery = ({ car }: CarCardProps) => {
       )}
       <div className="p-4">
         <h3 className="text-lg font-bold">{car.model}</h3>
-        <div className="flex justify-between items-center mt-2 text-sm text-gray-600">
-          <span>{car.transmission || t('vehicles.notSpecified')}</span>
+        <div className="space-y-1 mt-2 text-sm text-gray-600">
+          <div className="flex justify-between">
+            <span>{t('vehicles.transmission')}:</span>
+            <span className="font-medium">{car.transmission || t('vehicles.notSpecified')}</span>
+          </div>
+          {car.color && (
+            <div className="flex justify-between">
+              <span>{t('vehicles.color')}:</span>
+              <span className="font-medium">{car.color}</span>
+            </div>
+          )}
         </div>
         <div className="mt-4 flex justify-end">
           <WhatsAppButton 
             size="sm" 
             vehicleInfo={{
-              model: car.brand ? `${car.brand} ${car.model}` : car.model,
+              model: car.brand ? `${car.brand} ${car.model} - ${car.color}` : car.model,
               image: car.images[0]
             }}
           >

@@ -1,3 +1,4 @@
+
 export const ar = {
   navbar: {
     home: "الرئيسية",
@@ -19,6 +20,8 @@ export const ar = {
     filters: "الفلاتر",
     resetFilters: "إعادة تعيين الفلاتر",
     brand: "العلامة التجارية",
+    color: "اللون",
+    allColors: "كل الألوان",
     searchBrand: "ابحث عن العلامة التجارية",
     transmission: "ناقل الحركة",
     allTypes: "جميع الأنواع",
@@ -39,10 +42,16 @@ export const ar = {
   },
   about: {
     aboutPortuRent: "معلومات عن بورتو رينت",
-    historyText1:
-      "تأسست بورتو رينت في عام 2010، وهي شركة رائدة في مجال تأجير السيارات في المنطقة. بدأنا بهدف بسيط: توفير خيارات نقل موثوقة وبأسعار معقولة للجميع.",
-    historyText2:
-      "على مر السنين، قمنا بتوسيع أسطولنا وخدماتنا لتلبية الاحتياجات المتنوعة لعملائنا. اليوم، نحن نقدم مجموعة واسعة من المركبات، من السيارات الاقتصادية إلى الشاحنات الفاخرة، وكلها مصانة جيدًا ومجهزة بأحدث الميزات.",
+    ourHistory: "تاريخنا",
+    historyText1: "Portu Rent est une entreprise de location de voitures fondée en 2010 avec l'objectif de fournir des services de location de voitures de qualité à des prix compétitifs.",
+    historyText2: "Depuis notre création, nous nous sommes efforcés d'offrir une large gamme de véhicules pour répondre aux divers besoins de nos clients, que ce soit pour des voyages d'affaires, des vacances en famille ou des escapades de week-end.",
+    ourValues: "قيمنا",
+    quality: "الجودة",
+    qualityText: "نحن ملتزمون بتقديم مركبات تلبي معايير عالية من السلامة والراحة والأداء.",
+    transparency: "الشفافية",
+    transparencyText: "نؤمن بالتواصل الواضح والصادق مع عملائنا، بما في ذلك الأسعار والشروط والأحكام.",
+    customerService: "خدمة العملاء",
+    customerServiceText: "فريقنا المتفاني جاهز دائمًا لمساعدتك قبل وأثناء وبعد الإيجار.",
   },
   contact: {
     contactUs: "اتصل بنا",
@@ -76,4 +85,28 @@ export const ar = {
   whatsapp: {
     vehicleInterest: "أنا مهتم بهذه السيارة",
   },
+  validation: {
+    required: "هذا الحقل مطلوب",
+  },
+  reservation: {
+    totalPrice: "السعر الإجمالي",
+    days: "أيام",
+  },
+  search: {
+    findPerfectCar: "ابحث عن سيارتك المثالية",
+    startDate: "تاريخ البداية",
+    endDate: "تاريخ النهاية",
+  },
+  services: {
+    ourServices: "خدماتنا",
+    forYourComfort: "لراحتك وراحة بالك",
+    wideRange: "مجموعة واسعة من المركبات",
+    wideRangeText: "من السيارات المدمجة إلى المركبات الفاخرة، لدينا السيارة المثالية لاحتياجاتك.",
+    insurance: "تأمين شامل",
+    insuranceText: "جميع مركباتنا مزودة بتأمين شامل لراحة بالك.",
+    assistance: "مساعدة على مدار الساعة",
+    assistanceText: "نحن متاحون دائمًا لمساعدتك في أي مشاكل أثناء فترة الإيجار.",
+    airportDelivery: "توصيل المطار",
+    airportDeliveryText: "يمكننا توصيل مركبتك مباشرة إلى المطار لراحتك.",
+  }
 };

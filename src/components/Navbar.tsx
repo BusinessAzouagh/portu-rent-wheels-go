@@ -15,7 +15,11 @@ const Navbar = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-2xl font-bold text-primary">Portu Rent</span>
+            <img 
+              src="/lovable-uploads/0a9deded-2aa4-4c35-beec-abb00872cdc8.png" 
+              alt="Portu Rent Car" 
+              className="h-10"
+            />
           </Link>
           
           {/* Desktop Navigation */}
@@ -24,11 +28,6 @@ const Navbar = () => {
             <Link to="/vehicles" className="text-gray-600 hover:text-primary font-medium">{t('navbar.vehicles')}</Link>
             <Link to="/about" className="text-gray-600 hover:text-primary font-medium">{t('navbar.about')}</Link>
             <Link to="/contact" className="text-gray-600 hover:text-primary font-medium">{t('navbar.contact')}</Link>
-            <Link to="/admin">
-              <Button variant="outline" size="sm">
-                {t('navbar.admin')}
-              </Button>
-            </Link>
             <LanguageSelector onlyIcon={true} />
           </nav>
           
@@ -77,12 +76,6 @@ const Navbar = () => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 {t('navbar.contact')}
-              </Link>
-              <Link 
-                to="/admin" 
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Button className="w-full">{t('navbar.admin')}</Button>
               </Link>
             </div>
           </nav>
