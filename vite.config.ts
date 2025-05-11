@@ -7,6 +7,6 @@ export default defineConfig({
   base: "/portu-rent-wheels-go/",
   plugins: [react()],
   resolve: {
-    alias: { "@": path.resolve(__dirname, "src") },
+    alias: { "@": path.resolve(__dirname, "./src") },
   },
 });
