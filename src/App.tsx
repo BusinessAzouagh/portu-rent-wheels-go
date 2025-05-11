@@ -16,7 +16,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <LanguageProvider>
-      <BrowserRouter basename="/porturent">
+      <BrowserRouter>
         <TooltipProvider>
           <Routes>
             {/* Public Routes */}

@@ -20,6 +20,6 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  // Configuration for GitHub Pages
-  base: "/porturent/",
+  // Configuration for GitHub Pages - Using "/" as we'll handle the basename in the router
+  base: "/",
 }));
