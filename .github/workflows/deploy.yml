@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main        # ou la branche que vous voulez déployer
+      - main        # ou la branche que vous déployez
 
 jobs:
   build-and-deploy:
@@ -13,32 +13,25 @@ jobs:
       # 1) Checkout
       - uses: actions/checkout@v4
 
-      # 2) Setup Node.js
-      - name: Use Node.js 18
-        uses: actions/setup-node@v3
+      # 2) Setup Node
+      - uses: actions/setup-node@v3
         with:
           node-version: 18
 
       # 3) Install & Build
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build production
-        run: npm run build
+      - run: npm ci
+      - run: npm run build
 
       # 4) Configure Pages
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v4
+      - uses: actions/configure-pages@v4
 
-      # 5) Upload l’artefact avec un nom unique
-      - name: Upload static assets
-        uses: actions/upload-pages-artifact@v1
+      # 5) Upload static assets SOUS UN NOM UNIQUE
+      - uses: actions/upload-pages-artifact@v1
         with:
           path: ./dist
-          artifact_name: portu-rent-artifact   # ← nom personnalisé
+          artifact_name: portu-rent-wheels-artifact
 
-      # 6) Déployer en spécifiant le même nom
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+      # 6) Deploy en ciblant CET artefact
+      - uses: actions/deploy-pages@v4
         with:
-          artifact_name: portu-rent-artifact   # ← même nom
+          artifact_name: portu-rent-wheels-artifact
