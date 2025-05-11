@@ -1,4 +1,3 @@
-
 export const ar = {
   navbar: {
     home: "الرئيسية",
@@ -81,6 +80,7 @@ export const ar = {
     contactUs: "اتصل بنا",
     contactWhatsApp: "اتصل بنا عبر واتساب",
     clickMap: "انقر على الخريطة لرؤية موقعنا",
+    notFound: "الصفحة غير موجودة"
   },
   whatsapp: {
     vehicleInterest: "أنا مهتم بهذه السيارة",
@@ -91,6 +91,7 @@ export const ar = {
   reservation: {
     totalPrice: "السعر الإجمالي",
     days: "أيام",
+    returnHome: "العودة إلى الصفحة الرئيسية"
   },
   search: {
     findPerfectCar: "ابحث عن سيارتك المثالية",

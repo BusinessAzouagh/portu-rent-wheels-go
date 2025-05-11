@@ -1,4 +1,3 @@
-
 export const en = {
   navbar: {
     home: "Home",
@@ -83,6 +82,7 @@ export const en = {
     contactUs: "Contact us",
     contactWhatsApp: "Contact us on WhatsApp",
     clickMap: "Click on the map to see our location",
+    notFound: "Page not found"
   },
   whatsapp: {
     vehicleInterest: "I'm interested in this vehicle",
@@ -93,6 +93,7 @@ export const en = {
   reservation: {
     totalPrice: "Total Price",
     days: "days",
+    returnHome: "Return to home"
   },
   services: {
     ourServices: "Our Services",
