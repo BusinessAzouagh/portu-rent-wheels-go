@@ -11,7 +11,7 @@ const AboutSection = () => {
                 <div className="lg:flex items-center gap-12">
                     <div className="lg:w-1/2 mb-8 lg:mb-0">
                         <img
-                            src="/lovable-uploads/about.webp"
+                            src="https://media-hosting.imagekit.io/b5aaa69006364833/about.webp?Expires=1841577428&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=aktZg8DqpXO6gkP~Oka8PgXC8SzFaV8DMaSwEPNNVjVv9r9GxJbePYxXc1adfCYnGZvg1sGkBwmgmFYlKWjPdEwcy25IcJbGlq-Mgu3rlHp-ZHoBiIa3DVzHV~ie8izg4h~vQh21-57nH5ys-cQXmPZbxem2nnLo~VJjNwK~mPROcSJsBrgX7eK4lbmjOkRUWSdFitdXXFDEXiCyj28Ltyjk~PTZ7Iu8CDAbhJ2YXcZES-hfBGZKb2xR8~9UEHYA2E2FEGSEEUmgBMFbNEVwLpO86dzudxocA7aiNhd7emsjjQrew6MfZWek5EWc-uVXhQU33Qj4zUTrT-cMQEQyvA__"
                             alt="Portu Rent Team"
                             className="rounded-lg shadow-lg w-full"
                         />
