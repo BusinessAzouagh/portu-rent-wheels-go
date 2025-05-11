@@ -1,27 +1,24 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portu Rent</title>
-  <meta name="description" content="Location de voitures au Rif." />
-  <meta name="author" content="Portu Rent" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Portu Rent</title>
+    <meta name="description" content="Location de voitures au Rif."/>
+    <meta name="author" content="Portu Rent"/>
 
-  <!-- Cache control headers for static assets -->
-  <meta http-equiv="Cache-Control" content="max-age=31536000" />
+    <!-- Cache control headers for static assets -->
+    <meta http-equiv="Cache-Control" content="max-age=31536000"/>
 
-  -   <link rel="icon" type="image/png" href="/favicon.ico" />
-  +   <link rel="icon" type="image/png" href="%BASE_URL%favicon.ico" />
+    <link rel="icon" type="image/png" href="%BASE_URL%favicon.ico"/>
 
-  <!-- Add theme color for mobile browsers -->
-  <meta name="theme-color" content="#0066cc" />
+    <!-- Add theme color for mobile browsers -->
+    <meta name="theme-color" content="#0066cc"/>
 </head>
 
 <body>
 <div id="root"></div>
--   <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
--   <script type="module" src="/src/main.tsx"></script>
-+   <!-- si vous avez vraiment besoin de gptengineer, laissez-le absolu, sinon supprimez -->
-+   <script type="module" src="%BASE_URL%src/main.tsx"></script>
+<!-- si vous avez vraiment besoin de gptengineer, laissez-le absolu, sinon supprimez -->
+<script type="module" src="%BASE_URL%src/main.tsx"></script>
 </body>
 </html>
