@@ -16,7 +16,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <LanguageProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/portu-rent-wheels-go/">
         <TooltipProvider>
           <Routes>
             {/* Public Routes */}
