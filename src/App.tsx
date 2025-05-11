@@ -9,6 +9,7 @@ import VehiclesPage from "./pages/VehiclesPage";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
+import { HashRouter } from 'react-router-dom';
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
@@ -16,7 +17,7 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <LanguageProvider>
-      <BrowserRouter basename="/portu-rent-wheels-go/">
+      <HashRouter>
         <TooltipProvider>
           <Routes>
             {/* Public Routes */}
@@ -30,7 +31,7 @@ const App = () => (
           </Routes>
           <Toaster />
         </TooltipProvider>
-      </BrowserRouter>
+      </HashRouter>
     </LanguageProvider>
   </QueryClientProvider>
 );
