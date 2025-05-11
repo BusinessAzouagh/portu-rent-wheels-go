@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/portu-rent-wheels-go/", // ← Ajout essentiel pour GitHub Pages
+  base: "/portu-rent-wheels-go/",
 
   server: {
     host: "::",
