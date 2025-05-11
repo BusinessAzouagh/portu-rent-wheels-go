@@ -16,7 +16,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center py-4">
           <Link to="/" className="flex items-center space-x-2">
             <img
-              src="https://media-hosting.imagekit.io/7d071589b81348e8/logo.png?Expires=1841577375&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=P~2y0T~PD1MP6dRnUwMf5uYeXm8Pm~jo0ScL9iTowOBXGDqkC8GeF2DMXSqgXztzOLCHkmDW2h~LnWOHRF5DyZ04vEuSOdj3BnCOxAGpgYtXHao1-L-MLJyG21lsEm3rWCvn5g2lGpV3jkQnGToJmtnUudpZoYXmD-5etT6uHsxh4rK8F2eQVH8urJwg0JVbmWjK353ckTw8Te0Ci8RAFTls6XAKZgLs7fBMeuIIGENftluQa61~6Ugrm7VBF5cMDCLIHYTT389sKoS8AoyPet3TOZ~AvN4tFilhFsdWAcKr7uXULom8zMFOhRXVBKXQ-a1B1h-WMv-KzesrVp0M8g__"
+              src="public/lovable-uploads/logo.png"
               alt="Portu Rent Car"
               className="h-10"
             />

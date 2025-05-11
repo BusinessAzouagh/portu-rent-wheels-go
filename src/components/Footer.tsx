@@ -22,7 +22,7 @@ const Footer = () => {
             <h3 className="text-xl font-bold mb-4">Portu Rent</h3>
             <div className="w-full max-w-[200px] mx-auto md:mx-0">
               <img 
-                src="https://media-hosting.imagekit.io/644ab500d811445a/maps.png?Expires=1841577493&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=FjZCtjf0Ec5wrcjVVzwg-lsFCK2naJgqlbsf3oKaL1ZWy7ncSh8Mki9QojE1Q9MKlMNgVObOu5z2tgeAJLlTLv9PONP~p-KNW5~sqfCgmznL7r4O-t0Ps~Qz5aY8GK4JNLkZxV~FspBjQhzZrLUiNFlMgmnq1FCBK~a0jthf8g9siRpriGOwuXEFiQ1tSAQb-G4JpJ77vBbwEH1zRoH5cF9JyXBApcqc3qBM~KrFhPK~r8BBmK1X7ukq5PfRKjKlpAeyFopB6BsE6kPUnaIRfWmuvUIkwGgnyBqQOeXuksfX2gx53jmciLc0Tydd-~ZOsvqksnf50h-Z7mounzy7yQ__"
+                src="public/lovable-uploads/maps.png"
                 alt="Portu Rent Maps"
                 className="w-full h-auto rounded-lg shadow-lg"
                 onClick={handleMapClick}

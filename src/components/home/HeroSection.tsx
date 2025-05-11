@@ -11,7 +11,7 @@ const HeroSection = () => {
             <div
                 className="absolute inset-0 z-0 bg-cover bg-center"
                 style={{
-                    backgroundImage: `url("https://media-hosting.imagekit.io/622acaa96dbb4e1a/header.jpg?Expires=1841577283&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=tc4NDoaMJLFjqW9zhSpjQZm3UPg94CZRD7hOYP1e7YbdxHkdy9JDkOquHLmONhEj56qFJV1bBnTZSRTVCxTlmUKh9Oe4q4KlxcjtCXjQEUblCLMVP4dfI5yHf7qjLN~YX3iyTPma3VSkBF41UERI2Sd3P-SFl9HQIWwUMv62OacyiQSjPIg-S6TXoa03xvmF~Z8xdJHS3yiwCNoPJ3W1wzQlbks1FWs63YPNGmfNu8hu7knnxzmt~iF7klD5nAMx4dwLTddYAKN51JlRaoR4w~F9sAMsRLsutu07eWKRC~HzWdnWDObZENfFaIGjo11TyjB494-mKL6V-riZaHjFOQ__")`,
+                    backgroundImage: `url("public/lovable-uploads/header.jpg")`,
                     backgroundPosition: "center",
                     backgroundSize: "cover",
                 }}
