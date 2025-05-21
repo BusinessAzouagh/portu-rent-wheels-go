@@ -1,4 +1,3 @@
-
 export const es = {
   navbar: {
     home: "Inicio",
@@ -73,6 +72,7 @@ export const es = {
     clickMap: "Haga clic en el mapa para ver nuestra ubicación",
     search: "Buscar",
     about: "Acerca de",
+    notFound: "Página no encontrada"
   },
   whatsapp: {
     vehicleInterest: "Estoy interesado en este vehículo",
@@ -83,6 +83,7 @@ export const es = {
   reservation: {
     totalPrice: "Precio total",
     days: "días",
+    returnHome: "Volver al inicio"
   },
   search: {
     findPerfectCar: "Encuentra tu coche perfecto",

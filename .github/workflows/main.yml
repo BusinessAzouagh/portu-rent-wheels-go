@@ -1,0 +1,46 @@
+# .github/workflows/deploy.yml
+name: Deploy to GitHub Pages
+
+# Lancez ce workflow à chaque push sur main (ou votre branche principale)
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) Checkout votre code
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # 2) Installez Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # 3) Installez les dépendances et build
+      - name: Install & Build
+        run: |
+          npm ci
+          npm run build
+
+      # 4) Configure GitHub Pages (nécessaire avant upload)
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+
+      # 5) Upload votre dossier dist/ SOUS UN NOM UNIQUE
+      - name: Upload static assets
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./dist
+          artifact_name: portu-rent-wheels-artifact
+
+      # 6) Déployez en ciblant **exactement** ce même nom d’artefact
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: portu-rent-wheels-artifact
