@@ -37,6 +37,20 @@ export const fr = {
     pricePerDay: "par jour",
     notSpecified: "Non spécifié",
     perDay: "/jour",
+    colors: {
+      black: "Noir",
+      gray: "Gris",
+      red: "Rouge",
+      yellow: "Jaune",
+      green: "Vert",
+      blue: "Bleu",
+      white: "Blanc",
+      silver: "Argent"
+    },
+    transmissions: {
+      manual: "Manuelle",
+      automatic: "Automatique"
+    }
   },
   about: {
     aboutPortuRent: "À propos de Portu Rent",

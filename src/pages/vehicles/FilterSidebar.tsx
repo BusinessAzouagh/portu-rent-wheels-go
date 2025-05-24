@@ -11,7 +11,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { ExtendedCarInfo } from "./types";
 
 interface FilterSidebarProps {
     filters: {
@@ -31,6 +30,24 @@ const FilterSidebar = ({
     resetFilters,
 }: FilterSidebarProps) => {
     const { t } = useLanguage();
+
+    // Map color translation keys to their display values
+    const colorKeyMap: Record<string, string> = {
+        "vehicles.colors.black": "black",
+        "vehicles.colors.gray": "gray", 
+        "vehicles.colors.red": "red",
+        "vehicles.colors.yellow": "yellow",
+        "vehicles.colors.green": "green",
+        "vehicles.colors.blue": "blue",
+        "vehicles.colors.white": "white",
+        "vehicles.colors.silver": "silver"
+    };
+
+    // Map transmission translation keys to their display values
+    const transmissionKeyMap: Record<string, string> = {
+        "vehicles.transmissions.manual": "manual",
+        "vehicles.transmissions.automatic": "automatic"
+    };
 
     return (
         <div className="md:w-1/4 bg-white rounded-lg shadow p-6">
@@ -72,8 +89,8 @@ const FilterSidebar = ({
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">{t('vehicles.allTypes')}</SelectItem>
-                            <SelectItem value="Manuelle">{t('vehicles.manual')}</SelectItem>
-                            <SelectItem value="Automatique">{t('vehicles.automatic')}</SelectItem>
+                            <SelectItem value="vehicles.transmissions.manual">{t('vehicles.transmissions.manual')}</SelectItem>
+                            <SelectItem value="vehicles.transmissions.automatic">{t('vehicles.transmissions.automatic')}</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -90,8 +107,8 @@ const FilterSidebar = ({
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">{t('vehicles.allColors')}</SelectItem>
-                            {uniqueColors.map(color => (
-                                <SelectItem key={color} value={color.toLowerCase()}>{color}</SelectItem>
+                            {uniqueColors.map(colorKey => (
+                                <SelectItem key={colorKey} value={colorKey}>{t(colorKey)}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
