@@ -35,6 +35,18 @@ export const en = {
     pricePerDay: "/ day",
     notSpecified: "Not specified",
     licensePlate: "License Plate",
+    colors: {
+      black: "Black",
+      gray: "Gray",
+      red: "Red",
+      yellow: "Yellow",
+      green: "Green",
+      blue: "Blue",
+    },
+    transmissions: {
+      manual: "Manual",
+      automatic: "Automatic",
+    },
   },
   about: {
     aboutPortuRent: "About Portu Rent",

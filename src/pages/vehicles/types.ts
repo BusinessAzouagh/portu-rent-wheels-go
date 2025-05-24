@@ -10,5 +10,5 @@ export interface ExtendedCarInfo {
     image: string;
     images: string[];
     available: boolean;
-    transmission: "Manuelle" | "Automatique";
+    transmission: string;
 }

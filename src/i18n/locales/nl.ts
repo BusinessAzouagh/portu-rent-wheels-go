@@ -1,4 +1,3 @@
-
 export const nl = {
   navbar: {
     home: "Home",
@@ -36,6 +35,18 @@ export const nl = {
     pricePerDay: "/ dag",
     notSpecified: "Niet gespecificeerd",
     licensePlate: "Kenteken",
+    colors: {
+      black: "Zwart",
+      gray: "Grijs",
+      red: "Rood",
+      yellow: "Geel",
+      green: "Groen",
+      blue: "Blauw",
+    },
+    transmissions: {
+      manual: "Handmatig",
+      automatic: "Automatisch",
+    },
   },
   about: {
     aboutPortuRent: "Over Portu Rent",

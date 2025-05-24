@@ -1,3 +1,4 @@
+
 export const fr = {
   navbar: {
     home: "Accueil",
@@ -37,6 +38,18 @@ export const fr = {
     pricePerDay: "par jour",
     notSpecified: "Non spécifié",
     perDay: "/jour",
+    colors: {
+      black: "Noir",
+      gray: "Gris",
+      red: "Rouge",
+      yellow: "Jaune",
+      green: "Vert",
+      blue: "Bleu",
+    },
+    transmissions: {
+      manual: "Manuelle",
+      automatic: "Automatique",
+    },
   },
   about: {
     aboutPortuRent: "À propos de Portu Rent",

@@ -11,7 +11,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { ExtendedCarInfo } from "./types";
 
 interface FilterSidebarProps {
     filters: {
@@ -31,6 +30,12 @@ const FilterSidebar = ({
     resetFilters,
 }: FilterSidebarProps) => {
     const { t } = useLanguage();
+
+    const getColorTranslation = (colorKey: string) => {
+        // Extract the color key from the translation path (e.g., "vehicles.colors.black" -> "black")
+        const colorName = colorKey.split('.').pop();
+        return t(`vehicles.colors.${colorName}` as any);
+    };
 
     return (
         <div className="md:w-1/4 bg-white rounded-lg shadow p-6">
@@ -72,8 +77,8 @@ const FilterSidebar = ({
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">{t('vehicles.allTypes')}</SelectItem>
-                            <SelectItem value="Manuelle">{t('vehicles.manual')}</SelectItem>
-                            <SelectItem value="Automatique">{t('vehicles.automatic')}</SelectItem>
+                            <SelectItem value="vehicles.transmissions.manual">{t('vehicles.transmissions.manual')}</SelectItem>
+                            <SelectItem value="vehicles.transmissions.automatic">{t('vehicles.transmissions.automatic')}</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -90,8 +95,8 @@ const FilterSidebar = ({
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem value="all">{t('vehicles.allColors')}</SelectItem>
-                            {uniqueColors.map(color => (
-                                <SelectItem key={color} value={color.toLowerCase()}>{color}</SelectItem>
+                            {uniqueColors.map(colorKey => (
+                                <SelectItem key={colorKey} value={colorKey}>{getColorTranslation(colorKey)}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
