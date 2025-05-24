@@ -35,20 +35,6 @@ export const es = {
     notSpecified: "No especificado",
     pricePerDay: "por día",
     licensePlate: "Matrícula",
-    colors: {
-      black: "Negro",
-      gray: "Gris",
-      red: "Rojo",
-      yellow: "Amarillo",
-      green: "Verde",
-      blue: "Azul",
-      white: "Blanco",
-      silver: "Plateado"
-    },
-    transmissions: {
-      manual: "Manual",
-      automatic: "Automática"
-    }
   },
   about: {
     aboutPortuRent: "Acerca de Portu Rent",

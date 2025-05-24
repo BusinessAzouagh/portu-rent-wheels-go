@@ -38,20 +38,6 @@ export const ar = {
     pricePerDay: "السعر لليوم",
     perDay: "لليوم",
     notSpecified: "غير محدد",
-    colors: {
-      black: "أسود",
-      gray: "رمادي",
-      red: "أحمر",
-      yellow: "أصفر",
-      green: "أخضر",
-      blue: "أزرق",
-      white: "أبيض",
-      silver: "فضي"
-    },
-    transmissions: {
-      manual: "يدوي",
-      automatic: "تلقائي"
-    }
   },
   about: {
     aboutPortuRent: "معلومات عن بورتو رينت",

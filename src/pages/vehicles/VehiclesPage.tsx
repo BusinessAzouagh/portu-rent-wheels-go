@@ -42,7 +42,7 @@ const VehiclesPage = () => {
 
         if (currentFilters.color && currentFilters.color !== "all") {
             result = result.filter(car =>
-                car.color === currentFilters.color
+                car.color.toLowerCase() === currentFilters.color.toLowerCase()
             );
         }
 
@@ -58,7 +58,7 @@ const VehiclesPage = () => {
         setFilteredCars(EXTENDED_MOCK_CARS);
     };
 
-    // Get unique colors from the data (these are now translation keys)
+    // Get unique colors for filtering
     const uniqueColors = [...new Set(EXTENDED_MOCK_CARS.map(car => car.color))];
 
     return (

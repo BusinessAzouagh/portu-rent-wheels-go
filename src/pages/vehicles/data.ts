@@ -1,14 +1,14 @@
 
 import { ExtendedCarInfo } from "./types";
 
-// Extended mock data with translation keys for color and transmission
+// Extended mock data with additional information
 export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
     {
         id: "1",
         model: "208",
         brand: "Peugeot",
         licensePlate: "AA-123-BB",
-        color: "vehicles.colors.black",
+        color: "Noir",
         image: "/cars/Peugeot_black/1.jpg",
         images: [
             "/cars/Peugeot_black/1.jpg",
@@ -17,14 +17,14 @@ export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
             "/cars/Peugeot_black/4.jpg",
         ],
         available: true,
-        transmission: "vehicles.transmissions.manual",
+        transmission: "Manuelle",
     },
     {
         id: "2",
         model: "208",
         brand: "Peugeot",
         licensePlate: "CC-456-DD",
-        color: "vehicles.colors.gray",
+        color: "Gris",
         image: "/cars/Peugeot_gris/1.avif",
         images: [
             "/cars/Peugeot_gris/1.avif",
@@ -34,14 +34,14 @@ export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
             "/cars/Peugeot_gris/5.jpg",
         ],
         available: true,
-        transmission: "vehicles.transmissions.manual",
+        transmission: "Manuelle",
     },
     {
         id: "3",
         model: "208",
         brand: "Peugeot",
         licensePlate: "EE-789-FF",
-        color: "vehicles.colors.red",
+        color: "Rouge",
         image: "/cars/Peugeot_red/1.jpg",
         images: [
             "/cars/Peugeot_red/1.jpg",
@@ -50,42 +50,42 @@ export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
             "/cars/Peugeot_red/4.jpg"
         ],
         available: true,
-        transmission: "vehicles.transmissions.manual",
+        transmission: "Manuelle",
     },
     {
         id: "4",
         model: "Leon",
         brand: "Siat",
         licensePlate: "GG-012-HH",
-        color: "vehicles.colors.black",
+        color: "Noir",
         image: "/cars/Seat_black/1.png",
         images: [
             "/cars/Seat_black/1.png",
             "/cars/Seat_black/2.png"
         ],
         available: true,
-        transmission: "vehicles.transmissions.automatic",
+        transmission: "Automatique",
     },
     {
         id: "5",
         model: "208",
         brand: "Peugeot",
         licensePlate: "II-345-JJ",
-        color: "vehicles.colors.yellow",
+        color: "Jaune",
         image: "/cars/Peugeot_yellow/1.jpg",
         images: [
             "/cars/Peugeot_yellow/1.jpg",
             "/cars/Peugeot_yellow/2.png"
         ],
         available: true,
-        transmission: "vehicles.transmissions.manual",
+        transmission: "Manuelle",
     },
     {
         id: "6",
         model: "208",
         brand: "Peugeot",
         licensePlate: "KK-678-LL",
-        color: "vehicles.colors.green",
+        color: "Vert",
         image: "/cars/Peugeot_green/1.webp",
         images: [
             "/cars/Peugeot_green/1.webp",
@@ -95,14 +95,14 @@ export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
             "/cars/Peugeot_green/5.webp",
         ],
         available: true,
-        transmission: "vehicles.transmissions.manual",
+        transmission: "Manuelle",
     },
     {
         id: "7",
         model: "208",
         brand: "Peugeot",
         licensePlate: "MM-901-NN",
-        color: "vehicles.colors.blue",
+        color: "Bleu",
         image: "/cars/Peugeot_blue/1.webp",
         images: [
             "/cars/Peugeot_blue/1.webp",
@@ -110,6 +110,6 @@ export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
             "/cars/Peugeot_blue/3.jpg"
         ],
         available: true,
-        transmission: "vehicles.transmissions.manual",
+        transmission: "Manuelle",
     },
 ];
