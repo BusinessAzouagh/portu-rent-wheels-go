@@ -52,6 +52,18 @@ const LanguageSelector = ({ variant = "default", onlyIcon = false }: LanguageSel
                 <rect width="20" height="15" fill="#C1272D"/>
                 <path d="M10 4L11.1756 7.52786H14.8532L11.8388 9.69427L13.0144 13.2221L10 11.0557L6.98557 13.2221L8.16116 9.69427L5.14683 7.52786H8.82437L10 4Z" fill="#006233"/>
                </svg>;
+      case 'nl':
+        return <svg xmlns="http://www.w3.org/2000/svg" width="20" height="15" viewBox="0 0 20 15" fill="none" className="mr-2">
+                <rect width="20" height="5" fill="#AE1C28"/>
+                <rect y="5" width="20" height="5" fill="#FFFFFF"/>
+                <rect y="10" width="20" height="5" fill="#21468B"/>
+               </svg>;
+      case 'de':
+        return <svg xmlns="http://www.w3.org/2000/svg" width="20" height="15" viewBox="0 0 20 15" fill="none" className="mr-2">
+                <rect width="20" height="5" fill="#000000"/>
+                <rect y="5" width="20" height="5" fill="#DD0000"/>
+                <rect y="10" width="20" height="5" fill="#FFCE00"/>
+               </svg>;
       default:
         return null;
     }
