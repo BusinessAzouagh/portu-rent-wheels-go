@@ -8,7 +8,7 @@ import { MOCK_CARS_WITH_GALLERY } from "@/data/mockCars";
 const FeaturedCars = () => {
   const { t } = useLanguage();
   // Only show the first 4 cars on the homepage for better performance
-  const featuredCars = MOCK_CARS_WITH_GALLERY.slice(0, 4);
+  const featuredCars = MOCK_CARS_WITH_GALLERY.slice(0, 10);
   
   return (
     <section className="py-12">

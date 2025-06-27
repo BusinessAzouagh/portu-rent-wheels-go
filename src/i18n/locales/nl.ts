@@ -42,6 +42,7 @@ export const nl = {
       yellow: "Geel",
       green: "Groen",
       blue: "Blauw",
+      white: "Wit",
     },
     transmissions: {
       manual: "Handmatig",

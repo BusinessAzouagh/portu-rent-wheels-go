@@ -45,6 +45,7 @@ export const fr = {
       yellow: "Jaune",
       green: "Vert",
       blue: "Bleu",
+      white: "Blanc",
     },
     transmissions: {
       manual: "Manuelle",

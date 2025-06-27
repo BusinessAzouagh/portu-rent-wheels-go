@@ -10,7 +10,7 @@ export const ar = {
     qualityVehicles: "مركبات عالية الجودة بأسعار معقولة.",
   },
   vehicles: {
-    popularVehicles: "مركباتنا الأكثر شهرة",
+    popularVehicles: "سياراتنا الأكثر طلبا",
     discoverFleet: "اكتشف أسطولنا المتنوع",
     ourVehicles: "جميع سياراتنا",
     ourFleet: "أسطولنا",
@@ -45,6 +45,7 @@ export const ar = {
       yellow: "أصفر",
       green: "أخضر",
       blue: "أزرق",
+      white: "أبيض",
     },
     transmissions: {
       manual: "يدوي",

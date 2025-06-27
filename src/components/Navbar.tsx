@@ -18,7 +18,7 @@ const Navbar = () => {
             <img
               src="/lovable-uploads/logo.png"
               alt="Portu Rent Car"
-              className="h-10"
+              className="h-14"
             />
           </Link>
 
