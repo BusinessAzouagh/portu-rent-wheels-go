@@ -5,6 +5,26 @@ import { ExtendedCarInfo } from "./types";
 export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
     {
         id: "1",
+        model: "8",
+        brand: "Golf",
+        licensePlate: "GG-012-HH",
+        color: "vehicles.colors.black",
+        image: "/cars/Golf/1.jpeg",
+        images: [
+            "/cars/Golf/1.jpeg",
+            "/cars/Golf/2.jpeg",
+            "/cars/Golf/3.jpeg",
+            "/cars/Golf/4.jpeg",
+            "/cars/Golf/5.jpeg",
+            "/cars/Golf/6.jpeg",
+            "/cars/Golf/7.jpeg",
+            "/cars/Golf/8.jpeg",
+        ],
+        available: true,
+        transmission: "vehicles.transmissions.automatic",
+    },
+    {
+        id: "2",
         model: "208",
         brand: "Peugeot",
         licensePlate: "AA-123-BB",
@@ -20,7 +40,7 @@ export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
         transmission: "vehicles.transmissions.manual",
     },
     {
-        id: "2",
+        id: "3",
         model: "208",
         brand: "Peugeot",
         licensePlate: "II-345-JJ",
@@ -36,7 +56,7 @@ export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
         transmission: "vehicles.transmissions.manual",
     },
     {
-        id: "3",
+        id: "4",
         model: "208",
         brand: "Peugeot",
         licensePlate: "EE-789-FF",
@@ -51,7 +71,7 @@ export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
         transmission: "vehicles.transmissions.manual",
     },
     {
-        id: "4",
+        id: "5",
         model: "208",
         brand: "Peugeot",
         licensePlate: "CC-456-DD",
@@ -66,7 +86,7 @@ export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
         transmission: "vehicles.transmissions.manual",
     },
     {
-        id: "5",
+        id: "6",
         model: "Ibiza",
         brand: "Seat",
         licensePlate: "GG-012-HH",
@@ -81,7 +101,7 @@ export const EXTENDED_MOCK_CARS: ExtendedCarInfo[] = [
         transmission: "vehicles.transmissions.automatic",
     },
     {
-        id: "6",
+        id: "7",
         model: "Ibiza",
         brand: "Seat",
         licensePlate: "MM-901-NN",
